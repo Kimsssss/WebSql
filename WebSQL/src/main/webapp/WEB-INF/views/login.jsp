@@ -89,10 +89,10 @@
 	<script src="<%=request.getContextPath() %>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script src="<%=request.getContextPath() %>/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+	<script src="<%=request.getContextPath() %>/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="<%=request.getContextPath() %>/resources/dist/js/sb-admin-2.js"></script>
+	<script src="<%=request.getContextPath() %>/dist/js/sb-admin-2.js"></script>
 
 </body>
 
