@@ -19,7 +19,7 @@ public class DDLController {
 	}
 	
 	@RequestMapping(value="")
-	public void CreateTable(){
+	public void CreateSequence(){
 		
 		
 	}
