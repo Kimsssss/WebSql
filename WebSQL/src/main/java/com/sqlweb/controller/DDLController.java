@@ -21,6 +21,6 @@ public class DDLController {
 	@RequestMapping(value="")
 	public void CreateSequence(){
 		
-		
+		 
 	}
 }
