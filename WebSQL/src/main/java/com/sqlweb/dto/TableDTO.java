@@ -2,6 +2,7 @@ package com.sqlweb.dto;
 
 public class TableDTO {
 	
+
 	private int t_id;
 	private String t_userid;
 	private String t_name;
@@ -26,5 +27,5 @@ public class TableDTO {
 	}
 	
 	
-	
+
 }

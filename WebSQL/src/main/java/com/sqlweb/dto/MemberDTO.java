@@ -2,6 +2,7 @@ package com.sqlweb.dto;
 
 public class MemberDTO {
 	
+
 	private String user_id;
 	private String user_pwd;
 	private String user_email;
@@ -38,5 +39,5 @@ public class MemberDTO {
 		this.enabled = enabled;
 	}
 	
-	
+
 }
