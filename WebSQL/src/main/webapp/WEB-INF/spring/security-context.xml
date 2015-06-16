@@ -12,7 +12,8 @@
 		<security:logout logout-success-url="/index.jsp"/>
 		
 	
-		<security:intercept-url pattern="/index**" access="ROLE_USER" />
+		<security:intercept-url pattern="/views/*" access="ROLE_USER" />
+		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
