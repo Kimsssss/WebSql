@@ -78,7 +78,7 @@ public class DDLController {
 		}
 		
 		return "ck";
-	}
+	} 
 	/*
 	@RequestMapping(value="")
 	public void DropTable(){
