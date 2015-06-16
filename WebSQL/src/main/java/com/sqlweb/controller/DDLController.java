@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DDLController {
 
-	@RequestMapping(value="")
+	/*@RequestMapping(value="")
 	public void CreateTable(){
 		
 		
@@ -22,5 +22,5 @@ public class DDLController {
 	public void CreateSequence(){
 		
 		 
-	}
+	}*/
 }

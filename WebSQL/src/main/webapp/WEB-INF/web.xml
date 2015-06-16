@@ -16,7 +16,7 @@
 
    <!-- Processes application requests -->
    <servlet>
-      <servlet-name>appServlet</servlet-name>
+     <servlet-name>appServlet</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
          <param-name>contextConfigLocation</param-name>
@@ -29,6 +29,18 @@
       <servlet-name>appServlet</servlet-name>
       <url-pattern>/</url-pattern>
    </servlet-mapping>
+   <listener>
+    <listener-class>
+  			org.springframework.web.context.ContextLoaderListener
+  		</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+  			 /WEB-INF/spring/root-context.xml
+  			 
+  		</param-value>
+  </context-param>
    
     <!-- 한글 필터 처리 -->
      <filter>
@@ -45,7 +57,7 @@
      </filter-mapping>
      
      <!-- Spring 보안 필터 -->
-      <filter>
+      <!-- <filter>
             <filter-name>springSecurityFilterChain</filter-name>
             <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 
@@ -53,6 +65,6 @@
       <filter-mapping>
             <filter-name>springSecurityFilterChain</filter-name>
             <url-pattern>/*</url-pattern>
-      </filter-mapping>
+      </filter-mapping> -->
       
 </web-app>

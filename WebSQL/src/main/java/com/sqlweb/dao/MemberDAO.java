@@ -1,5 +1,9 @@
 package com.sqlweb.dao;
 
-public interface MemberDAO {
+import com.sqlweb.dto.MemberDTO;
 
+public interface MemberDAO {
+	public int insertMember(MemberDTO member);
+		
+	
 }
