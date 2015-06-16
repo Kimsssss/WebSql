@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DMLController {
 
-	@RequestMapping
+	/*@RequestMapping
 	public void Select(){
 		
 	}
@@ -24,6 +24,6 @@ public class DMLController {
 	@RequestMapping
 	public void Delete(){
 		
-	}
+	}*/
 	
 }

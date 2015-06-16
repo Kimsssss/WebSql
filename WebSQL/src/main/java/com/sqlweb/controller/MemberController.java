@@ -47,17 +47,6 @@ public class MemberController {
 	public String index() {
 		return "index";
 	}
-
-	@RequestMapping(value = "index.html", method = RequestMethod.POST)
-	public String noticeReg(AuthorityDTO authority)
-			throws IOException, ClassNotFoundException, SQLException {
-
-		MemberDAO memberDao = sqlSession.getMapper(MemberDAO.class);
-		memberDao.insertAuthority(authority);
-
-		return "redirect:index";
-
-	}
 	
 	@RequestMapping(value="/User.html", method = RequestMethod.GET)
 	public String toUserEntryView() {
@@ -78,7 +67,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value="/User.html", method = RequestMethod.POST)
-	public ModelAndView fromMemberController(MemberDTO member, BindingResult result) {
+	public ModelAndView fromMemberController(MemberDTO member, AuthorityDTO authority, BindingResult result) {
 		
 		ModelAndView modelAndView;
 		this.memberEntryValidator.validate(member, result);
@@ -94,6 +83,8 @@ public class MemberController {
 			modelAndView = new ModelAndView();
 			MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
 			dao.insertMember(member);
+			dao.insertAuthority(authority);
+			
 
 			
 			modelAndView.setViewName("userEntrySuccess");

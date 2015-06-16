@@ -6,16 +6,14 @@
 
 <mapper namespace="com.sqlweb.dao.MemberDAO">
 
-    <insert id="insertAuthority" parameterType="com.sqlweb.dto.AuthorityDTO">
-     
-      <selectKey order="BEFORE" keyProperty="authority">
-       select u.user_id, r.authority from users u join roles r on r.authority='ROLE_USER'
-      </selectKey>
-      INSERT INTO user_authority #{authority}
-     </insert>
-	
-    <insert id="insertMember" parameterType="com.sqlweb.dto.MemberDTO">
-    	insert into USERS(user_id,user_pwd,user_email,user_name,enabled)
-    	values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
-    </insert>
+	<insert id="insertAuthority">
+	 INSERT INTO user_authority(user_id, authority)
+        VALUES(#{user_id}, (select case when enabled=1 then 'ROLE_ADMIN' 
+        	   else 'ROLE_USER' end authority from users where user_id=#{user_id}))
+	</insert>
+
+	<insert id="insertMember" parameterType="com.sqlweb.dto.MemberDTO">
+		insert into USERS(user_id,user_pwd,user_email,user_name,enabled)
+		values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
+	</insert>
 </mapper>
