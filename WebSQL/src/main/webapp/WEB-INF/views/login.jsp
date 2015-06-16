@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 
@@ -13,18 +14,23 @@
 <title>Web SQL</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="<%=request.getContextPath() %>/resources/bower_components/bootstrap/dist/css/bootstrap.min.css"
+<link
+	href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="<%=request.getContextPath() %>/resources/bower_components/metisMenu/dist/metisMenu.min.css"
+<link
+	href="<%=request.getContextPath()%>/resources/bower_components/metisMenu/dist/metisMenu.min.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="<%=request.getContextPath() %>/resources/dist/css/sb-admin-2.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/resources/dist/css/sb-admin-2.css"
+	rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="<%=request.getContextPath() %>/resources/bower_components/font-awesome/css/font-awesome.min.css"
+<link
+	href="<%=request.getContextPath()%>/resources/bower_components/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -55,25 +61,26 @@
 							</div>
 						</c:if>
 						<c:url value="/j_spring_security_check" var="loginURL"></c:url>
-						<form name="f" action="${loginURL}" method="post"> 
+						<form name="f" action="${loginURL}" method="post">
 							<fieldset>
 								<div class="form-group">
-								<label for="uid">ID</label>
-									<input class="form-control" placeholder="ID" name="j_username"
-										type="text" autofocus>
+									<label for="uid">ID</label> <input class="form-control"
+										placeholder="ID" name="j_username" type="text" autofocus>
 								</div>
 								<div class="form-group">
-								<label for="pwd">PWD</label>
-									<input class="form-control" placeholder="Password"
-										name="j_password" type="password" value="">
+									<label for="pwd">PWD</label> <input class="form-control"
+										placeholder="Password" name="j_password" type="password"
+										value="">
 								</div>
+								
 								<div class="checkbox">
 									<label> <input name="remember" type="checkbox"
 										value="Remember Me">Remember Me
 									</label>
 								</div>
 								<!-- Change this to a button or input when using this as a form -->
-								<a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+								<input type="submit" value="로그인" />
+								<!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
 							</fieldset>
 						</form>
 					</div>
@@ -83,16 +90,19 @@
 	</div>
 
 	<!-- jQuery -->
-	<script src="<%=request.getContextPath() %>/resources/bower_components/jquery/dist/jquery.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="<%=request.getContextPath() %>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script src="<%=request.getContextPath() %>/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="<%=request.getContextPath() %>/dist/js/sb-admin-2.js"></script>
+	<script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
 
 </body>
 
