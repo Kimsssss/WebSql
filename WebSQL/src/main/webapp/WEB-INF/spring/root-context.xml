@@ -7,7 +7,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd"
 	>
-	
+	<context:annotation-config />
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- DB -->
 	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -16,15 +16,15 @@
  		<property name="username" value="PROJECT"></property>
  		<property name="password" value="1004"></property>
  	</bean>
- 		
- 		
- 	  <!-- mybatis 설정 -->
+
+
+ 	<!-- mybatis 설정 -->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-      <property name="dataSource" ref="driverManagerDataSource"></property>
-      <property name="mapperLocations" value="classpath*:sqlmapper/*xml" />
-   </bean>
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-      <constructor-arg index="0" ref="sqlSessionFactoryBean"/>
-   </bean>
- 	
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<property name="mapperLocations" value="classpath*:sqlmapper/*xml" />
+	</bean>
+ 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean"/>
+	</bean>
+	
 </beans>
