@@ -6,6 +6,25 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 
+<security:http auto-config="true">
+		<security:form-login login-page="/login.jsp"
+		authentication-failure-url="/login.jsp?error"/>
+		<security:logout logout-success-url="/index.jsp"/>
+		
+	
+		<security:intercept-url pattern="/views/*" access="ROLE_USER" />
+		<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+				<security:user-service>
+				<security:user name="jda" password="1004" authorities="ROLE_USER"/>
+				<security:user name="admin" password="1004" authorities="ROLE_USER,ROLE_ADMIN"/>
+			
+			</security:user-service>
+	
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 
 

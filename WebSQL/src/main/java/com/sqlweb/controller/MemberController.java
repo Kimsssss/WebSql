@@ -30,7 +30,15 @@ public class MemberController {
 	private MessageSource messageSource;
 	
 	
+	@RequestMapping(value="login.html", method=RequestMethod.GET)
+	public String login(){
+		return "login";
+	}
 	
+	@RequestMapping(value="index.html", method=RequestMethod.GET)
+	public String index(){
+		return "index";
+	}
 	
 	
 	public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
@@ -91,5 +99,4 @@ public class MemberController {
 		
 	}
 }
-
 
