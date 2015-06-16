@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MemberController {
-	@RequestMapping(value="login.html", method=RequestMethod.GET)
+	/*@RequestMapping(value="login.html", method=RequestMethod.GET)
 	public String login(){
 		return "login";
 	}
@@ -16,5 +16,5 @@ public class MemberController {
 	public String index(){
 		return "index";
 	}
-
+*/
 }

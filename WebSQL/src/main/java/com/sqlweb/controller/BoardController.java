@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class BoardController {
 
-	@RequestMapping(value="")
+	/*@RequestMapping(value="")
 	public void A_BoardWrite(){
 		
 	}
@@ -45,6 +45,6 @@ public class BoardController {
 	@RequestMapping(value="")
 	public void P_BoardUpdate(){
 		
-	}
+	}*/
 
 }
