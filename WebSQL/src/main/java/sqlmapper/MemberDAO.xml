@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sqlweb.dao.MemberDAO">
+
+    <insert id="insertAuthority" parameterType="com.sqlweb.dto.AuthorityDTO">
+     
+      <selectKey order="BEFORE" keyProperty="authority">
+       select u.user_id, r.authority from users u join roles r on r.authority='ROLE_USER'
+      </selectKey>
+      INSERT INTO user_authority #{authority}
+     </insert>
+</mapper>
