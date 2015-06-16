@@ -7,7 +7,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd"
 	>
-	
+	<context:annotation-config />
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- DB -->
 	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -26,5 +26,5 @@
       <constructor-arg index="0" ref="sqlSessionFactoryBean"/>
    </bean>
    	
- 		
+
 </beans>

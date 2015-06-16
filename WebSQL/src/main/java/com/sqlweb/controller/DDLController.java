@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class DDLController {
+
 	Connection con;
 	PreparedStatement pstmt;
 	ResultSet rs;
+
+
 	//웹사이트를 이용한는 유저들이 아이피와 아이디, 비밀번호를 입력하면 그 db에 연결
 	private Connection ConnectionMake(String ipAdress, String id, String pwd){
 		Connection c;
@@ -30,6 +33,7 @@ public class DDLController {
 			
 			e.printStackTrace();
 		}
+
 		
 		return null;
 	}
