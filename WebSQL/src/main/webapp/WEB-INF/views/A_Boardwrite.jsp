@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,7 +38,7 @@
 <body>
 
     <div id="wrapper">
-
+	
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -367,7 +369,7 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
+	<form action="board.html" method="post">
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -382,16 +384,21 @@
                         <div class="panel-heading">
                            A_NOTICE
                         </div>
-                        
+                     
+                   
+                      
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
                                                                      
-                              
+                               <a class="form-group" href="<%=request.getContextPath() %>/boardlist.html" >
+         							글목록	                            	  
+                               </a>
                                 <!-- 게시판 작성자  -->
                                         <div class="form-group" >
          								   <label>작성자</label>
-                                            <input class="form-control" style="width: 176px;">                            	  
+                                            <input class="form-control" style="width: 176px;" name="user_id">                            	  
+                                            
                                         </div>
                                         
                                  <!-- 게시판 작성자 END  -->
@@ -400,8 +407,8 @@
                                         <div class="form-group">
                                             <label>글 제목</label>
                                             <input class="form-control" 
-                                            	   style="width: 176px;
-                                            placeholder="Enter text">
+                                            	   style="width: 176px;"
+                                            	   name="board_a_title">
                                         </div>
                                   <!-- 글제목 End  -->    
                                    
@@ -409,6 +416,7 @@
                                         <div class="form-group">
                                             <label>글 내용</label>
                                             <textarea class="form-control" rows="3" 
+                                            name="board_a_content"
                                             style="height: 290px";></textarea>
                                         </div>
                                    <!-- 글내용End  -->
@@ -437,14 +445,17 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
+                    
+                   
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
-
+		 
     </div>
+    </form>
     <!-- /#wrapper -->
 
 </div>
