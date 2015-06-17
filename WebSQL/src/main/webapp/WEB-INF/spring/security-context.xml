@@ -14,16 +14,13 @@
 		
 	
 		<security:intercept-url pattern="/views/*" access="ROLE_USER" />
-		<security:intercept-url pattern="/views/*" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
 				<security:jdbc-user-service data-source-ref="driverManagerDataSource" 
 			users-by-username-query="SELECT USER_ID, user_pwd, 1 enabled FROM users where user_id=?" 
-			authorities-by-username-query="select a.user_id, a.authority
-											from user_authority a join roles r 
-											on a.authority = r.authority
-											where a.user_id=?"/>
+			authorities-by-username-query="select user_id, authority from user_authority where user_id=?"/>
 	
 		</security:authentication-provider>
 	</security:authentication-manager>
