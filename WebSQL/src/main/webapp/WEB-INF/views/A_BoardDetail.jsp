@@ -36,7 +36,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body" 
                        style="height: 530px;">
-                             <a class="btn btn-info btnposition" href="boardlist.html">글목록</a> 
+                             <a class="btn btn-info btnposition" href="boardlist.html" style="float: right;">글목록</a> 
                             <h3 style="text-align: center;">글 상세 보기</h3>
                             
                               
@@ -75,8 +75,8 @@
                                 </table>
                                 
                                    
-                                   <a class="btn btn-info btnposition" href="boardDelete.html?board_a_id=${a_notice.board_a_id}">삭제</a> 
-                                   <a class="btn btn-info btnposition" href="boardE.html?board_a_id=${a_notice.board_a_id}">게시글 수정</a> 
+                                   <a class="btn btn-info btnposition" style="float: right" href="boardDelete.html?board_a_id=${a_notice.board_a_id}">삭제</a> 
+                                   <a class="btn btn-info btnposition" style="float: right" href="boardE.html?board_a_id=${a_notice.board_a_id}">게시글 수정</a> 
                                 
                             </div>
                                               

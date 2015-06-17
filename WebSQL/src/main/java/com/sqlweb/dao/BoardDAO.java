@@ -3,6 +3,12 @@ package com.sqlweb.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+
+
+
+
+
+
 import com.sqlweb.dto.Board_A_DTO;
 
 
@@ -16,17 +22,13 @@ public interface BoardDAO {
 	
 	public int A_Boardwrite(Board_A_DTO board_a_dto);
 	
-
-	/*//게시물 삭제
-	public int delete(String seq) throws ClassNotFoundException, SQLException;
-	//게시물 수정
-	public int update(Notice notice) throws ClassNotFoundException, SQLException;
 	//게시물 상세
-	public Notice getNotice(String seq) throws ClassNotFoundException, SQLException;
-	//게시물 입력
-	public int insert(Notice n) throws ClassNotFoundException, SQLException ;
+	public Board_A_DTO getNotice(int board_a_id) throws ClassNotFoundException, SQLException;
+	//게시물 수정
+	public int update(Board_A_DTO board_a_dto) throws ClassNotFoundException, SQLException;
+	
+	public int delete(int board_a_id) throws ClassNotFoundException, SQLException;
 
-*/
 }
 	
 	

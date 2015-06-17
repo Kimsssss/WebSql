@@ -59,7 +59,7 @@
     
 
 
-	  <select id="getnotice" resultType="com.sqlweb.dto.Board_A_DTO">
+	  <select id="getNotice" resultType="com.sqlweb.dto.Board_A_DTO">
      <!--   Notice getNotice(String seq) 
             parameter 하나짜리는[ 변수이름 ] (param1 은 안되요)
      -->
