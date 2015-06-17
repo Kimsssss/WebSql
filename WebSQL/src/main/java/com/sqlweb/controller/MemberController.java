@@ -23,6 +23,7 @@ import com.sqlweb.utils.MemberEntryValidator;
 
 @Controller
 public class MemberController {
+
 	@Autowired
 	SqlSession sqlSession;
 
@@ -39,6 +40,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="login.html", method=RequestMethod.GET)
+
 	public String login(){
 		return "login";
 	}
@@ -46,6 +48,17 @@ public class MemberController {
 	@RequestMapping(value = "index.html", method = RequestMethod.GET)
 	public String index() {
 		return "index";
+	}
+
+	@RequestMapping(value = "index.html", method = RequestMethod.POST)
+	public String noticeReg(AuthorityDTO authority)
+			throws IOException, ClassNotFoundException, SQLException {
+
+		MemberDAO memberDao = sqlSession.getMapper(MemberDAO.class);
+		memberDao.insertAuthority(authority);
+
+		return "redirect:index";
+
 	}
 	
 	@RequestMapping(value="/User.html", method = RequestMethod.GET)
@@ -100,3 +113,4 @@ public class MemberController {
 		
 	}
 }
+
