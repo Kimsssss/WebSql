@@ -369,7 +369,7 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-	<form action="board.html" method="post">
+	<form action="" method="post">
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -401,7 +401,7 @@
                                             style="width: 176px;" 
                                             name="user_id"
                                             readonly="readonly"
-                                            value="KGLIM">                            	  
+                                            value="${a_notice.user_id}">                            	  
                                             
                                         </div>
                                         
@@ -412,7 +412,8 @@
                                             <label>글 제목</label>
                                             <input class="form-control" 
                                             	   style="width: 176px;"
-                                            	   name="board_a_title">
+                                            	   name="board_a_title"
+                                            	   value="${a_notice.board_a_title}">
                                         </div>
                                   <!-- 글제목 End  -->    
                                    
@@ -421,7 +422,9 @@
                                             <label>글 내용</label>
                                             <textarea class="form-control" rows="3" 
                                             name="board_a_content"
-                                            style="height: 290px";></textarea>
+                                            style="height: 290px";>
+                                            ${a_notice.board_a_content}
+                                            </textarea>
                                         </div>
                                    <!-- 글내용End  -->
                                    
@@ -431,7 +434,7 @@
                                         <input type="submit" class="layer" 
                                         style="position:relative;
                                                left: 40%"
-                                        value="글쓰기">
+                                        value="수정완료">
                                         
                                         <input type="button" class="layer" 
                                         style="position:relative;

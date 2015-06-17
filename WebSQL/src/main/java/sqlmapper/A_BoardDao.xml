@@ -58,6 +58,23 @@
    </insert>
     
 
+
+	  <select id="getnotice" resultType="com.sqlweb.dto.Board_A_DTO">
+     <!--   Notice getNotice(String seq) 
+            parameter 하나짜리는[ 변수이름 ] (param1 은 안되요)
+     -->
+     SELECT * FROM A_NOTICE WHERE BOARD_A_ID=#{board_a_id}
+     </select>
+     
+     
+     
+     <update id="update">
+        UPDATE A_NOTICE SET BOARD_A_TITLE = #{board_a_title}, BOARD_A_CONTENT = #{board_a_content} WHERE BOARD_A_ID = #{board_a_id}
+    </update>
+    
+    <delete id="delete">
+        DELETE FROM A_NOTICE WHERE BOARD_A_ID = #{board_a_id}
+    </delete>
     
     
    <!--  <select id="getNotice" resultType="vo.Notice">
