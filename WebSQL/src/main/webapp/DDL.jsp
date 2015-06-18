@@ -18,10 +18,17 @@
  		  
  		  accept: "#createtable",
  	      drop: function( event, ui ) {
- 	        $( this ).prepend("<table border='1' id='tbs' class='draggable' ><form action='create.htm' method='post'><tr><td><input type='text' name='tablename"+tableNumber+++"' placeholder='테이블명'></td></tr><td>아이피 : <input type='text' name='ipadress'><br>아이디 : <input type='text' name='dbid'><br>비번   : <input type='password' name='pwd'><br>컬럼1 : <input type='text' name='col1'><br>컬럼1 데이터타입 : <input type='text' name='col1_data'><br><input type='submit' value='전송'>	</td></tr></form></table>");
+ 	    	  /* 테이블 생성 */
+ 	        $( this ).prepend("<table border='1' id='tbs' class='draggable' ><form action='create.htm' method='post'><tr><td><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr><tr><td id='colplus"+ tableNumber +"'>컬럼명1 : <input type='text' name='col"+ tableNumber +"_"+ colNumber +"'><br>컬럼1 데이터타입 : <input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td></tr><tr><td><input type='submit' value='전송'> <input type='button' id='plus"+ tableNumber +"' value='추가'></td></tr></form></table>");
+ 	       /* 생성된 테이블에 드래그 추가 */
  	        $( ".draggable" ).draggable();
+ 	        /* 클릭시 컬럼 추가 */
+ 	       $("#plus"+tableNumber).click(function(){   
+ 	 		   $("#colplus"+tableNumber).append("컬럼명"+ ++colNumber +" : <input type='text' name='col"+tableNumber+"_"+colNumber+"'><br>컬럼"+ colNumber +" 데이터타입 : <input type='text' name='col_data"+tableNumber+"_"+ colNumber +"'>");
+ 	 	   });
  	      }
  	    });
+ 	   
  	 });
   </script>
 </head>
@@ -38,7 +45,7 @@
 				<td><input type="text" name="tablename" placeholder="테이블명"></td>
 			</tr>
 			<tr>
-			<td>
+			<td id="colplus">
 			
 				<!-- 이건 세션으로 저장할껍니다-->
 				아이피 : <input type="text" name="ipadress"><br>
@@ -47,10 +54,9 @@
 				<!--  -->
 				컬럼1 : <input type="text" name="col1"><br>
 				컬럼1 데이터타입 : <input type="text" name="col1_data"><br>
-				<input type="submit" value="전송">
-			
 			</td>
 			</tr>
+			<tr><td><input type="submit" value="전송"> <input type="button" id="plus" value="컬럼추가"></td></tr>
 		</form>
 	</table>
 </section>
