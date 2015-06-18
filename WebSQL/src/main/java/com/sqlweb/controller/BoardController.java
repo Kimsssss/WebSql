@@ -23,10 +23,11 @@ public class BoardController {
 	
 	@RequestMapping("boardlist.html")
 	public String A_Boardlist(String pg , String f , String q , Model model) throws ClassNotFoundException, SQLException{
-		 
+		
+		
 		
 			    int page = 1;
-				String field = "TITLE";
+				String field = "BOARD_A_TITLE";
 				String query ="%%";
 
 				if(pg != null && !pg.equals("")){
@@ -38,13 +39,20 @@ public class BoardController {
 				if(q != null && !q.equals("")){
 					query = q;
 				}
-				
+			
 				
 				BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 				List<Board_A_DTO> list= boardDao.A_Boardlist(page, field, query);
+				int cnt = boardDao.getCount(field, query);
 				model.addAttribute("list", list);
+				model.addAttribute("cnt", cnt);
+				model.addAttribute("cpage", page);
 				
+				
+				
+				System.out.println(page);
 			
+				
 				
 	
 		return "A_BoardList";
