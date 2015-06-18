@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -71,39 +74,101 @@
                             </div>
                             <!-- /.table-responsive -->
                
-               <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+              
+<%-- 
+
+ 	<a class="button btn-prev" href="notice.jsp">이전</a>
+			</p>
+			<ul>
+				<li><a class="strong" href="boardlist.html?pg=1&f=${param.f}&q=${param.q}">1</a></li>
+				<li><a href="boardlist.html?pg=2&f=${param.f}&q=${param.q}">2</a></li>
+				<li><a href="boardlist.html?pg=3&f=${param.f}&q=${param.q}">3</a></li>
+				<li><a href="boardlist.html?pg=4&f=${param.f}&q=${param.q}">4</a></li>
+				<li><a href="boardlist.html?pg=5&f=${param.f}&q=${param.q}">5</a></li>
+			</ul>
+			<p id="btnNext">
+				<span class="button btn-next">다음</span>
+			</p> 
+</ul> --%>
+
+
+ 
+   <c:set var="cnt" value="${cnt}"/>
+   <c:set var="cpage" value="${cpage}"/>
+   <c:set var="endpage" value="${(cnt/5) + 1}" />
+   
+   
+   <c:if test=""></c:if>
+
+ <ul class="pagination">
+  
+   <c:forEach var="i" begin="1" end="${endpage}">
+ 		
+       <c:choose>
+       	  <c:when test="${cpage==i}">
+       	  	<li class="paginate_button active"><a>${i}</a></li>
+       	  </c:when>
+       		<c:otherwise>
+       			 <li class="paginate_button"><a href="boardlist.html?pg=${i}&f=${param.f}&q=${param.q}">${i}</a></li>
+       		</c:otherwise>
+			
+       </c:choose>
+      
+         
+              
+   </c:forEach>
+   
+    </ul>    
+   
+  
+      
+        
+    	
+    	 
+       
+ 
+<%-- 
 <ul class="pagination">
+  
 
-<li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-<a href="#">Previous</a>
+ <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+<a href="boardlist.html">Previous</a>
 </li>
 
-<li class="paginate_button active" aria-controls="dataTables-example" tabindex="1">
-<a href="#">1</a>
-</li>
+
+
 
 <li class="paginate_button " aria-controls="dataTables-example" tabindex="2">
-<a href="#">2</a>
+<a href="boardlist.html?pg=2&f=${param.f}&q=${param.q}">2</a>
 </li>
 
 <li class="paginate_button " aria-controls="dataTables-example" tabindex="3">
-<a href="#">3</a>
+<a href="boardlist.html?pg=3&f=${param.f}&q=${param.q}">3</a>
 </li>
 
 <li class="paginate_button " aria-controls="dataTables-example" tabindex="4">
-<a href="#">4</a>
+<a href="boardlist.html?pg=4&f=${param.f}&q=${param.q}">4</a>
 </li>
 
 <li class="paginate_button " aria-controls="dataTables-example" tabindex="5">
-<a href="#">5</a>
+<a href="boardlist.html?pg=5&f=${param.f}&q=${param.q}">5</a>
 </li>
 
 <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-<a href="#">Next</a>
-</li>
+<a href="#">Next</a> 
+
+   </ul>
+ --%>
+ 
 
 
-</ul>
+<a class="btn btn-info btnposition" style="float: right" href="board.html">글쓰기</a>
+
+
+<!-- </li>
+
+
+
 </div>             
                             
                             
