@@ -51,7 +51,7 @@ public class BoardController {
 				
 				
 				System.out.println(page);
-			
+				
 				
 				
 	
