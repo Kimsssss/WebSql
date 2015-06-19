@@ -29,7 +29,7 @@ public class BoardController {
          throws ClassNotFoundException, SQLException {
 
       int page = 1;
-      String field = "TITLE";
+      String field = "BOARD_A_TITLE";
       String query = "%%";
 
       if (pg != null && !pg.equals("")) {
@@ -50,7 +50,7 @@ public class BoardController {
       model.addAttribute("cpage", page);
 
       System.out.println(page);
-      System.out.println("ssss");
+     
 
       return "A_BoardList";
    }
