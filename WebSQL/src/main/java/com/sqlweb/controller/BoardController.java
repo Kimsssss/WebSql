@@ -29,7 +29,7 @@ public class BoardController {
 			throws ClassNotFoundException, SQLException {
 
 		int page = 1;
-		String field = "TITLE";
+		String field = "BOARD_A_TITLE";
 		String query = "%%";
 
 		if (pg != null && !pg.equals("")) {
