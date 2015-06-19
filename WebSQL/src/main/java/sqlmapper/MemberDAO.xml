@@ -1,12 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sqlweb.dao.MemberDAO">
-	
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-    <insert id="insertMember" parameterType="com.sqlweb.dto.MemberDTO">
-    	insert into USERS(user_id,user_pwd,user_email,user_name,enabled)
-    	values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
-    </insert>
+
+<mapper namespace="com.sqlweb.dao.MemberDAO">
+
+	<insert id="insertAuthority">
+	 INSERT INTO user_authority(user_id, authority)
+        VALUES(#{user_id}, (select case when enabled=1 then 'ROLE_ADMIN' 
+        	   else 'ROLE_USER' end authority from users where user_id=#{user_id}))
+	</insert>
+
+	<insert id="insertMember" parameterType="com.sqlweb.dto.MemberDTO">
+		insert into USERS(user_id,user_pwd,user_email,user_name,enabled)
+		values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
+	</insert>
 </mapper>
