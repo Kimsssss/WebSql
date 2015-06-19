@@ -35,17 +35,10 @@
 						<li><a href="grid.html">Grid</a></li>
 					</ul> <!-- /.nav-second-level --></li>
 				<li><a href="#"><i class="fa fa-sitemap fa-fw"></i>
-						Multi-Level Dropdown<span class="fa arrow"></span></a>
+						게시판<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
-						<li><a href="#">Second Level Item</a></li>
-						<li><a href="#">Second Level Item</a></li>
-						<li><a href="#">Third Level <span class="fa arrow"></span></a>
-							<ul class="nav nav-third-level">
-								<li><a href="#">Third Level Item</a></li>
-								<li><a href="#">Third Level Item</a></li>
-								<li><a href="#">Third Level Item</a></li>
-								<li><a href="#">Third Level Item</a></li>
-							</ul> <!-- /.nav-third-level --></li>
+						<li><a href="#">공지사항</a></li>
+						<li><a href="p_boardlist.html">건의사항</a></li>
 					</ul> <!-- /.nav-second-level --></li>
 				<li><a href="#"><i class="fa fa-files-o fa-fw"></i> Sample
 						Pages<span class="fa arrow"></span></a>

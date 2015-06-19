@@ -23,7 +23,8 @@
 			<se:authentication property="name" var="LoingUser" />
 			<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 				<li><a href="${pageContext.request.contextPath}/j_spring_security_logout">
-						(${LoingUser})로그아웃</a></li>
+						(${LoingUser})로그아웃</a>					
+						</li>
 			</se:authorize>
 	
 		<li class="dropdown"><a class="dropdown-toggle"

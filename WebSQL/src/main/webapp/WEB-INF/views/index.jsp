@@ -54,8 +54,10 @@
 
 	<div id="wrapper">
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0"> <jsp:include page="header.jsp"></jsp:include>
-		<jsp:include page="aside.jsp"></jsp:include> </nav>
+			style="margin-bottom: 0"> 
+		<jsp:include page="header.jsp"></jsp:include>
+		<jsp:include page="aside.jsp"></jsp:include> 
+		</nav>
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
