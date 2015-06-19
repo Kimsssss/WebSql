@@ -1,9 +1,5 @@
 package com.sqlweb.controller;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.sql.SQLException;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -17,48 +13,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sqlweb.dao.MemberDAO;
-import com.sqlweb.dto.AuthorityDTO;
 import com.sqlweb.dto.MemberDTO;
 import com.sqlweb.utils.MemberEntryValidator;
 
 @Controller
 public class MemberController {
-
+	
+	
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	@Autowired
 	private MemberEntryValidator memberEntryValidator;
-	public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
-		this.memberEntryValidator = memberEntryValidator;
-	}
-	
+
 	@Autowired
 	private MessageSource messageSource;
-	public void setMessageSource(MessageSource messageSource) {
-		this.messageSource = messageSource;
-	}
+	
 	
 	@RequestMapping(value="login.html", method=RequestMethod.GET)
-
 	public String login(){
 		return "login";
 	}
-
-	@RequestMapping(value = "index.html", method = RequestMethod.GET)
-	public String index() {
+	
+	@RequestMapping(value="index.html", method=RequestMethod.GET)
+	public String index(){
 		return "index";
 	}
+	
+	
+	public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
+		this.memberEntryValidator = memberEntryValidator;
+	}
 
-	@RequestMapping(value = "index.html", method = RequestMethod.POST)
-	public String noticeReg(AuthorityDTO authority)
-			throws IOException, ClassNotFoundException, SQLException {
-
-		MemberDAO memberDao = sqlSession.getMapper(MemberDAO.class);
-		memberDao.insertAuthority(authority);
-
-		return "redirect:index";
-
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;
 	}
 	
 	@RequestMapping(value="/User.html", method = RequestMethod.GET)
@@ -80,7 +68,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value="/User.html", method = RequestMethod.POST)
-	public ModelAndView fromMemberController(MemberDTO member, AuthorityDTO authority, BindingResult result) {
+	public ModelAndView fromMemberController(MemberDTO member, BindingResult result) {
 		
 		ModelAndView modelAndView;
 		this.memberEntryValidator.validate(member, result);
@@ -96,8 +84,6 @@ public class MemberController {
 			modelAndView = new ModelAndView();
 			MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
 			dao.insertMember(member);
-			dao.insertAuthority(authority);
-			
 
 			
 			modelAndView.setViewName("userEntrySuccess");

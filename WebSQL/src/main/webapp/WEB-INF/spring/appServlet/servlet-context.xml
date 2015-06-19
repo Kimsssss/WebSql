@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 <context:annotation-config />
-
+<context:component-scan base-package="com.sqlweb.controller"/>
 <!-- Validator -->
 	<beans:bean id="memberEntryValidator" class="com.sqlweb.utils.MemberEntryValidator" />
 	
@@ -22,10 +22,6 @@
 	</beans:bean>
 	
 	
-
-<context:component-scan base-package="com.sqlweb.controller"/>
-	<beans:bean id="memberController" class="com.sqlweb.controller.MemberController"></beans:bean>
-
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
