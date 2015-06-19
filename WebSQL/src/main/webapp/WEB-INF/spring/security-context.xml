@@ -13,7 +13,7 @@
 		<security:logout logout-success-url="/index.html"/>
 		
 	
-		<security:intercept-url pattern="/p_*" access="ROLE_USER" />
+		<security:intercept-url pattern="/P_*" access="ROLE_USER" />
 		<security:intercept-url pattern="/A_*" access="ROLE_ADMIN"/>
 	</security:http>
 	<security:authentication-manager>

@@ -169,8 +169,6 @@ public class BoardController {
 
       ReplyDAO replyDao = sqlSession.getMapper(ReplyDAO.class);
       list = replyDao.replyDetail(board_p_id);
-      // System.out.println(reply.getR_content());
-
       model.addAttribute("reply", list);
 
       return "p_BoardDetail";
