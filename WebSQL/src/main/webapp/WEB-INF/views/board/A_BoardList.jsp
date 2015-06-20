@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
-
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -160,9 +160,14 @@
    </ul>
  --%>
  
+	<p>
+			<se:authorize ifAllGranted="ROLE_ADMIN">
+				<a class="btn btn-info btnposition" style="float: right" href="board.html">글쓰기</a>
+			</se:authorize>
+
+		</p>
 
 
-<a class="btn btn-info btnposition" style="float: right" href="board.html">글쓰기</a>
 
 
 <!-- </li>

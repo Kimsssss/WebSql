@@ -40,5 +40,7 @@ public interface BoardDAO {
 	public int P_Boardupdate(Board_P_DTO baord_p_dto)  ;
 
 	public int P_Boarddelete(int board_p_id);
+	
+	public int reply_Del(int board_p_id);
 
 }

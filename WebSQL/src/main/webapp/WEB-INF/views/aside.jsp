@@ -37,7 +37,7 @@
 				<li><a href="#"><i class="fa fa-sitemap fa-fw"></i>
 						게시판<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
-						<li><a href="#">공지사항</a></li>
+						<li><a href="boardlist.html">공지사항</a></li>
 						<li><a href="p_boardlist.html">건의사항</a></li>
 					</ul> <!-- /.nav-second-level --></li>
 				<li><a href="#"><i class="fa fa-files-o fa-fw"></i> Sample
