@@ -75,12 +75,15 @@
 					</div>
 
 				</div>
+				
+				
 				<!--  꼬리글 달기 테이블 -->
 				<form action="reply.html?board_p_id=${p_detail.board_p_id}"
 					method="get">
 					<!-- hidden 태그  값을 숨겨서 처리  -->
-					<input type="hidden" name="r_sequence" value="1"> <input
-						type="hidden" name="board_p_id" value="5">
+					<input type="hidden"  name="r_sequence" value="1" > 
+					<input type="hidden"  name="board_p_id" value="5">
+					
 					<!-- hidden data -->
 
 					<table width="80%" border="1">
@@ -88,7 +91,7 @@
 							<th colspan="2">댓글 쓰기</th>
 						</tr>
 						<tr><se:authentication property="name" var="LoingUser" />
-							<td align="left"> 작성자 : <input type="text" name="r_id"
+							<td align="left"> 작성자 : <input type="text" name="r_id" 
 								readonly="readonly" value="${ LoingUser}"><br> <!-- ${LoingUser } -->
 								내&nbsp;&nbsp;용 :<br> <textarea name="r_content"
 									placeholder="댓글을 작성하세요." rows="2" cols="50"></textarea></td>
@@ -96,7 +99,13 @@
 
 						</tr>
 					</table>
+					
+					
+					
 				</form>
+				
+				
+				
 				<table width="80%" border="1">
 					<tr>
 						<th colspan="2">REPLY LIST</th>
