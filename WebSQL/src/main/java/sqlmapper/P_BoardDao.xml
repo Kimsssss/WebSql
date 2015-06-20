@@ -35,7 +35,12 @@
     </update>
     
     <delete id="P_Boarddelete" >
+    
      DELETE P_NOTICE WHERE board_p_id=#{board_p_id}
+     
+    </delete>
+    <delete id="reply_Del">
+    	delete reply where board_p_id=#{board_p_id}
     </delete>
     
 </mapper>

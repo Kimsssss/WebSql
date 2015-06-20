@@ -183,15 +183,14 @@ public class BoardController {
 			HttpServletRequest request, HttpServletResponse response,
 			Principal principal) throws IOException {
 		
-		String r_id = request.getParameter("user_id");
+		String user_id = request.getParameter("user_id");
 		
-		System.out.println(r_id + " / " + principal.getName());
-		if (r_id.equals(principal.getName())) {
+		if (user_id.equals(principal.getName())) {
 			BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 			Board_P_DTO board_p_dto = boardDao.P_BoardDetail(board_p_id);
 
 			model.addAttribute("p_detail", board_p_dto);
-		} else if (!r_id.equals(principal.getName())) {
+		} else if (!user_id.equals(principal.getName())) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
@@ -216,10 +215,26 @@ public class BoardController {
 
 	// 건의 글 삭제하기
 	@RequestMapping("p_boardDel.html")
-	public String P_BoardDel(int board_p_id) {
-
-		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		boardDao.P_Boarddelete(board_p_id);
+	public String P_BoardDel(int board_p_id, HttpServletRequest request, HttpServletResponse response,
+			Principal principal) throws IOException {
+		String user_id = request.getParameter("user_id");
+		
+		if (user_id.equals(principal.getName())) {
+			BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+			boardDao.reply_Del(board_p_id);
+			boardDao.P_Boarddelete(board_p_id);
+			
+		} else if (!user_id.equals(principal.getName())) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('삭제할 수 없습니다.');");
+			out.println("location.href='p_boardDetail.html?board_p_id="
+					+ board_p_id + "'");
+			out.println("</script>");
+			out.close();
+		}
+		
 		return "redirect:p_boardlist.html";
 	}
 
