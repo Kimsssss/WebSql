@@ -92,7 +92,7 @@
 								readonly="readonly" value="${ LoingUser}"><br> <!-- ${LoingUser } -->
 								내&nbsp;&nbsp;용 :<br> <textarea name="r_content"
 									placeholder="댓글을 작성하세요." rows="2" cols="50"></textarea></td>
-							<td align="left"><input type="submit" value="등록"></td>
+							<td align="left"><input type="submit" class="btn btn-info" value="등록"></td>
 
 						</tr>
 					</table>
