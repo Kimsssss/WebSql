@@ -44,8 +44,6 @@
 								<tr>
 
 									<th style="width: 128px;">작성자</th>
-
-
 									<td>${p_detail.user_id}</td>
 								</tr>
 
@@ -70,14 +68,13 @@
 						</table>
 						<div align="right">
 							<input type="submit" class="btn btn-info" value="수정"
-								onclick="location.href='p_boardEdit.html?board_p_id=${p_detail.board_p_id}'">
+								onclick="location.href='p_boardEdit.html?board_p_id=${p_detail.board_p_id}&user_id=${p_detail.user_id }'">
 							<input type="button" class="btn btn-info" value="삭제"
 								onclick="location.href='p_boardDel.html?board_p_id=${p_detail.board_p_id}'">
 						</div>
 					</div>
 
 				</div>
-
 				<!--  꼬리글 달기 테이블 -->
 				<form action="reply.html?board_p_id=${p_detail.board_p_id}"
 					method="get">

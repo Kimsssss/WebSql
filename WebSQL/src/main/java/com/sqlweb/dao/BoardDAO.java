@@ -1,5 +1,6 @@
 package com.sqlweb.dao;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface BoardDAO {
 
 	public Board_P_DTO P_BoardDetail(int board_p_id);
 
-	public int P_Boardupdate(Board_P_DTO baord_p_dto);
+	public int P_Boardupdate(Board_P_DTO baord_p_dto)  ;
 
 	public int P_Boarddelete(int board_p_id);
 
