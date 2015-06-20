@@ -24,6 +24,7 @@ import com.sqlweb.dto.Board_P_DTO;
 import com.sqlweb.dto.ReplyDTO;
 
 @Controller
+
 public class BoardController {
 
 	@Autowired
@@ -56,12 +57,12 @@ public class BoardController {
 
 		System.out.println(page);
 
-		return "A_BoardList";
+		return "board/A_BoardList";
 	}
 
 	@RequestMapping(value = "board.html", method = RequestMethod.GET)
 	public String boardget() {
-		return "A_Boardwrite";
+		return "board/A_Boardwrite";
 	}
 
 	@RequestMapping(value = "board.html", method = RequestMethod.POST)
@@ -82,7 +83,7 @@ public class BoardController {
 
 		model.addAttribute("a_notice", board_a_dto);
 
-		return "A_BoardDetail";
+		return "board/A_BoardDetail";
 	}
 
 	@RequestMapping(value = "boardE.html", method = RequestMethod.GET)
@@ -94,7 +95,7 @@ public class BoardController {
 
 		model.addAttribute("a_notice", board_a_dto);
 
-		return "A_BoardEdit";
+		return "board/A_BoardEdit";
 	}
 
 	@RequestMapping(value = "boardE.html", method = RequestMethod.POST)
@@ -139,12 +140,12 @@ public class BoardController {
 		List<Board_P_DTO> p_list = boardDao.P_Boardlist(page, field, query);
 		model.addAttribute("p_list", p_list);
 
-		return "P_BoardList";
+		return "board/P_BoardList";
 	}
 
 	@RequestMapping(value = "p_board.html", method = RequestMethod.GET)
 	public String p_boardget() {
-		return "P_Boardwrite";
+		return "board/P_Boardwrite";
 	}
 
 	// 건의사항 글 등록
@@ -175,7 +176,7 @@ public class BoardController {
 		list = replyDao.replyDetail(board_p_id);
 		model.addAttribute("reply", list);
 
-		return "p_BoardDetail";
+		return "board/p_BoardDetail";
 	}
 
 	@RequestMapping(value = "p_boardEdit.html", method = RequestMethod.GET)
@@ -200,7 +201,7 @@ public class BoardController {
 			out.println("</script>");
 			out.close();
 		}
-		return "p_BoardEdit";
+		return "board/p_BoardEdit";
 	}
 
 	@RequestMapping(value = "p_boardEdit.html", method = RequestMethod.POST)

@@ -49,8 +49,8 @@
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0"> <jsp:include page="header.jsp"></jsp:include>
-		<jsp:include page="aside.jsp"></jsp:include> </nav>
+			style="margin-bottom: 0"> <jsp:include page="../header.jsp"></jsp:include>
+		<jsp:include page="../aside.jsp"></jsp:include> </nav>
 
 		<form action="" method="post">
 			<div id="page-wrapper">

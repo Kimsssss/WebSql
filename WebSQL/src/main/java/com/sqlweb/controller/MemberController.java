@@ -41,7 +41,7 @@ public class MemberController {
    
    @RequestMapping(value="login.html", method=RequestMethod.GET)
    public String login(){
-      return "login";
+      return "joinus/login";
    }
    
    @RequestMapping(value="index.html", method=RequestMethod.GET)
