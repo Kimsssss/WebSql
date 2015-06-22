@@ -78,7 +78,7 @@ public class DDLController {
 			try {con.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		
-		return "ck";
+		return "ddl.ck";
 	}
 	
 	
@@ -124,7 +124,7 @@ public class DDLController {
 		
 		
 		
-		return "ck";
+		return "ddl.ck";
 	} 
 	
 	
