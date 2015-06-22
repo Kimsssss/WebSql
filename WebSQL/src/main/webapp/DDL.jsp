@@ -12,7 +12,7 @@
   .button {width: 30px; height: 30px}
   </style>
 	<script>
-	var tableNumber2 = 0;
+	var tableNumber2 = 1;
 	
   	$(function() {
  	   $( "#sections" ).droppable({
@@ -27,22 +27,35 @@
  	        $( ".draggable" ).draggable();
  	        /* 클릭시 컬럼 추가 */
  	        $("#sub").click(function(){
+ 	        	
+ 	        	var colNameArray= new Array(colNumber);
+ 	        	var coldataArray= new Array(colNumber);
+ 	        	var tableName = $("input[name=tablename"+tableNumber+"]").val();
+ 	        	console.log(tableName);
+ 	        	/* colNumber 갯수많큼 값을 넣어준다. */
+ 	        	for(var i=0;i<colNumber;i++){
+ 	        		colNameArray[i] = $("input[name=col"+tableNumber+"_"+(i+1)+"]").val();
+ 	        		coldataArray[i] = $("input[name=col_data"+tableNumber+"_"+(i+1)+"]").val()
+ 	        	}
+
+ 	        	jQuery.ajaxSettings.traditional = true;	/* ajax를 사용해 배열값을 넘기기위한 세팅 */
+ 	        	
  	        	$.ajax({
 					type : "get",
 					url : "create.htm",
 					dataType : "html",
 					data : {
-						like_idx : likeData
+						"colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName
 					},
 					success : function(myfeed) {
 						console.log(myfeed);
-						$(me).prepend(myfeed);
+						alert("테이블 생성 성공")
 					},
 					error : function(xhr) {
-						alert(xhr.status);
+						alert("테이블 생성 실패...");
 					}
 				});
- 	        	
+ 	        	 
  	        });
  	        $("#plus"+tableNumber).bind('click', function() {
  	        	console.log($(this).parent().parent().parent().children().children("#colplus"));
