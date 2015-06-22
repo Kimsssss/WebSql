@@ -6,7 +6,7 @@
 <mapper namespace="com.sqlweb.dao.ReplyDAO">
 
 	<select id="replyDetail" resultType="com.sqlweb.dto.ReplyDTO">
-     select * from reply where board_p_id = #{board_p_id} order by r_sequence asc
+     select * from reply where board_p_id = #{board_p_id} order by r_sequence desc
     </select>
 
 	<insert id="replyInsert">

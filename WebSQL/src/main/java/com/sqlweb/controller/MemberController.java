@@ -39,16 +39,10 @@ public class MemberController {
    private MessageSource messageSource;
    
    
-   @RequestMapping(value="login.html", method=RequestMethod.GET)
+   @RequestMapping(value="login.html")
    public String login(){
-      return "joinus/login";
-   }
-   
-   @RequestMapping(value="index.html", method=RequestMethod.GET)
-   public String index(){
-      return "index";
-   }
-   
+      return "joinus.login";
+   }  
    
    public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
       this.memberEntryValidator = memberEntryValidator;

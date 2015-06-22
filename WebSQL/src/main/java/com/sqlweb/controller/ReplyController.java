@@ -27,11 +27,11 @@ public class ReplyController {
 	@RequestMapping(value = "reply.html", method = RequestMethod.GET)
 	public String reply(ReplyDTO reply, HttpServletRequest request, Model model) {
 		reply.setR_id(request.getParameter("r_id"));
+		int board_p_id = Integer.parseInt(request.getParameter("board_p_id"));
 		ReplyDAO replyDao = sqlSession.getMapper(ReplyDAO.class);
 		replyDao.replyInsert(reply);
 
-		return "redirect:p_boardDetail.html?board_p_id="
-				+ reply.getBoard_p_id();
+		return "redirect:p_boardDetail.html?board_p_id="+ board_p_id;
 	}
 	
 	

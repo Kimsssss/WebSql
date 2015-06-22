@@ -33,7 +33,7 @@
     
    <insert id="A_Boardwrite">
         INSERT INTO A_NOTICE (BOARD_A_ID, BOARD_A_TITLE, BOARD_A_CONTENT, USER_ID, BOARD_A_DATE) 
-      VALUES (A_NOTICE_SE.nextval,#{board_a_title},#{board_a_content},'KGLIM',SYSDATE)
+      VALUES (A_NOTICE_SE.nextval,#{board_a_title},#{board_a_content},#{user_id},SYSDATE)
    </insert>
     
 
