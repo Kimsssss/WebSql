@@ -49,12 +49,6 @@
 						</div>
 					</div>
 				</div>
-<<<<<<< HEAD
-
-=======
-				
-				
->>>>>>> branch 'master' of https://github.com/Kimsssss/WebSql.git
 				<!--  꼬리글 달기 테이블 -->
 				<form action="reply.html?board_p_id=${p_detail.board_p_id}"
 					method="get">
@@ -71,7 +65,7 @@
 
 						<tr><se:authentication property="name" var="LoginUser" />
 							<td align="left"> 작성자 : <input type="text" name="r_id" 
-								readonly="readonly" value="${ LoginUser}"><br> <!-- ${LoingUser } -->
+								readonly="readonly" value="${ LoginUser}"><br> 
 								내&nbsp;&nbsp;용 :<br> <textarea name="r_content"
 									placeholder="댓글을 작성하세요." rows="2" cols="50"></textarea></td>
 							<td align="left"><input type="submit" class="btn btn-info"
@@ -79,8 +73,6 @@
 
 						</tr>
 					</table>
-					
-					
 					
 				</form>
 				
