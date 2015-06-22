@@ -35,6 +35,34 @@
 							</tbody>
 
 						</table>
+						<c:set var="p_cnt" value="${p_cnt}" />
+					<c:set var="p_cpage" value="${p_cpage}" />
+					<c:set var="p_endpage" value="${(p_cnt/5) + 1}" />
+
+
+					<c:if test=""></c:if>
+					<div align="center">
+						<ul class="pagination">
+
+							<c:forEach var="i" begin="1" end="${p_endpage}">
+
+								<c:choose>
+									<c:when test="${p_cpage==i}">
+										<li class="paginate_button active"><a>${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="paginate_button"><a
+											href="p_boardlist.html?pg=${i}&f=${param.f}&q=${param.q}">${i}</a></li>
+									</c:otherwise>
+
+								</c:choose>
+
+
+
+							</c:forEach>
+
+						</ul>
+					</div>
 						<p>
 							<se:authorize ifAllGranted="ROLE_USER">
 								<a class="btn btn-info btnposition" style="float: right"

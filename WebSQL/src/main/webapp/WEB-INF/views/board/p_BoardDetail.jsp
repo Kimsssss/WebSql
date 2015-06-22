@@ -53,8 +53,7 @@
 				<form action="reply.html?board_p_id=${p_detail.board_p_id}"
 					method="get">
 					<!-- hidden 태그  값을 숨겨서 처리  -->
-					<input type="hidden"  name="r_sequence" value="1" > 
-					<input type="hidden"  name="board_p_id" value="5">
+					<input type="hidden"  name="board_p_id" value=${p_detail.board_p_id}>
 					
 					<!-- hidden data -->
 
@@ -89,10 +88,10 @@
 								작성일 : ${reply.r_date }
 							</td>
 							<td width="20%">
-								<form action="board_replydeleteok.jsp" method="POST"
+								<form action="" method="POST"
 									name="replyDel">
-									<input type="hidden" name="no" value="${reply.r_sequence }">
-									<input type="hidden" name="idx" value="${reply.board_p_id }">
+									<input type="hidden" name="r_sequence" value="${reply.r_sequence }">
+									<input type="hidden" name="board_p_id" value="${reply.board_p_id }">
 
 									<input type="button" value="삭제"
 										onclick="location.href='replyDel.html?r_sequence=${reply.r_sequence}&r_id=${reply.r_id }&board_p_id=${reply.board_p_id }'">

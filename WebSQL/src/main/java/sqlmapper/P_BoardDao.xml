@@ -6,7 +6,9 @@
      구현된되는 ID 값들을 인터페이스 함수명과 동일
  -->
 <mapper namespace="com.sqlweb.dao.BoardDAO">
-
+	<select id="p_getCount" resultType="Integer">
+ 		SELECT COUNT(BOARD_p_TITLE) FROM P_NOTICE 
+ 	</select>
     <select id="P_Boardlist" resultType="com.sqlweb.dto.Board_P_DTO">
       SELECT * FROM
                ( SELECT ROWNUM NUM, N.* 

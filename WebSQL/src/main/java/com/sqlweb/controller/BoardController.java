@@ -138,10 +138,10 @@ public class BoardController {
 
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		List<Board_P_DTO> p_list = boardDao.P_Boardlist(page, field, query);
-		int cnt = boardDao.getCount(field, query);
+		int cnt = boardDao.p_getCount(field, query);
 		model.addAttribute("p_list", p_list);
-		model.addAttribute("cnt", cnt);
-		model.addAttribute("cpage", page);
+		model.addAttribute("p_cnt", cnt);
+		model.addAttribute("p_cpage", page);
 
 		return "board.P_BoardList";
 	}

@@ -30,6 +30,8 @@ public interface BoardDAO {
 			SQLException;
 
 	// 건의사항 게시판
+	public int p_getCount(String field, String query);
+	
 	public List<Board_P_DTO> P_Boardlist(int page, String field, String query);
 
 	public int P_Boardwrite(Board_P_DTO baord_p_dto);
