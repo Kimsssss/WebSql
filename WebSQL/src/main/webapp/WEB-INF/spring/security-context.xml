@@ -14,7 +14,7 @@
 		
 	
 		<security:intercept-url pattern="/P_*" access="ROLE_USER" />
-		<security:intercept-url pattern="/A_*" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/b*" access="ROLE_USER"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
