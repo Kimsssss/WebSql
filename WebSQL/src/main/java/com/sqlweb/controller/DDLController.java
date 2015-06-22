@@ -78,7 +78,7 @@ public class DDLController {
 			try {con.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		
-		return "ck";
+		return "ddl.ck";
 	}
 	
 	
@@ -116,7 +116,7 @@ public class DDLController {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return null;
+			//return null;
 		}finally{
 			try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
 			try {con.close();} catch (SQLException e) {e.printStackTrace();}
@@ -124,7 +124,7 @@ public class DDLController {
 		
 		
 		
-		return "ck";
+		return "ddl.ck";
 	} 
 	
 	
