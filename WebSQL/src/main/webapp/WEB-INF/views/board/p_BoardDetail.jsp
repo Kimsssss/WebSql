@@ -45,7 +45,7 @@
 							<input type="submit" class="btn btn-info" value="수정"
 								onclick="location.href='p_boardEdit.html?board_p_id=${p_detail.board_p_id}&user_id=${p_detail.user_id }'">
 							<input type="button" class="btn btn-info" value="삭제"
-								onclick="location.href='p_boardDel.html?board_p_id=${p_detail.board_p_id}'">
+								onclick="location.href='p_boardDel.html?board_p_id=${p_detail.board_p_id}&user_id=${p_detail.user_id }'">
 						</div>
 					</div>
 				</div>
