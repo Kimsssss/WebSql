@@ -44,6 +44,11 @@ public class MemberController {
       return "joinus.login";
    }  
    
+   @RequestMapping(value="register.html")
+   public String register(){
+      return "joinus.register";
+   }  
+   
    public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
       this.memberEntryValidator = memberEntryValidator;
    }
@@ -55,7 +60,7 @@ public class MemberController {
    @RequestMapping(value="/userEntry.html", method = RequestMethod.GET)
    public String toUserEntryView() {
       System.out.println("CONTROLLER GET");
-      return "userEntry";
+      return "joinus.userEntry";
    }
    
    @RequestMapping(value="/Mail.html", method = RequestMethod.GET)

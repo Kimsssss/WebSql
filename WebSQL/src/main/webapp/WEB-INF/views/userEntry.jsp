@@ -15,6 +15,25 @@
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <title>Insert title here</title>
 
+<!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 <script type="text/javascript">
 $(function(){
    $('#modalbtn').click(function(){
@@ -73,9 +92,14 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="container">
-<div align="center" class="body">
-<h2>유저 등록 화면</h2>
+<div class="row">
+	<div class="body">
+		<h2 align="center" class="page-header">유저 등록 화면</h2>
+	</div>
+</div>
+
+<div align="center" >
+
 <form:form modelAttribute="member" method="post" action="userEntry.html">
    <spring:hasBindErrors name="member">
       <font color="red"><c:forEach items="${errors.globalErrors}"
@@ -83,47 +107,49 @@ $(function(){
          <spring:message code="${error.code}" />
       </c:forEach> </font>
    </spring:hasBindErrors>
-   <table>
+
+   <table style="width: 400px " >
       <tr height="40px">
-         <td>유저ID</td>
-         <td><form:input path="user_id"  maxlength="20" id="user_id" value="" /><font
+         <td><b>유저ID</b></td>
+         <td><form:input class="form-control" placeholder="아이디를 입력하세요." path="user_id"  maxlength="20" id="user_id" value="" /><font
             color="red"><form:errors path="user_id" /></font></td>
       </tr>
       <tr height="40px">
-         <td>패스워드</td>
-         <td><form:password path="user_pwd" maxlength="20" id="user_pwd" value=""/><font
+         <td><b>패스워드</b></td>
+         <td><form:password class="form-control" path="user_pwd" maxlength="20" id="user_pwd" value=""/><font
             color="red"><form:errors path="user_pwd" /></font></td>
       </tr>
       
       <tr height="40px">
-         <td>이메일</td>
-         <td><form:input path="user_email" maxlength="20" readonly="true" disabled="true" value=""/>
+         <td><b>이메일</b></td>
+         <td><form:input class="form-control" path="user_email" maxlength="20" readonly="true" disabled="true" value=""/>
          
            <!-- Trigger the modal with a button -->
-           <button type="button" class="btn btn-info btn-lg" 
-           data-toggle="modal" data-target="#myModal">이메일 인증</button>
-         
-         
-         <font color="red"><form:errors path="user_email" /></font></td>
+      </td>
+      </tr>
+ 	  <tr>
+ 	  	<td></td>
+ 	  	<td align="right">
+           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">이메일 인증</button>
+         <font color="red"><form:errors path="user_email" /></font>
+    	</td>
       </tr>
       <tr height="40px">
-         <td>이름</td>
-         <td><form:input path="user_name" maxlength="8" id="user_name" value=""/><font
+         <td><b>이름</b></td>
+         <td><form:input class="form-control" placeholder="이름을 입력하시오." path="user_name" maxlength="8" id="user_name" value=""/><font
             color="red"><form:errors path="user_name" /></font></td>
       </tr>
       <tr height="40px">
-         <td>활성</td>
-         <td><form:input path="enabled" maxlength="50" value=""/><font
+         <td><b>활성</b></td>
+         <td><form:input class="form-control" path="enabled" maxlength="50" value=""/><font
             color="red"><form:errors path="enabled"  /></font></td>
       </tr>
-      
-   </table>
-   <table>
+
       <tr>
-         <td height="40px" align="center"><input type="submit"
-            name="btnSubmit" value="등록"></td>
-         <td height="40px" align="center"><input type="reset"
-            name="btnReset" value="리셋"></td>
+      	<td></td>
+         <td  height="40px" align="right">
+         <input class="btn btn-success" type="submit" name="btnSubmit" value="등록">
+         <input class="btn btn-danger" type="reset" name="btnReset" value="취소"></td>
       </tr>
    </table>
 </form:form></div>
@@ -174,8 +200,21 @@ $(function(){
 
   </div>
 </div>
-</div>
+
+
    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+<!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
 
 </body>
 </html>
