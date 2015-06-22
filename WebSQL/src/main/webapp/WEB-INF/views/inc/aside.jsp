@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<div id="aside">
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
@@ -34,8 +28,8 @@
 						<li><a href="icons.html"> Icons</a></li>
 						<li><a href="grid.html">Grid</a></li>
 					</ul> <!-- /.nav-second-level --></li>
-				<li><a href="#"><i class="fa fa-sitemap fa-fw"></i>
-						게시판<span class="fa arrow"></span></a>
+				<li><a href="#"><i class="fa fa-sitemap fa-fw"></i> 게시판<span
+						class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a href="boardlist.html">공지사항</a></li>
 						<li><a href="p_boardlist.html">건의사항</a></li>
@@ -49,5 +43,4 @@
 		</div>
 		<!-- /.sidebar-collapse -->
 	</div>
-</body>
-</html>
+</div>

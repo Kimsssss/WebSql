@@ -13,9 +13,9 @@
                  FROM 
                      ( SELECT * 
                        FROM P_NOTICE
-                      ) N
-                ) WHERE NUM BETWEEN 1 + (${param1}-1)*5 AND 5 + (${param1}-1)*5 
-    
+                       WHERE ${param2} LIKE '%${param3}%' ORDER BY BOARD_P_DATE DESC) N
+                ) WHERE NUM BETWEEN 1 + (${param1}-1)*5 AND 5 + (${param1}-1)*5
+              
     </select>
     <insert id="P_Boardwrite">
     

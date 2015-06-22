@@ -57,12 +57,12 @@ public class BoardController {
 
 		System.out.println(page);
 
-		return "board/A_BoardList";
+		return "board.A_BoardList";
 	}
 
 	@RequestMapping(value = "board.html", method = RequestMethod.GET)
 	public String boardget() {
-		return "board/A_Boardwrite";
+		return "board.A_Boardwrite";
 	}
 
 	@RequestMapping(value = "board.html", method = RequestMethod.POST)
@@ -83,7 +83,7 @@ public class BoardController {
 
 		model.addAttribute("a_notice", board_a_dto);
 
-		return "board/A_BoardDetail";
+		return "board.A_BoardDetail";
 	}
 
 	@RequestMapping(value = "boardE.html", method = RequestMethod.GET)
@@ -95,13 +95,13 @@ public class BoardController {
 
 		model.addAttribute("a_notice", board_a_dto);
 
-		return "board/A_BoardEdit";
+		return "board.A_BoardEdit";
 	}
 
 	@RequestMapping(value = "boardE.html", method = RequestMethod.POST)
 	public String A_BoardUpdate(Board_A_DTO board_a_dto)
 			throws ClassNotFoundException, SQLException {
-
+		
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		boardDao.update(board_a_dto);
 
@@ -120,10 +120,10 @@ public class BoardController {
 
 	// 건의사항 리스트
 	@RequestMapping("p_boardlist.html")
-	public String P_Boardlist(String pg, String f, String q, Model model) {
+	public String P_Boardlist(String pg, String f, String q, Model model) throws ClassNotFoundException, SQLException {
 
 		int page = 1;
-		String field = "TITLE";
+		String field = "BOARD_P_TITLE";
 		String query = "%%";
 
 		if (pg != null && !pg.equals("")) {
@@ -138,14 +138,16 @@ public class BoardController {
 
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		List<Board_P_DTO> p_list = boardDao.P_Boardlist(page, field, query);
+		int cnt = boardDao.getCount(field, query);
 		model.addAttribute("p_list", p_list);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("cpage", page);
 
-		return "board/P_BoardList";
+		return "board.P_BoardList";
 	}
-
 	@RequestMapping(value = "p_board.html", method = RequestMethod.GET)
 	public String p_boardget() {
-		return "board/P_Boardwrite";
+		return "board.P_Boardwrite";
 	}
 
 	// 건의사항 글 등록
@@ -176,7 +178,7 @@ public class BoardController {
 		list = replyDao.replyDetail(board_p_id);
 		model.addAttribute("reply", list);
 
-		return "board/p_BoardDetail";
+		return "board.p_BoardDetail";
 	}
 
 	@RequestMapping(value = "p_boardEdit.html", method = RequestMethod.GET)
@@ -201,7 +203,7 @@ public class BoardController {
 			out.println("</script>");
 			out.close();
 		}
-		return "board/p_BoardEdit";
+		return "board.p_BoardEdit";
 	}
 
 	@RequestMapping(value = "p_boardEdit.html", method = RequestMethod.POST)
