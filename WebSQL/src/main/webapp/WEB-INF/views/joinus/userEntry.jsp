@@ -87,7 +87,7 @@ $(function(){
                 <div class="row">
                     <div class="col-lg-12">
                        
-<div align="center" >
+ <div align="center" >
 
 <form:form modelAttribute="member" method="post" action="userEntry.html">
    <spring:hasBindErrors name="member">
