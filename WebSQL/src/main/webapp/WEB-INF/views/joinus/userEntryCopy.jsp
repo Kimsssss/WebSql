@@ -1,27 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
-Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <title>Insert title here</title>
-<style type="text/css">
-input.user_email{
-   background-color: #bebebe;
-}
-</style>
+
+<!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 <script type="text/javascript">
 $(function(){
    $('#modalbtn').click(function(){
@@ -35,47 +47,22 @@ $(function(){
           
           if(code1 == code2){
              alert("인증성공");
-             $('#modal-footer').html("<button type='button' class='btn btn-danger' id='onsumit' name='onsumit' data-dismiss='modal'>확인</button>   <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                $('#idhidden').val($('#user_id').val());
+             $('#modal-footer').html("<button type='button' class='btn btn-danger' id='onsumit' name='onsumit' onclick='javascript:emailform.submit();'>확인</button>   <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+               $('#idhidden').val($('#user_id').val());
                 $('#pwdhidden1').val($('#user_pwd').val());
+                $('#pwdhidden2').val();
                 $('#emailhidden').val($('#modalemail').val());
                 $('#namehidden').val($('#user_name').val());
-                $('#enabledhidden').val($('#enabled').val());
-              $('#onsumit').click(function(){
-                 console.log($('#idhidden').val());
-                  console.log($('#pwdhidden1').val());
-                  console.log($('#emailhidden').val());
-                  console.log($('#namehidden').val());
-                  console.log($('#enabledhidden').val());
-                 var memberdto = {
-                       user_id: $('#idhidden').val(),
-                       user_pwd: $('#pwdhidden1').val(),
-                       user_email: $('#emailhidden').val(),
-                       user_name: $('#namehidden').val(),
-                       enabled: $('#enabledhidden').val()
-                 }
-              $.ajax({
-                 type: 'POST',
-                 url: 'Mailsave.html',
-                 data:{user_id: $('#idhidden').val(),
-                       user_pwd: $('#pwdhidden1').val(),
-                       user_email: $('#emailhidden').val(),
-                       user_name: $('#namehidden').val(),
-                       enabled: $('#enabledhidden').val()}, 
-               dataType: "html",
-                 success: function(responseData){
+             $('#onsumit').click(function(){
+                   
+                   
+                   console.log($('#idhidden').val());
+                   console.log($('#pwdhidden1').val());
+                   console.log($('#emailhidden').val());
+                   console.log($('#namehidden').val());
+                   
                     
-                    var codes = JSON.parse(responseData);
-                    console.log(codes);
-                    
-                    $('#user_email').val(codes[0].user_email);
-                    
-                 }
-                 
-               }) 
-              });
-                
-             
+                 })
           }else{
              alert("인증실패");
           }
@@ -105,13 +92,14 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="container">
+<div class="row">
 	<div class="body">
 		<h2 align="center" class="page-header">유저 등록 화면</h2>
 	</div>
 </div>
 
 <div align="center" >
+
 <form:form modelAttribute="member" method="post" action="userEntry.html">
    <spring:hasBindErrors name="member">
       <font color="red"><c:forEach items="${errors.globalErrors}"
@@ -119,18 +107,19 @@ $(function(){
          <spring:message code="${error.code}" />
       </c:forEach> </font>
    </spring:hasBindErrors>
-   <table style="width: 400px ">
+
+   <table style="width: 400px " >
       <tr height="40px">
-         <td>유저ID</td>
-         <td><form:input class="form-control" path="user_id"  maxlength="20" id="user_id" value="" placeholder="아이디를 입력하세요." /></td><td><font
-            color="red"><form:errors path="user_id" cssClass="error"/></font></td>
+         <td><b>유저ID</b></td>
+         <td><form:input class="form-control" placeholder="아이디를 입력하세요." path="user_id"  maxlength="20" id="user_id" value="" /><font
+            color="red"><form:errors path="user_id" /></font></td>
       </tr>
       <tr height="40px">
-         <td>패스워드</td>
-         <td><form:password class="form-control" path="user_pwd" maxlength="20" id="user_pwd" value=""/></td><td><font
-            color="red"><form:errors path="user_pwd" cssClass="error"/></font></td>
+         <td><b>패스워드</b></td>
+         <td><form:password class="form-control" path="user_pwd" maxlength="20" id="user_pwd" value=""/><font
+            color="red"><form:errors path="user_pwd" /></font></td>
       </tr>
- 
+      
       <tr height="40px">
          <td><b>이메일</b></td>
          <td><form:input class="form-control" path="user_email" maxlength="20" readonly="true" disabled="true" value=""/>
@@ -145,18 +134,17 @@ $(function(){
          <font color="red"><form:errors path="user_email" /></font>
     	</td>
       </tr>
-      
       <tr height="40px">
-         <td>이름</td>
-         <td><form:input class="form-control" path="user_name" maxlength="8" id="user_name" value=""/></td><td><font
-            color="red" placeholder="이름을 입력하시오." ><form:errors path="user_name" cssClass="error" /></font></td>
+         <td><b>이름</b></td>
+         <td><form:input class="form-control" placeholder="이름을 입력하시오." path="user_name" maxlength="8" id="user_name" value=""/><font
+            color="red"><form:errors path="user_name" /></font></td>
       </tr>
       <tr height="40px">
-         <td>활성</td>
-         <td><form:input class="form-control" path="enabled" maxlength="50" value=""/></td><td><font
-            color="red"><form:errors path="enabled"  cssClass="error"/></font></td>
+         <td><b>활성</b></td>
+         <td><form:input class="form-control" path="enabled" maxlength="50" value=""/><font
+            color="red"><form:errors path="enabled"  /></font></td>
       </tr>
- 
+
       <tr>
       	<td></td>
          <td  height="40px" align="right">
@@ -181,8 +169,6 @@ $(function(){
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -190,15 +176,15 @@ $(function(){
         <h4 class="modal-title">이메일 인증</h4>
       </div>
       <form action="Mailsave.html" 
-      method="post" enctype="multipart/form-data" name="emailform" accept-charset="utf-8"> 
+      method="GET" enctype="multipart/form-data" name="emailform">
       <div class="modal-body" id="modalbody">
         <p>인증할 이메일 주소를 입력해주세요.</p>
         <br>
         <input type="hidden" id="idhidden" name="idhidden" value="">
         <input type="hidden" id="pwdhidden1" name="pwdhidden" value="">
+        <input type="hidden" id="pwdhidden2" name="pwdhidden2" value="">
         <input type="hidden" id="emailhidden" name="emailhidden" value="">
         <input type="hidden" id="namehidden" name="namehidden" value="">
-        <input type="hidden" id="enabledhidden" name="enabledhidden" value="">
         
         <input type="text" id="modalemail" name="modalemail">   
         <button type="button" id="modalbtn" name="modalbtn">인증코드 전송</button>
@@ -214,8 +200,21 @@ $(function(){
 
   </div>
 </div>
-</div>
+
+
    <!-- ----------------------------------------------------------------------------------------------------- -->
+
+<!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
 
 </body>
 </html>
