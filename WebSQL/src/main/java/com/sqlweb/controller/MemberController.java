@@ -194,7 +194,7 @@ public class MemberController {
 	         System.out.println(member.getUser_name());
 	         System.out.println(member.getEnabled());
 	         
-	         modelAndView.setViewName("userEntrySuccess");
+	         modelAndView.setViewName("joinus.userEntrySuccess");
 	         modelAndView.addObject("member", member);
 	         return modelAndView;
 
