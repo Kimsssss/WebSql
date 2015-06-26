@@ -114,7 +114,8 @@ $(function(){
  	  <tr>
  	  	<td></td>
  	  	<td align="right">
-           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">이메일 인증</button>
+           <button type="button" class="btn btn-info" 
+           data-toggle="modal" data-target="#myModal">이메일 인증</button>
          <font color="red"><form:errors path="user_email" /></font>
     	</td>
       </tr>

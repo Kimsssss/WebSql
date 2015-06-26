@@ -11,7 +11,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -111,15 +111,20 @@ $(function(){
 %>
 </head>
 <body>
+
+<div id="page-wrapper">
+
 <div class="row">
 	<div class="body">
-		<h2 align="center" class="page-header">유저 등록 화면</h2>
+		<h2 align="left" class="page-header">&nbsp;&nbsp;&nbsp;&nbsp;유저 등록 화면</h2>
 	</div>
 </div>
 
+ <div class="row">
+ <div class="col-lg-12">
 
 
-<div align="center" >
+<div align="left" >
 
 <h3><font color="red"><%=errormessage %></font></h3>
 <form:form modelAttribute="member" method="post" action="userEntry.html" autocomplete="off">
@@ -129,53 +134,56 @@ $(function(){
          <spring:message code="${error.code}" />
       </c:forEach> </font>
    </spring:hasBindErrors> --%>
+   
    <table>
       <tr height="40px">
-         <td>유저ID</td>
-         <td><form:input path="user_id"  maxlength="20" id="user_id" value="" /></td><td><font
+         <td width="100px"><b>유저ID</b></td>
+         <td width="250px"><form:input class="form-control" path="user_id"  maxlength="20" id="user_id" value="" /></td><td><font
             color="red"><form:errors path="user_id" cssClass="error"/></font></td>
       </tr>
       <tr height="40px">
-         <td>패스워드</td>
-         <td><form:password path="user_pwd" maxlength="20" id="user_pwd" value=""/></td><td><font
+         <td><b>패스워드</b></td>
+         <td><form:password class="form-control" path="user_pwd" maxlength="20" id="user_pwd" value=""/></td><td><font
             color="red"><form:errors path="user_pwd" cssClass="error"/></font></td>
       </tr>
       <tr height="40px">
-         <td>패스워드 확인</td>
-         <td><form:password path="user_pwd2" maxlength="20" id="user_pwd2" value=""/></td><td><font
+         <td><b>패스워드 확인</b></td>
+         <td><form:password class="form-control" path="user_pwd2" maxlength="20" id="user_pwd2" value=""/></td><td><font
             color="red"><form:errors path="user_pwd2" cssClass="error"/></font></td>
       </tr>
       
       <tr height="40px">
-         <td>이메일</td>
-         <td><form:input path="user_email" maxlength="20" readonly="true" class="user_email" value="" />
-         
+         <td><b>이메일</b></td>
+         <td><form:input  path="user_email" maxlength="20" readonly="true" class="form-control" value="" />
+         </td>
+      </tr>
+ 	  <tr>
+ 	  	<td></td>
+ 	  	<td align="right">
            <!-- Trigger the modal with a button -->
-           <button type="button" class="btn btn-info btn-lg" 
+           <button type="button" class="btn btn-info" 
            data-toggle="modal" data-target="#myModal">이메일 인증</button>
          
-         </td><td>
+         </td>
+         <td>
          <font color="red"><form:errors path="user_email" cssClass="error" /></font></td>
       </tr>
       <tr height="40px">
-         <td>이름</td>
-         <td><form:input path="user_name" maxlength="8" id="user_name" value=""/></td><td><font
+         <td><b>이름</b></td>
+         <td><form:input class="form-control" path="user_name" maxlength="8" id="user_name" value=""/></td><td><font
             color="red"><form:errors path="user_name" cssClass="error"/></font></td>
       </tr>
       <tr height="40px">
-         <td>활성</td>
-         <td><form:input path="enabled" maxlength="50" value=""/></td><td><font
+         <td><b>활성</b></td>
+         <td><form:input class="form-control" path="enabled" maxlength="50" value=""/></td><td><font
             color="red"><form:errors path="enabled"  cssClass="error"/></font></td>
       </tr>
       
-   </table>
-   <table>
-      <tr>
-         <td height="40px" align="center"><!-- <input type="button" value="등록" 
-         id="mainsubmit" name="mainsubmit"> --><input type="submit"
-            name="btnSubmit" value="등록"></td>
-         <td height="40px" align="center"><input type="reset"
-            name="btnReset" value="리셋"></td>
+   <tr>
+      	<td></td>
+         <td  height="40px" align="right">
+         <input class="btn btn-success" type="submit" name="btnSubmit" value="등록">
+         <input class="btn btn-danger" type="reset" name="btnReset" value="취소"></td>
       </tr>
    </table>
 </form:form></div>
@@ -227,6 +235,9 @@ $(function(){
     </div>
 
   </div>
+</div>
+</div>
+</div>
 </div>
 
 
