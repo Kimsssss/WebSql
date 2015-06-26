@@ -11,7 +11,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -19,7 +19,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <title>Insert title here</title>
 <style type="text/css">
 input.user_email{
-	background-color: #bebebe;
+   background-color: #bebebe;
 }
 </style>
 <script type="text/javascript">
@@ -37,37 +37,37 @@ $(function(){
              alert("인증성공");
              $('#modal-footer').html("<button type='button' class='btn btn-danger' id='onsumit' name='onsumit' data-dismiss='modal'>확인</button>   <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
              
-             	$('#idhidden').val($('#user_id').val());
+                $('#idhidden').val($('#user_id').val());
                 $('#pwdhidden1').val($('#user_pwd').val());
                 $('#pwdhidden2').val($('#user_pwd2').val());
                 $('#emailhidden').val($('#modalemail').val());
                 $('#namehidden').val($('#user_name').val());
                 $('#enabledhidden').val($('#enabled').val());
               $('#onsumit').click(function(){
-            	  console.log($('#idhidden').val());
+                 console.log($('#idhidden').val());
                   console.log($('#pwdhidden1').val());
                   console.log($('#emailhidden').val());
                   console.log($('#namehidden').val());
                   console.log($('#enabledhidden').val());
               $.ajax({
-            	  type: 'POST',
-            	  url: 'Mailsave.html',
-            	  data:{user_id: $('#idhidden').val(),
-              			user_pwd: $('#pwdhidden1').val(),
-              			user_email: $('#emailhidden').val(),
-              			user_name: $('#namehidden').val(),
-              			enabled: $('#enabledhidden').val(),
-              			user_pwd2: $('#pwdhidden2').val()}, 
-            	dataType: "html",
-            	  success: function(responseData){
-            	  	
-            		  var codes = JSON.parse(responseData);
-            		  console.log(codes);
-            		  
-            		  $('#user_email').val(codes[0].user_email);
-            		  
-            	  }
-            	  
+                 type: 'POST',
+                 url: 'Mailsave.html',
+                 data:{user_id: $('#idhidden').val(),
+                       user_pwd: $('#pwdhidden1').val(),
+                       user_email: $('#emailhidden').val(),
+                       user_name: $('#namehidden').val(),
+                       enabled: $('#enabledhidden').val(),
+                       user_pwd2: $('#pwdhidden2').val()}, 
+               dataType: "html",
+                 success: function(responseData){
+                    
+                    var codes = JSON.parse(responseData);
+                    console.log(codes);
+                    
+                    $('#user_email').val(codes[0].user_email);
+                    
+                 }
+                 
                }) 
               });
                 
@@ -101,22 +101,26 @@ $(function(){
 </script>
 
 <%
-	
-	String errormessage = (String)request.getAttribute("errormessage");
-	if((String)request.getAttribute("errormessage") == null){
-		errormessage = "";
-	}else{
-		errormessage = (String)request.getAttribute("errormessage");
-	}
+   
+   String errormessage = (String)request.getAttribute("errormessage");
+   if((String)request.getAttribute("errormessage") == null){
+      errormessage = "";
+   }else{
+      errormessage = (String)request.getAttribute("errormessage");
+   }
 %>
 </head>
 <body>
+
+<div id="page-wrapper">
 <div class="row">
-	<div class="body">
-		<h2 align="center" class="page-header">유저 등록 화면</h2>
-	</div>
+   <div class="body">
+      <h2 align="center" class="page-header">유저 등록 화면</h2>
+   </div>
 </div>
 
+ <div class="row">
+ <div class="col-lg-12">
 
 
 <div align="center" >
@@ -129,53 +133,55 @@ $(function(){
          <spring:message code="${error.code}" />
       </c:forEach> </font>
    </spring:hasBindErrors> --%>
-   <table>
+   <table style="width: 350px">
       <tr height="40px">
-         <td>유저ID</td>
-         <td><form:input path="user_id"  maxlength="20" id="user_id" value="" /></td><td><font
+         <td><b>유저ID</b></td>
+         <td><form:input class="form-control" path="user_id"  maxlength="20" id="user_id" value="" /></td><td><font
             color="red"><form:errors path="user_id" cssClass="error"/></font></td>
       </tr>
       <tr height="40px">
-         <td>패스워드</td>
-         <td><form:password path="user_pwd" maxlength="20" id="user_pwd" value=""/></td><td><font
+         <td><b>패스워드</b></td>
+         <td><form:password class="form-control" path="user_pwd" maxlength="20" id="user_pwd" value=""/></td><td><font
             color="red"><form:errors path="user_pwd" cssClass="error"/></font></td>
       </tr>
       <tr height="40px">
-         <td>패스워드 확인</td>
-         <td><form:password path="user_pwd2" maxlength="20" id="user_pwd2" value=""/></td><td><font
+         <td><b>패스워드 확인</b></td>
+         <td><form:password class="form-control" path="user_pwd2" maxlength="20" id="user_pwd2" value=""/></td><td><font
             color="red"><form:errors path="user_pwd2" cssClass="error"/></font></td>
       </tr>
       
       <tr height="40px">
-         <td>이메일</td>
-         <td><form:input path="user_email" maxlength="20" readonly="true" class="user_email" value="" />
-         
+         <td><b>이메일</b></td>
+         <td><form:input  path="user_email" maxlength="20" readonly="true" class="form-control" value="" />
+         </td>
+      </tr>
+     
+         <td></td>
+         <td align="right">
            <!-- Trigger the modal with a button -->
-           <button type="button" class="btn btn-info btn-lg" 
+           <button type="button" class="btn btn-info" 
            data-toggle="modal" data-target="#myModal">이메일 인증</button>
          
-         </td><td>
+         </td>
+         <td>
          <font color="red"><form:errors path="user_email" cssClass="error" /></font></td>
-      </tr>
+      
       <tr height="40px">
-         <td>이름</td>
-         <td><form:input path="user_name" maxlength="8" id="user_name" value=""/></td><td><font
+         <td><b>이름</b></td>
+         <td><form:input class="form-control" path="user_name" maxlength="8" id="user_name" value=""/></td><td><font
             color="red"><form:errors path="user_name" cssClass="error"/></font></td>
       </tr>
       <tr height="40px">
-         <td>활성</td>
-         <td><form:input path="enabled" maxlength="50" value=""/></td><td><font
+         <td><b>활성</b></td>
+         <td><form:input class="form-control" path="enabled" maxlength="50" value=""/></td><td><font
             color="red"><form:errors path="enabled"  cssClass="error"/></font></td>
       </tr>
       
-   </table>
-   <table>
-      <tr>
-         <td height="40px" align="center"><!-- <input type="button" value="등록" 
-         id="mainsubmit" name="mainsubmit"> --><input type="submit"
-            name="btnSubmit" value="등록"></td>
-         <td height="40px" align="center"><input type="reset"
-            name="btnReset" value="리셋"></td>
+   <tr>
+         <td></td>
+         <td  height="40px" align="right">
+         <input class="btn btn-success" type="submit" name="btnSubmit" value="등록">
+         <input class="btn btn-danger" type="reset" name="btnReset" value="취소"></td>
       </tr>
    </table>
 </form:form></div>
@@ -228,38 +234,40 @@ $(function(){
 
   </div>
 </div>
+</div>
+</div>
+</div>
 
 
    <!-- ----------------------------------------------------------------------------------------------------- -->
 <!-- <script type="text/javascript">
 $(function(){
-	$('#mainsubmit').click(function(){
-		
-		console.log($('#user_id').val());
-		console.log($('#user_pwd').val());
-		console.log($('#user_pwd2').val());
-		console.log($('#user_email').val());
-		console.log($('#user_name').val());
-		console.log($('#enabled').val());
-		
-		$.ajax({
-			  type: 'POST',
-	          url: "userEntry.html",
-	          data: {user_id: $('#user_id').val(),
-        			user_pwd: $('#user_pwd').val(),
-          			user_email: $('#user_email').val(),
-          			user_name: $('#user_name').val(),
-          			enabled: $('#enabled').val(),
-          			user_pwd2: $('#user_pwd2').val()}, 
-	          dataType: "html",
-	          success: function(responseData){
-	             console.log($('#pwdhidden1').val());
-	             console.log($('#pwdhidden2').val());
-	          }
-	       })
-	});
+   $('#mainsubmit').click(function(){
+      
+      console.log($('#user_id').val());
+      console.log($('#user_pwd').val());
+      console.log($('#user_pwd2').val());
+      console.log($('#user_email').val());
+      console.log($('#user_name').val());
+      console.log($('#enabled').val());
+      
+      $.ajax({
+           type: 'POST',
+             url: "userEntry.html",
+             data: {user_id: $('#user_id').val(),
+                 user_pwd: $('#user_pwd').val(),
+                   user_email: $('#user_email').val(),
+                   user_name: $('#user_name').val(),
+                   enabled: $('#enabled').val(),
+                   user_pwd2: $('#user_pwd2').val()}, 
+             dataType: "html",
+             success: function(responseData){
+                console.log($('#pwdhidden1').val());
+                console.log($('#pwdhidden2').val());
+             }
+          })
+   });
 });
 </script> -->
 </body>
 </html>
-

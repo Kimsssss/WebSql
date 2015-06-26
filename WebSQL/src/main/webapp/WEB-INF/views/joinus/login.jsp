@@ -16,8 +16,20 @@
 
 
 $(function(){
+	
+	$('#btnidfine').click(function(){
+		
+	
+		$('#modalfooter').empty();
+
+	  $('#modal-body').html("이름 : <input type='text' class='' id='user_name' name='user_name' placeholder='이름 입력'> <button type='button' class='btn btn-primary' id='modalbtn'>ID찾기</button> <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> ");
+		 
+	
+	
 	   $('#modalbtn').click(function(){
-	       
+	     
+		 
+		   
 	              $.ajax({
 	                 type: 'POST',
 	                 url: 'userIDfine.html',
@@ -25,23 +37,22 @@ $(function(){
 	                 dataType: "html",
 	                 success: function(responseData){
 	                
-	       				  
+	       				   
 	                	
 	                	  $('#modalfooter').html("<h4>당신의 ID : "+responseData+"입니다</h4>");
-	    
-	     
+
 	  												 }
 	});
 });	   
 
+	   
+	});
 });	
 	
 	
 	</script>
 
 
-=======
->>>>>>> branch 'master' of https://github.com/Kimsssss/WebSql.git
 <div id="main">
 	<div class="page-wrapper">
 	
@@ -89,7 +100,7 @@ $(function(){
 						
 						<div class="panel-body">
                            <!-- ID 찾기  -->
-                            <button class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                            <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="btnidfine">
                                 	ID찾기
                             </button>
                             <!-- ID 찾기 End  -->
@@ -111,11 +122,11 @@ $(function(){
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                             <h4 class="modal-title" id="myModalLabel" style="text-align: center">ID찾기</h4>
                                         </div>
-                                        <div class="modal-body">
-                                        
+                                        <div class="modal-body" id="modal-body">
+                       <!--                  
                                         이름 : <input type="text" class="" id="user_name" name="user_name" placeholder="이름 입력"> 
                                  <button type="button" class="btn btn-primary" id="modalbtn">ID찾기</button>
-                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>       
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        -->
                                         </div>
                                         
                                         <div id="modalfooter" class="modal-footer" style="text-align: center;">
