@@ -1,9 +1,12 @@
 package com.sqlweb.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import net.sf.json.JSONArray;
 
@@ -39,15 +42,12 @@ public class MemberController {
    private MessageSource messageSource;
    
    
-   @RequestMapping(value="login.html")
+   @RequestMapping(value="login.html", method=RequestMethod.GET)
    public String login(){
       return "joinus.login";
-   }  
+   }
    
-   @RequestMapping(value="register.html")
-   public String register(){
-      return "joinus.register";
-   }  
+  
    
    public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
       this.memberEntryValidator = memberEntryValidator;
@@ -103,29 +103,41 @@ public class MemberController {
       
    }
    
-   @RequestMapping(value="/Mailsave.html", method = RequestMethod.GET)
-   public ModelAndView MailSuccess(HttpServletRequest request, HttpServletResponse response){
-      
-      String userid = request.getParameter("idhidden");
-      String userpwd = request.getParameter("pwdhidden1");
-      String useremail = request.getParameter("emailhidden");
-      String username = request.getParameter("namehidden");
-      
-      MemberDTO memberdto = new MemberDTO(userid, userpwd, useremail, username, 0);
+   @RequestMapping(value = "/Mailsave.html", method = RequestMethod.POST)
+   public void MailSuccess(MemberDTO m,
+         HttpServletResponse response) throws UnsupportedEncodingException {
+         
       
       
       
-      ModelAndView mv = new ModelAndView();
-      mv.addObject("member",memberdto);
-      mv.setViewName("userEntry");
-      System.out.println("MAIL POST "+userid);
-      System.out.println("MAIL POST "+userpwd);
-      System.out.println("MAIL POST "+useremail);
-      System.out.println("MAIL POST "+username);
-      return mv;
+        try {
+           //request.setCharacterEncoding("UTF-8");
+          response.setContentType("text/html;charset=utf-8");
+          response.setCharacterEncoding("utf-8");
+           
+          //MemberDTO memberdto = (MemberDTO)request.getAttribute("memberdto");
+
+
+          
+          System.out.println("MAIL POST " + m.getUser_id());
+          System.out.println("MAIL POST " + m.getUser_pwd());
+          System.out.println("MAIL POST " + m.getUser_email());
+          System.out.println("MAIL POST " + m.getUser_name());
+          System.out.println("MAIL POST " + m.getEnabled());
+           
+           JSONArray codes = JSONArray.fromObject(m);
+         response.getWriter().print(codes);
+         System.out.println("서버로 list 전송완료");
+         
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }//서버로 데이터 전송
+        
+
    }
 
-   @ModelAttribute("member")
+  @ModelAttribute("member")
    public MemberDTO setForm() {
       MemberDTO member = new MemberDTO();
       MessageSourceAccessor accessor = new MessageSourceAccessor(this.messageSource);
@@ -142,36 +154,47 @@ public class MemberController {
    public ModelAndView fromMemberController(MemberDTO member, BindingResult bindingResult) {
       
       ModelAndView modelAndView = new ModelAndView();
-      this.memberEntryValidator.validate(member, bindingResult);
-
+      /*this.memberEntryValidator.validate(member, bindingResult);
+      System.out.println(member.getUser_id());
+      System.out.println(member.getUser_pwd());
+      System.out.println(member.getUser_email());
+      System.out.println(member.getUser_name());
+      System.out.println(member.getEnabled());
       
-      if (bindingResult.hasErrors()) {
+      System.out.println(bindingResult.getErrorCount());
+      System.out.println(bindingResult.getGlobalErrorCount());
+      System.out.println(bindingResult.toString());
+      
+      MessageSourceAccessor accessor = new MessageSourceAccessor(this.messageSource);
+      System.out.println((String) bindingResult.getFieldValue(bindingResult.getObjectName()));
+      
+      
+      
+     if (bindingResult.hasErrors()) {
          modelAndView.getModel().putAll(bindingResult.getModel());
          System.out.println("error");
-         System.out.println(bindingResult.getErrorCount());
-         System.out.println(bindingResult.toString());
-         System.out.println(bindingResult.getFieldError());
-         System.out.println(bindingResult.getNestedPath());
-         System.out.println(bindingResult.getObjectName());
-         System.out.println(bindingResult.getTarget());
-         System.out.println(bindingResult.hasGlobalErrors());
-         System.out.println(bindingResult.getGlobalErrorCount());
-         System.out.println(bindingResult.getFieldError("user_email"));
-         System.out.println(bindingResult.getModel());
-         System.out.println(bindingResult.getModel().values());
-         System.out.println(bindingResult.getModel().keySet());
-         System.out.println(bindingResult.getModel().toString());
          return modelAndView;
-      }
+         
+      }*/
 
       try {
          
+         System.out.println(member.getUser_id());
+          System.out.println(member.getUser_pwd());
+          System.out.println(member.getUser_email());
+          System.out.println(member.getUser_name());
+          System.out.println(member.getEnabled());
          
          MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
          dao.insertMember(member);
 
+         System.out.println(member.getUser_id());
+         System.out.println(member.getUser_pwd());
+         System.out.println(member.getUser_email());
+         System.out.println(member.getUser_name());
+         System.out.println(member.getEnabled());
          
-         modelAndView.setViewName("userEntrySuccess");
+         modelAndView.setViewName("joinus.userEntrySuccess");
          modelAndView.addObject("member", member);
          return modelAndView;
 
