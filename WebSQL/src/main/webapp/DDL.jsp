@@ -78,15 +78,15 @@
 <%pageContext.include("DropTest.jsp"); %>
 </header>
 <section id="sections" style="width: 500px; height: 500px;">
-<!-- 	<form action='create.htm' method='post'>
-	<table border='1' id='tbs' class='draggable' >
-	<tbody>
-	<tr><td><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>
-	<tr><td id='colplus'>컬럼명1 : <input type='text' name='col"+ tableNumber +"_"+ colNumber +"'><br>컬럼1 데이터타입 : <input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td></tr>
-	<tr><td><input id='sub' type='button' value='전송'> <input type='button' id='plus"+ tableNumber +"' value='추가'></td></tr>
-	</tbody>
-	</table>
-	</form> -->
+<form action='create.htm' method='post'>
+<table border='1' id='tbs' class='draggable' >
+<tbody>
+<tr><td><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>
+<tr><td id='colplus'>컬럼명1 : <input type='text' name='col"+ tableNumber +"_"+ colNumber +"'><br>컬럼1 데이터타입 : <input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td></tr>
+<tr><td><input id='sub' type='button' value='전송'> <input type='button' id='plus"+ tableNumber +"' value='추가'></td></tr>
+</tbody>
+</table>
+</form>
 </section>
 </body>
 </html>
