@@ -28,7 +28,6 @@ public class ReplyController {
 	public String reply(ReplyDTO reply, HttpServletRequest request, Model model) {
 		reply.setR_id(request.getParameter("r_id"));
 		int board_p_id = Integer.parseInt(request.getParameter("board_p_id"));
-		reply.setBoard_p_id(board_p_id);
 		ReplyDAO replyDao = sqlSession.getMapper(ReplyDAO.class);
 		replyDao.replyInsert(reply);
 

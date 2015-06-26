@@ -4,9 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
-
-	
-	
 <div id="main">
 
 	<div class="row" style="padding-top: 50px; padding-left: 300px">

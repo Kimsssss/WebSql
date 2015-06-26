@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="se"
-	uri="http://www.springframework.org/security/tags"%>
+   uri="http://www.springframework.org/security/tags"%>
 <div id="header">
-	  <div id="wrapper">
+     <div id="wrapper">
 
         <!-- Navigation -->
     
@@ -19,10 +19,10 @@
                 <a class="navbar-brand" href="index.html" 
                 
                 style="
-    			width: 250px;
-   			    height: 54px;
-   			    padding: 0px;
-   			    text-align: center;"
+             width: 250px;
+                height: 54px;
+                padding: 0px;
+                text-align: center;"
   
                ><h3>Web-SQL 2.0</h3></a>
             </div>

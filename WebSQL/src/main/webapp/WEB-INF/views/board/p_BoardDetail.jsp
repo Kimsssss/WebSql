@@ -4,8 +4,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="main">
-	<div class="row" style="padding-top: 0px; padding-left: 300px;">
-		<div class="col-lg-12">
+	<div class="row" style="padding-top: 50px; padding-left: 300px">
+		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-body" style="height: 400px";>
 				<a class="btn btn-info btnposition" href="p_boardlist.html"
@@ -45,7 +45,7 @@
 							<input type="submit" class="btn btn-info" value="수정"
 								onclick="location.href='p_boardEdit.html?board_p_id=${p_detail.board_p_id}&user_id=${p_detail.user_id }'">
 							<input type="button" class="btn btn-danger" value="삭제"
-								onclick="location.href='p_boardDel.html?board_p_id=${p_detail.board_p_id}'">
+								onclick="location.href='p_boardDel.html?board_p_id=${p_detail.board_p_id}&user_id=${p_detail.user_id }'">
 						</div>
 					</div>
 				</div>
@@ -55,8 +55,8 @@
 					method="get">
 					<!-- hidden 태그  값을 숨겨서 처리  -->
 
-					<!-- <input type="hidden" name="r_sequence" value=""> -->
-					 <input type="hidden" name="board_p_id" value="${p_detail.board_p_id }">
+					<input type="hidden" name="r_sequence" value="1"> <input
+						type="hidden" name="board_p_id" value="5">
 
 
 					<!-- hidden data -->
@@ -136,8 +136,4 @@
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
-</div>
-
-</div>
-
 </div>
