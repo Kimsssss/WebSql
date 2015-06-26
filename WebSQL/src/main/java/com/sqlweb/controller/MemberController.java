@@ -16,6 +16,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sqlweb.dao.MemberDAO;
 import com.sqlweb.dto.MemberDTO;
 import com.sqlweb.utils.MailTest;
-import com.sqlweb.utils.MemberEntryValidator;
 
 
 @Controller
@@ -36,28 +36,28 @@ public class MemberController {
    private SqlSession sqlSession;
 
    @Autowired
-   private MemberEntryValidator memberEntryValidator;
-
-   @Autowired
    private MessageSource messageSource;
    
    
-   @RequestMapping(value="login.html", method=RequestMethod.GET)
+   @RequestMapping(value="login.html")
    public String login(){
       return "joinus.login";
-   }
+   }  
    
-  
+   @RequestMapping(value="register.html")
+   public String register(){
+      return "joinus.register";
+   }  
    
-   public void setMemberEntryValidator(MemberEntryValidator memberEntryValidator) {
-      this.memberEntryValidator = memberEntryValidator;
-   }
-
    public void setMessageSource(MessageSource messageSource) {
       this.messageSource = messageSource;
    }
    
-   @RequestMapping(value="/userEntry.html", method = RequestMethod.GET)
+   public void setSqlSession(SqlSession sqlSession) {
+	this.sqlSession = sqlSession;
+}
+
+@RequestMapping(value="/userEntry.html", method = RequestMethod.GET)
    public String toUserEntryView() {
       System.out.println("CONTROLLER GET");
       return "joinus.userEntry";
@@ -103,39 +103,40 @@ public class MemberController {
       
    }
    
-   @RequestMapping(value = "/Mailsave.html", method = RequestMethod.POST)
-   public void MailSuccess(MemberDTO m,
-         HttpServletResponse response) throws UnsupportedEncodingException {
-         
-      
-      
-      
+	@RequestMapping(value = "/Mailsave.html", method = RequestMethod.POST)
+	public void MailSuccess(MemberDTO m,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+			
+		
+		
+		
         try {
-           //request.setCharacterEncoding("UTF-8");
-          response.setContentType("text/html;charset=utf-8");
-          response.setCharacterEncoding("utf-8");
-           
-          //MemberDTO memberdto = (MemberDTO)request.getAttribute("memberdto");
+        	//request.setCharacterEncoding("UTF-8");
+    		response.setContentType("text/html;charset=utf-8");
+    		response.setCharacterEncoding("utf-8");
+        	
+    		//MemberDTO memberdto = (MemberDTO)request.getAttribute("memberdto");
 
 
-          
-          System.out.println("MAIL POST " + m.getUser_id());
-          System.out.println("MAIL POST " + m.getUser_pwd());
-          System.out.println("MAIL POST " + m.getUser_email());
-          System.out.println("MAIL POST " + m.getUser_name());
-          System.out.println("MAIL POST " + m.getEnabled());
-           
-           JSONArray codes = JSONArray.fromObject(m);
-         response.getWriter().print(codes);
-         System.out.println("서버로 list 전송완료");
-         
-      } catch (IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }//서버로 데이터 전송
+    		
+    		System.out.println("MAIL POST " + m.getUser_id());
+    		System.out.println("MAIL POST " + m.getUser_pwd());
+    		System.out.println("MAIL POST " + m.getUser_pwd2());
+    		System.out.println("MAIL POST " + m.getUser_email());
+    		System.out.println("MAIL POST " + m.getUser_name());
+    		System.out.println("MAIL POST " + m.getEnabled());
+        	
+        	JSONArray codes = JSONArray.fromObject(m);
+			response.getWriter().print(codes);
+			System.out.println("서버로 list 전송완료");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//서버로 데이터 전송
         
 
-   }
+	}
 
   @ModelAttribute("member")
    public MemberDTO setForm() {
@@ -151,10 +152,62 @@ public class MemberController {
    
    
    @RequestMapping(value="/userEntry.html", method = RequestMethod.POST)
-   public ModelAndView fromMemberController(MemberDTO member, BindingResult bindingResult) {
+   public ModelAndView fromMemberController(@Valid @ModelAttribute("member") MemberDTO member, BindingResult bindingResult
+		   ,HttpServletRequest req) {
       
-      ModelAndView modelAndView = new ModelAndView();
-      /*this.memberEntryValidator.validate(member, bindingResult);
+	   ModelAndView modelAndView = new ModelAndView();
+	   
+	   
+	   if (bindingResult.hasErrors()) {
+	    	 System.out.println("error");
+	    	 System.out.println(bindingResult.getErrorCount());
+	    	 System.out.println(bindingResult.getGlobalErrorCount());
+	    	 System.out.println(bindingResult.getObjectName());
+	    	 System.out.println(bindingResult.getTarget());
+	    	 System.out.println(bindingResult.getFieldError());
+
+	    	 modelAndView.getModel().putAll(bindingResult.getModel());
+	         
+	         return modelAndView;
+	         
+	      }else if(!member.getUser_pwd().equalsIgnoreCase(member.getUser_pwd2())){
+	    	  req.setAttribute("errormessage", "패스워드와 패스워드 확인 값이 같지 않습니다.");
+		      modelAndView.getModel().putAll(bindingResult.getModel());
+		      System.out.println("pwd1 : "+member.getUser_pwd());
+		      System.out.println("pwd2 : "+member.getUser_pwd2());
+		      return modelAndView;
+	      }
+	   try {
+	         
+	    	 System.out.println(member.getUser_id());
+	         System.out.println(member.getUser_pwd());
+	         System.out.println(member.getUser_email());
+	         System.out.println(member.getUser_name());
+	         System.out.println(member.getEnabled());
+	         System.out.println("dao 전");
+	         MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
+	         dao.insertMember(member);
+	         System.out.println("dao 후");
+	         System.out.println(member.getUser_id());
+	         System.out.println(member.getUser_pwd());
+	         System.out.println(member.getUser_email());
+	         System.out.println(member.getUser_name());
+	         System.out.println(member.getEnabled());
+	         
+	         modelAndView.setViewName("joinus.userEntrySuccess");
+	         modelAndView.addObject("member", member);
+	         return modelAndView;
+
+	      } catch (DataIntegrityViolationException e) {
+	         // 유저ID가 중복일 때, 폼 송신처로 이동
+	    	  System.out.println("errormessage "+"중복된 아이디 입니다.");
+	    	 req.setAttribute("errormessage", "중복된 아이디 입니다.");
+	         modelAndView.getModel().putAll(bindingResult.getModel());
+	         return modelAndView;
+	      }
+	   
+      /*ModelAndView modelAndView = new ModelAndView();
+      this.memberEntryValidator.validate(member, bindingResult);
       System.out.println(member.getUser_id());
       System.out.println(member.getUser_pwd());
       System.out.println(member.getUser_email());
@@ -165,21 +218,23 @@ public class MemberController {
       System.out.println(bindingResult.getGlobalErrorCount());
       System.out.println(bindingResult.toString());
       
-      MessageSourceAccessor accessor = new MessageSourceAccessor(this.messageSource);
+      
       System.out.println((String) bindingResult.getFieldValue(bindingResult.getObjectName()));
       
       
       
      if (bindingResult.hasErrors()) {
+    	 System.out.println("error");
          modelAndView.getModel().putAll(bindingResult.getModel());
-         System.out.println("error");
+         System.out.println(modelAndView.toString());
+         
          return modelAndView;
          
-      }*/
+      }
 
       try {
          
-         System.out.println(member.getUser_id());
+    	  System.out.println(member.getUser_id());
           System.out.println(member.getUser_pwd());
           System.out.println(member.getUser_email());
           System.out.println(member.getUser_name());
@@ -194,16 +249,17 @@ public class MemberController {
          System.out.println(member.getUser_name());
          System.out.println(member.getEnabled());
          
-         modelAndView.setViewName("joinus.userEntrySuccess");
+         modelAndView.setViewName("userEntrySuccess");
          modelAndView.addObject("member", member);
          return modelAndView;
 
       } catch (DataIntegrityViolationException e) {
          // 유저ID가 중복일 때, 폼 송신처로 이동
-         bindingResult.reject("error.duplicate.member");
+    	  bindingResult.reject("error.duplicate.member");
          modelAndView.getModel().putAll(bindingResult.getModel());
          return modelAndView;
-      }
+      }*/
       
+	  
    }
 }

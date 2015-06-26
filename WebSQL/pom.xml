@@ -130,13 +130,17 @@
 			<version>3.0.1</version>
 		</dependency>
 		
-		<!-- @valid -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
+		<!-- validator -->
+        <dependency>
+    		 <groupId>org.hibernate</groupId>
+    		 <artifactId>hibernate-validator</artifactId>
+     		<version>4.2.0.Final</version>
 		</dependency>
-		
+		<dependency>
+    		 <groupId>javax.validation</groupId>
+    		 <artifactId>validation-api</artifactId>
+     		<version>1.0.0.GA</version>
+		</dependency>
 		<!-- mail -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>

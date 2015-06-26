@@ -19,7 +19,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <title>Insert title here</title>
 <style type="text/css">
 input.user_email{
-   background-color: #bebebe;
+	background-color: #bebebe;
 }
 </style>
 <script type="text/javascript">
@@ -37,37 +37,37 @@ $(function(){
              alert("인증성공");
              $('#modal-footer').html("<button type='button' class='btn btn-danger' id='onsumit' name='onsumit' data-dismiss='modal'>확인</button>   <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
              
-                $('#idhidden').val($('#user_id').val());
+             	$('#idhidden').val($('#user_id').val());
                 $('#pwdhidden1').val($('#user_pwd').val());
                 $('#pwdhidden2').val($('#user_pwd2').val());
                 $('#emailhidden').val($('#modalemail').val());
                 $('#namehidden').val($('#user_name').val());
                 $('#enabledhidden').val($('#enabled').val());
               $('#onsumit').click(function(){
-                 console.log($('#idhidden').val());
+            	  console.log($('#idhidden').val());
                   console.log($('#pwdhidden1').val());
                   console.log($('#emailhidden').val());
                   console.log($('#namehidden').val());
                   console.log($('#enabledhidden').val());
               $.ajax({
-                 type: 'POST',
-                 url: 'Mailsave.html',
-                 data:{user_id: $('#idhidden').val(),
-                       user_pwd: $('#pwdhidden1').val(),
-                       user_email: $('#emailhidden').val(),
-                       user_name: $('#namehidden').val(),
-                       enabled: $('#enabledhidden').val(),
-                       user_pwd2: $('#pwdhidden2').val()}, 
-               dataType: "html",
-                 success: function(responseData){
-                    
-                    var codes = JSON.parse(responseData);
-                    console.log(codes);
-                    
-                    $('#user_email').val(codes[0].user_email);
-                    
-                 }
-                 
+            	  type: 'POST',
+            	  url: 'Mailsave.html',
+            	  data:{user_id: $('#idhidden').val(),
+              			user_pwd: $('#pwdhidden1').val(),
+              			user_email: $('#emailhidden').val(),
+              			user_name: $('#namehidden').val(),
+              			enabled: $('#enabledhidden').val(),
+              			user_pwd2: $('#pwdhidden2').val()}, 
+            	dataType: "html",
+            	  success: function(responseData){
+            	  	
+            		  var codes = JSON.parse(responseData);
+            		  console.log(codes);
+            		  
+            		  $('#user_email').val(codes[0].user_email);
+            		  
+            	  }
+            	  
                }) 
               });
                 
@@ -101,13 +101,13 @@ $(function(){
 </script>
 
 <%
-   
-   String errormessage = (String)request.getAttribute("errormessage");
-   if((String)request.getAttribute("errormessage") == null){
-      errormessage = "";
-   }else{
-      errormessage = (String)request.getAttribute("errormessage");
-   }
+	
+	String errormessage = (String)request.getAttribute("errormessage");
+	if((String)request.getAttribute("errormessage") == null){
+		errormessage = "";
+	}else{
+		errormessage = (String)request.getAttribute("errormessage");
+	}
 %>
 </head>
 <body>
@@ -225,32 +225,33 @@ $(function(){
    <!-- ----------------------------------------------------------------------------------------------------- -->
 <!-- <script type="text/javascript">
 $(function(){
-   $('#mainsubmit').click(function(){
-      
-      console.log($('#user_id').val());
-      console.log($('#user_pwd').val());
-      console.log($('#user_pwd2').val());
-      console.log($('#user_email').val());
-      console.log($('#user_name').val());
-      console.log($('#enabled').val());
-      
-      $.ajax({
-           type: 'POST',
-             url: "userEntry.html",
-             data: {user_id: $('#user_id').val(),
-                 user_pwd: $('#user_pwd').val(),
-                   user_email: $('#user_email').val(),
-                   user_name: $('#user_name').val(),
-                   enabled: $('#enabled').val(),
-                   user_pwd2: $('#user_pwd2').val()}, 
-             dataType: "html",
-             success: function(responseData){
-                console.log($('#pwdhidden1').val());
-                console.log($('#pwdhidden2').val());
-             }
-          })
-   });
+	$('#mainsubmit').click(function(){
+		
+		console.log($('#user_id').val());
+		console.log($('#user_pwd').val());
+		console.log($('#user_pwd2').val());
+		console.log($('#user_email').val());
+		console.log($('#user_name').val());
+		console.log($('#enabled').val());
+		
+		$.ajax({
+			  type: 'POST',
+	          url: "userEntry.html",
+	          data: {user_id: $('#user_id').val(),
+        			user_pwd: $('#user_pwd').val(),
+          			user_email: $('#user_email').val(),
+          			user_name: $('#user_name').val(),
+          			enabled: $('#enabled').val(),
+          			user_pwd2: $('#user_pwd2').val()}, 
+	          dataType: "html",
+	          success: function(responseData){
+	             console.log($('#pwdhidden1').val());
+	             console.log($('#pwdhidden2').val());
+	          }
+	       })
+	});
 });
 </script> -->
 </body>
 </html>
+
