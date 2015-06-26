@@ -60,7 +60,7 @@ public class MemberController {
 @RequestMapping(value="/userEntry.html", method = RequestMethod.GET)
    public String toUserEntryView() {
       System.out.println("CONTROLLER GET");
-      return "joinus.userEntry";
+      return "userEntry";
    }
    
    @RequestMapping(value="/Mail.html", method = RequestMethod.GET)
@@ -194,7 +194,7 @@ public class MemberController {
 	         System.out.println(member.getUser_name());
 	         System.out.println(member.getEnabled());
 	         
-	         modelAndView.setViewName("joinus.userEntrySuccess");
+	         modelAndView.setViewName("userEntrySuccess");
 	         modelAndView.addObject("member", member);
 	         return modelAndView;
 

@@ -111,9 +111,11 @@ $(function(){
 %>
 </head>
 <body>
-<div class="container">
-<div align="center" class="body">
-<h2>유저 등록 화면</h2>
+<div class="row">
+	<div class="body">
+		<h2 align="center" class="page-header">유저 등록 화면</h2>
+	</div>
+</div>
 <h3><font color="red"><%=errormessage %></font></h3>
 <form:form modelAttribute="member" method="post" action="userEntry.html" autocomplete="off">
   <%--  <spring:hasBindErrors name="member">
