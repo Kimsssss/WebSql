@@ -64,7 +64,7 @@
 	<script src="<%=request.getContextPath()%>/resources/js/morris-data.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/dist/js/sb-admin-2.js"></script>
 
 </body>
 
