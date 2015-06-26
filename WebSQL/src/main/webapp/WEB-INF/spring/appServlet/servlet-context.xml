@@ -8,8 +8,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 <context:annotation-config />
 <context:component-scan base-package="com.sqlweb.controller"/>
-<!-- Validator -->
-	<beans:bean id="memberEntryValidator" class="com.sqlweb.utils.MemberEntryValidator" />
+<context:component-scan base-package="com.sqlweb.dto" />
+
 	
 	<!-- MessageSource -->
 	<beans:bean id="messageSource"
