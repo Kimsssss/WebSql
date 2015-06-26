@@ -16,4 +16,10 @@
 		insert into USERS(user_id,user_pwd,user_email,user_name,enabled)
 		values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
 	</insert>
+	
+	<select id="getidfine" resultType="com.sqlweb.dto.MemberDTO" parameterType="String">
+		SELECT user_id FROM USERS WHERE user_name = #{user_name}
+	</select>
+	
+	
 </mapper>

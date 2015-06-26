@@ -264,4 +264,35 @@ public class MemberController {
       
 	  
    }
+
+   
+   @RequestMapping(value="/userIDfine.html"  , method = RequestMethod.POST)
+   public void IDfine(MemberDTO memberDTO, String user_name ,  HttpServletResponse response) throws IOException{
+	   
+	   System.out.println("경로 설정 타나? ");
+	   
+	   response.setContentType("text/html;charset=utf-8");
+       response.setCharacterEncoding("utf-8");
+	 
+	   System.out.println(user_name);
+
+    response.setContentType("text/html;charset=utf-8");
+	response.setCharacterEncoding("utf-8");
+	 
+	MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+  
+	memberDTO = memberdao.getidfine(user_name);
+	 
+	System.out.println(memberDTO);
+	 
+	System.out.println(memberDTO.getUser_id());
+    
+
+      response.getWriter().print(memberDTO.getUser_id());
+     
+
+   }
 }
+
+
+

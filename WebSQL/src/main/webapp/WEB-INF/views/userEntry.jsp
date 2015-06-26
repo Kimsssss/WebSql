@@ -118,8 +118,8 @@ $(function(){
 </div>
 
 
+
 <div align="center" >
-              
 
 <h3><font color="red"><%=errormessage %></font></h3>
 <form:form modelAttribute="member" method="post" action="userEntry.html" autocomplete="off">
