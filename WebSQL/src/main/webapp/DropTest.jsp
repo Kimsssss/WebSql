@@ -12,7 +12,41 @@
   $(function() {
     $( "#createtable" ).draggable({ revert: true, helper: "clone" });
     $("#save").click(function(){
-    	console.log(tableNumber2);
+    	//console.log(tableNumber2);
+    	
+    	
+    	var tableColNameArray= new Array(tableColNumber);
+     	var tableColdataArray= new Array(tableColNumber);
+     	
+     	var allTableName = new Array(tableNumber2);
+     	//console.log(tableName);
+     	/* colNumber 갯수많큼 값을 넣어준다. */
+     	for(var i=0;i<tableNumber2;i++){
+     		//colNameArray[i] = $("input[name=col"+tableNumber+"_"+(i+1)+"]").val();
+     		//coldataArray[i] = $("input[name=col_data"+tableNumber+"_"+(i+1)+"]").val()
+     		allTableName = $("input[name=tablename"+i+"]").val();
+     	}
+		console.log(tableColNameArray.length);
+     	
+     	
+     	/* jQuery.ajaxSettings.traditional = true;	//ajax를 사용해 배열값을 넘기기위한 세팅
+     	
+    	
+    	$.ajax({
+			type : "get",
+			url : "creates.htm",
+			dataType : "html",
+			data : {
+				"colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName
+			},
+			success : function(myfeed) {
+				console.log(myfeed);
+				alert("테이블 생성 성공")
+			},
+			error : function(xhr) {
+				alert("테이블 생성 실패...");
+			}
+		}); */
     });
   });
   </script>
