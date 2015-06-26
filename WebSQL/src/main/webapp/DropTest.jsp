@@ -11,6 +11,9 @@
   <script>
   $(function() {
     $( "#createtable" ).draggable({ revert: true, helper: "clone" });
+    $("#save").click(function(){
+    	console.log(tableNumber2);
+    });
   });
   </script>
 </head>
@@ -18,5 +21,6 @@
 	<table border="1" id="createtable">
 		<tr><td>테이블</td></tr>
 	</table>
+	버튼 : <input type="button" value="저장" id="save">
 </body>
 </html>

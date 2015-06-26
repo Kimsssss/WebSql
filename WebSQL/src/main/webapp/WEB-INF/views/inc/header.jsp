@@ -1,18 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="se"
+	uri="http://www.springframework.org/security/tags"%>
+<div id="header">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse"
 			data-target=".navbar-collapse">
-			<span class="sr-only">Toggle navigation</span> 
-			<span class="icon-bar"></span>
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
 		<a class="navbar-brand" href="index.html">Web SQL</a>
@@ -20,14 +14,14 @@
 	<!-- /.navbar-header -->
 
 	<ul class="nav navbar-top-links navbar-right">
-	
-			<se:authentication property="name" var="LoingUser" />
-			<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-				<li><a href="${pageContext.request.contextPath}/j_spring_security_logout">
-						(${LoingUser})로그아웃</a>					
-						</li>
-			</se:authorize>
-	
+
+		<se:authentication property="name" var="LoingUser" />
+		<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+			<li><a
+				href="${pageContext.request.contextPath}/j_spring_security_logout">
+					(${LoingUser})로그아웃</a></li>
+		</se:authorize>
+
 		<li class="dropdown"><a class="dropdown-toggle"
 			data-toggle="dropdown" href="#"> <i class="fa fa-envelope fa-fw"></i>
 				<i class="fa fa-caret-down"></i>
@@ -201,5 +195,4 @@
 			</ul> <!-- /.dropdown-user --></li>
 		<!-- /.dropdown -->
 	</ul>
-</body>
-</html>
+</div>

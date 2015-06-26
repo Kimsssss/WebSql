@@ -39,16 +39,15 @@ public class MemberController {
    private MessageSource messageSource;
    
    
-   @RequestMapping(value="login.html", method=RequestMethod.GET)
+   @RequestMapping(value="login.html")
    public String login(){
-      return "joinus/login";
-   }
+      return "joinus.login";
+   }  
    
-   @RequestMapping(value="index.html", method=RequestMethod.GET)
-   public String index(){
-      return "index";
-   }
-   
+   @RequestMapping(value="register.html")
+   public String register(){
+      return "joinus.register";
+   }  
    
    public void setMessageSource(MessageSource messageSource) {
       this.messageSource = messageSource;
@@ -61,7 +60,7 @@ public class MemberController {
 @RequestMapping(value="/userEntry.html", method = RequestMethod.GET)
    public String toUserEntryView() {
       System.out.println("CONTROLLER GET");
-      return "userEntry";
+      return "joinus.userEntry";
    }
    
    @RequestMapping(value="/Mail.html", method = RequestMethod.GET)

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,8 @@ public class DDLController {
 		return null;
 	}
 	
-	
-	@RequestMapping(value="/create.htm")
+	//여러 테이블 생성
+	@RequestMapping(value="/creates.htm")
 	public String CreateTable(HttpServletRequest request){
 		String ip = request.getParameter("ipadress");
 		String id = request.getParameter("dbid");
@@ -77,8 +78,56 @@ public class DDLController {
 			try {con.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		
-		return "ck";
+		return "ddl.ck";
+	}
+	
+	
+	//테이블 단일 생성
+	@RequestMapping(value="/create.htm")
+	public String CreateTables(HttpServletRequest request){
+		
+		String[] colName = request.getParameterValues("colName");
+		String[] colDataType = request.getParameterValues("coldatatype");
+		String tableName = request.getParameter("tablename");
+		
+		
+		System.out.println(Arrays.toString(colName));
+		System.out.println(Arrays.toString(colDataType));
+		System.out.println(tableName);
+		
+		
+		
+		con = ConnectionMake("192.168.7.74","PROJECT","1004");
+	
+		String createTableSql = "create table "+tableName+"(";
+		for(int i=0;i<colName.length;i++){
+			createTableSql += colName[i]+" "+colDataType[i];
+			if(i<colName.length-1){
+				createTableSql +=", ";
+			}
+		}
+		createTableSql +=")";
+
+		System.out.println(createTableSql);
+		
+		
+		try {
+			pstmt= con.prepareStatement(createTableSql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//return null;
+		}finally{
+			try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			try {con.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		
+		
+		return "ddl.ck";
 	} 
+	
+	
 	/*
 	@RequestMapping(value="")
 	public void DropTable(){
