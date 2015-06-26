@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 	<div id="page-wrapper" align="left" class="body">
 
 		<div class="row">
@@ -51,41 +52,10 @@
 					</div>
 					<!-- /.table-responsive -->
 				</div>
+				</div>
+				</div>
+				</div>
 
 
-
-
-
-
-
-
-
-
-
-				<%-- <table>
-					<tr height="40px">
-						<td>유저ID</td>
-						<td>${member.user_id}</td>
-					</tr>
-					<tr height="40px">
-						<td>패스워드</td>
-						<td>${member.user_pwd}</td>
-					</tr>
-					<tr height="40px">
-						<td>메일</td>
-						<td>${member.user_email}</td>
-					</tr>
-					<tr height="40px">
-						<td>이름</td>
-						<td>${member.user_name}</td>
-					</tr>
-					<tr height="40px">
-						<td>활성</td>
-						<td>${member.enabled}</td>
-					</tr>
-				</table> --%>
-			</div>
-		</div>
-	</div>
 </body>
 </html>
