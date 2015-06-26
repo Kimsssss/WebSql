@@ -60,7 +60,7 @@ public class MemberController {
 @RequestMapping(value="/userEntry.html", method = RequestMethod.GET)
    public String toUserEntryView() {
       System.out.println("CONTROLLER GET");
-      return "joinus.userEntry";
+      return "userEntry";
    }
    
    @RequestMapping(value="/Mail.html", method = RequestMethod.GET)
@@ -155,8 +155,10 @@ public class MemberController {
    public ModelAndView fromMemberController(@Valid @ModelAttribute("member") MemberDTO member, BindingResult bindingResult
 		   ,HttpServletRequest req) {
       
+	   
 	   ModelAndView modelAndView = new ModelAndView();
 	   
+	
 	   
 	   if (bindingResult.hasErrors()) {
 	    	 System.out.println("error");
@@ -194,7 +196,7 @@ public class MemberController {
 	         System.out.println(member.getUser_name());
 	         System.out.println(member.getEnabled());
 	         
-	         modelAndView.setViewName("joinus.userEntrySuccess");
+	         modelAndView.setViewName("userEntrySuccess");
 	         modelAndView.addObject("member", member);
 	         return modelAndView;
 
@@ -262,4 +264,35 @@ public class MemberController {
       
 	  
    }
+
+   
+   @RequestMapping(value="/userIDfine.html"  , method = RequestMethod.POST)
+   public void IDfine(MemberDTO memberDTO, String user_name ,  HttpServletResponse response) throws IOException{
+	   
+	   System.out.println("경로 설정 타나? ");
+	   
+	   response.setContentType("text/html;charset=utf-8");
+       response.setCharacterEncoding("utf-8");
+	 
+	   System.out.println(user_name);
+
+    response.setContentType("text/html;charset=utf-8");
+	response.setCharacterEncoding("utf-8");
+	 
+	MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+  
+	memberDTO = memberdao.getidfine(user_name);
+	 
+	System.out.println(memberDTO);
+	 
+	System.out.println(memberDTO.getUser_id());
+    
+
+      response.getWriter().print(memberDTO.getUser_id());
+     
+
+   }
 }
+
+
+
