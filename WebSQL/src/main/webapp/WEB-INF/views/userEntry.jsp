@@ -245,36 +245,5 @@ $(function(){
 </div>
 </div>
 
-
-   <!-- ----------------------------------------------------------------------------------------------------- -->
-<!-- <script type="text/javascript">
-$(function(){
-   $('#mainsubmit').click(function(){
-      
-      console.log($('#user_id').val());
-      console.log($('#user_pwd').val());
-      console.log($('#user_pwd2').val());
-      console.log($('#user_email').val());
-      console.log($('#user_name').val());
-      console.log($('#enabled').val());
-      
-      $.ajax({
-           type: 'POST',
-             url: "userEntry.html",
-             data: {user_id: $('#user_id').val(),
-                 user_pwd: $('#user_pwd').val(),
-                   user_email: $('#user_email').val(),
-                   user_name: $('#user_name').val(),
-                   enabled: $('#enabled').val(),
-                   user_pwd2: $('#user_pwd2').val()}, 
-             dataType: "html",
-             success: function(responseData){
-                console.log($('#pwdhidden1').val());
-                console.log($('#pwdhidden2').val());
-             }
-          })
-   });
-});
-</script> -->
 </body>
 </html>

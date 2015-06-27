@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import net.sf.json.JSONArray;
 
 import org.apache.ibatis.session.SqlSession;
@@ -35,8 +36,8 @@ public class MemberController {
 	@Autowired
 	private SqlSession sqlSession;
 
-	@Autowired
-	private MessageSource messageSource;
+   @Autowired
+   private MessageSource messageSource;
 
 	@RequestMapping(value = "login.html")
 	public String login() {
@@ -194,26 +195,54 @@ public class MemberController {
 		}
 
 	}
+   
+   @RequestMapping(value="/userIDfine.html"  , method = RequestMethod.POST)
+   public void IDfine(MemberDTO memberDTO, String user_name ,  HttpServletResponse response) throws IOException{
+	   
+	  
+	   
+	   response.setContentType("text/html;charset=utf-8");
+       response.setCharacterEncoding("utf-8");
+	 
+	   System.out.println(user_name);
 
-	@RequestMapping(value = "/userIDfine.html", method = RequestMethod.POST)
-	public void IDfine(MemberDTO memberDTO, String user_name,
-			HttpServletResponse response) throws IOException {
-		response.setContentType("text/html;charset=utf-8");
-		response.setCharacterEncoding("utf-8");
+    response.setContentType("text/html;charset=utf-8");
+	response.setCharacterEncoding("utf-8");
+	 
+	MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+  
+	memberDTO = memberdao.getidfine(user_name);
+	 
+	System.out.println(memberDTO);
+	 
+	System.out.println(memberDTO.getUser_id());
+    
 
-		MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+      response.getWriter().print(memberDTO.getUser_id());
+     
 
-		memberDTO = memberdao.getidfine(user_name);
+   }
+   
+   
+   
+   @RequestMapping(value="/UserPWDfine.html"  , method = RequestMethod.POST)
+   public void PWDfine(MemberDTO memberDTO, String user_name, String user_id , String user_email ,    HttpServletResponse response) throws IOException{
+	   
+	
+	   response.setContentType("text/html;charset=utf-8");
+       response.setCharacterEncoding("utf-8");
 
-		System.out.println(memberDTO);
+	 
+	MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+	memberDTO = memberdao.getpwdfine(user_name, user_id, user_email);
 
-		System.out.println(memberDTO.getUser_id());
+	
 
-		response.getWriter().print(memberDTO.getUser_id());
+      response.getWriter().print(memberDTO.getUser_pwd());
+     
 
-	}
-
-	@RequestMapping(value = "mypage.html")
+   }
+   @RequestMapping(value = "mypage.html")
 	public String mypage(MemberDTO memberDTO, Model model, Principal principal) {
 		String user_id = principal.getName();
 		MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
@@ -236,7 +265,6 @@ public class MemberController {
 		 
 		return "redirect:index.html";
 	}
-	
-	
+	   
 	
 }
