@@ -11,10 +11,9 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-=======
+
 <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
->>>>>>> branch 'master' of https://github.com/Kimsssss/WebSql.git
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -118,7 +117,7 @@ $(function(){
 <div id="page-wrapper">
 
 <div class="row">
-<<<<<<< HEAD
+
 	<div class="body">
 		<h2 align="left" class="page-header">&nbsp;&nbsp;&nbsp;&nbsp;유저 등록 화면</h2>
 	</div>
