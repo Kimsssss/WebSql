@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="main">
 	<div class="row" style="padding-top: 50px; padding-left: 300px">
-		<div class="col-lg-6">
+		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body" style="height: 400px";>
 				<a class="btn btn-info btnposition" href="p_boardlist.html"
@@ -55,8 +55,7 @@
 					method="get">
 					<!-- hidden 태그  값을 숨겨서 처리  -->
 
-					<input type="hidden" name="r_sequence" value="1"> <input
-						type="hidden" name="board_p_id" value="5">
+					 <input type="hidden" name="board_p_id" value="${p_detail.board_p_id}">
 
 
 					<!-- hidden data -->

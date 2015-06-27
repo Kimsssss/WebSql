@@ -15,4 +15,11 @@ public class IndexController {
 		return "home.index";
 		
 	}
+	
+	@RequestMapping("index2.html")
+	public String index2()
+	{
+		return "home.index2";
+		
+	}
 }

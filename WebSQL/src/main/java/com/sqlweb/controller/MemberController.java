@@ -42,7 +42,7 @@ public class MemberController {
    
    @RequestMapping(value="login.html")
    public String login(){
-      return "joinus.login";
+      return "login";
    }  
    
    @RequestMapping(value="register.html")
@@ -67,6 +67,8 @@ public class MemberController {
    @RequestMapping(value="/Mail.html", method = RequestMethod.GET)
    public void MailView(HttpServletRequest request, HttpServletResponse response) {
       
+
+	   
       String email = request.getParameter("modalemail");
       System.out.println("비동기"+email);
       
@@ -270,7 +272,7 @@ public class MemberController {
    @RequestMapping(value="/userIDfine.html"  , method = RequestMethod.POST)
    public void IDfine(MemberDTO memberDTO, String user_name ,  HttpServletResponse response) throws IOException{
 	   
-	   System.out.println("경로 설정 타나? ");
+	  
 	   
 	   response.setContentType("text/html;charset=utf-8");
        response.setCharacterEncoding("utf-8");
@@ -293,6 +295,29 @@ public class MemberController {
      
 
    }
+   
+   
+   
+   @RequestMapping(value="/UserPWDfine.html"  , method = RequestMethod.POST)
+   public void PWDfine(MemberDTO memberDTO, String user_name, String user_id , String user_email ,    HttpServletResponse response) throws IOException{
+	   
+	
+	   response.setContentType("text/html;charset=utf-8");
+       response.setCharacterEncoding("utf-8");
+
+	 
+	MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+	memberDTO = memberdao.getpwdfine(user_name, user_id, user_email);
+
+	
+
+      response.getWriter().print(memberDTO.getUser_pwd());
+     
+
+   }
+   
+   
+   
 }
 
 

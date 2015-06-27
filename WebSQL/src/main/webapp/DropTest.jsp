@@ -43,9 +43,6 @@
 
 <!-- /#wrapper -->
 
-	<!-- jQuery -->
-	<script src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
-
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
