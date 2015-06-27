@@ -10,26 +10,28 @@
 
 
 
-				
+
 				<li>
-					
+
 					<button type="button" class="btn btn-warning" onclick="">Mypage</button>
 					<se:authorize ifNotGranted="ROLE_USER">
-					<button type="button" class="btn btn-primary" onclick="location.href='login.html'">Login</button>
-					<h3>로그인하세요.</h3>
-				</se:authorize>
-				<se:authentication property="name" var="LoginUser" />
-				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-					
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
-					<h3>${LoginUser }님환영합니다.</h3>
-					
-				</se:authorize>
+						<button type="button" class="btn btn-primary"
+							onclick="location.href='login.html'">Login</button>
+						<h3>로그인하세요.</h3>
+					</se:authorize> <se:authentication property="name" var="LoginUser" /> <se:authorize
+						ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+
+						<button type="button" class="btn btn-primary"
+							onclick="location.href='${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
+						<h3>${LoginUser }님환영합니다.</h3>
+
+					</se:authorize>
 
 
 
 					<button type="button" class="btn btn-success" style="width: 140px"
-						onclick="">TableList</button></li>
+						onclick="">TableList</button>
+				</li>
 				<!--사이드 bar Menu1End  -->
 
 
@@ -66,14 +68,17 @@
 
 				<li><a href="#"><h4>
 							<i class="fa fa-sitemap fa-fw"></i>BOARD
-						</h4>
-						<span class="fa arrow"></span></a></li>
+						</h4> <span class="fa arrow"></span></a></li>
 
 			</ul>
 			<!-- /.nav-second-level -->
+
+
+
+
 		</div>
 		<!-- /.sidebar-collapse -->
 	</div>
 	<!-- /.navbar-static-side -->
 </div>
-</div>
+

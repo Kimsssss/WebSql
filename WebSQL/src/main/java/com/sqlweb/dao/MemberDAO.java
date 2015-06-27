@@ -7,5 +7,7 @@ public interface MemberDAO {
 	public int insertAuthority(AuthorityDTO authority);
 	
 	public int insertMember(MemberDTO member);
+	
+	public MemberDTO getidfine(String user_name);
 		
 }
