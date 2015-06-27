@@ -249,29 +249,35 @@ $(function(){
 										value="Remember Me">Remember Me
 									</label>
 								</div>
+								
+								<table><tr>
+								<td width="120px">
 								<!-- Change this to a button or input when using this as a form -->
-								<input type="submit" value="로그인" />
+								<input type="submit" class="btn btn-success" value="로그인" />
 								<!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
+								</td>
 								
-								
-								
-							</fieldset>
-						</form>
 						
-						<div class="panel-body">
+							
+							<td width="150px" align="right">
                            <!-- ID 찾기  -->
                             <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="btnidfine">
                                 	ID찾기
                             </button>
+                            </td>
                             <!-- ID 찾기 End  -->
                             
                             
                             <!-- PWD 찾기  -->
+                            <td width="100px" align="right">
                             <button class="btn btn-info" data-toggle="modal" data-target="#myModal2" id="btnpwdfine">
                                     PWD찾기
                             </button>
+                            </td>
                             <!-- PWD찾기 End  -->
-                            
+                            </tr></table>
+                            </fieldset>
+						</form>
                             
                             
                             <!-- Modal ID-->
