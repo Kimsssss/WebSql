@@ -27,8 +27,6 @@ $(function(){
      $('#modal-bodyID').html("<table align='center'><tr><td width='40px'><b>이름</b></td><td width='200px'><input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'></td><td align='right' width='75px'><button type='button' class='btn btn-info' id='modalbtn'>ID찾기</button></td><td align='right' width='65px'><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></td></tr></table> ");
 
       $('#modalbtn').click(function(){
-        
-       
          
                  $.ajax({
                     type: 'POST',

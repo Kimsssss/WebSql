@@ -8,9 +8,6 @@
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu" style="text-align: center;">
 
-
-
-
 				<li>
 
 					<button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
@@ -26,9 +23,6 @@
 						<h3>${LoginUser }님환영합니다.</h3>
 
 					</se:authorize>
-
-
-
 					<button type="button" class="btn btn-success" style="width: 140px"
 						onclick="">TableList</button>
 				</li>
@@ -58,7 +52,7 @@
 
 
 				<!-- DML Menu  -->
-				<li><a href="forms.html">
+				<li><a href="dml.html">
 						<h4>
 							<i class="fa fa-table fa-fw"></i> DML
 							<h4>
