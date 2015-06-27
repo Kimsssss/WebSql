@@ -47,12 +47,15 @@ $(function(){
 		
 		/* PWD 찾기  */
 		$('#btnpwdfine').click(function(){
-	
+			
+			$('#modalfooter2').empty();
 			
 			$('#user_name').val('');
 			$('#user_id').val('');
 			$('#user_email').val('');
 			 
+			
+			
 			
 			/* $('#modal-bodyPWD').html("이름 : <input type='text' class='' id='user_name' name='user_name' placeholder='이름 입력'><br>"
 								   +"ID :  <input type='text' class='' id='user_name' name='user_id' placeholder='ID 입력'><br>"
@@ -70,7 +73,8 @@ $(function(){
 				
 				
 			
-			       $('#modalbodydetail').html("<br><br><input type='text' id='modalcode' name='modalcode'>   <button type='button' id='modalcodebtn' name='modalcodebtn'>인증</button>");
+			       $('#modalbodydetail').html("<br><br><input type='text' id='modalcode' name='modalcode'>"   
+			    		                     +"<button type='button' id='modalcodebtn' name='modalcodebtn'>인증</button>");
 			       $('#modalcodebtn').click(function() {
 			               
 			          var code1 = $('#modalcode').val();
@@ -83,26 +87,26 @@ $(function(){
 			             $('#modal-footer').html("<button type='button' class='btn btn-danger' id='onsumit' name='onsumit' data-dismiss='modal'>확인</button>   <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
 			             
 			                $('#idhidden').val($('#user_id').val());
-			                $('#pwdhidden1').val($('#user_pwd').val());
-			                $('#pwdhidden2').val($('#user_pwd2').val());
-			                $('#emailhidden').val($('#modalemail').val());
 			                $('#namehidden').val($('#user_name').val());
-			                $('#enabledhidden').val($('#enabled').val());
+			                $('#emailhidden').val($('#modalemail').val());
+			              
+			               
 			              $('#onsumit').click(function(){
-			                 console.log($('#idhidden').val());
-			                  console.log($('#pwdhidden1').val());
-			                  console.log($('#emailhidden').val());
+			            	
 			                  console.log($('#namehidden').val());
-			                  console.log($('#enabledhidden').val());
+			            	  console.log($('#idhidden').val());
+			            	  console.log($('#emailhidden').val());
+			                
+			                 
 			              $.ajax({
 			                 type: 'POST',
 			                 url: 'Mailsave.html',
-			                 data:{user_id: $('#idhidden').val(),
-			                       user_pwd: $('#pwdhidden1').val(),
+			                 data:{user_name: $('#idhidden').val(),
+			                	   user_id: $('#namehidden').val(),
 			                       user_email: $('#emailhidden').val(),
-			                       user_name: $('#namehidden').val(),
-			                       enabled: $('#enabledhidden').val(),
-			                       user_pwd2: $('#pwdhidden2').val()}, 
+			                       
+			                    
+			                      }, 
 			               dataType: "html",
 			                 success: function(responseData){
 			                    
@@ -124,14 +128,17 @@ $(function(){
 			         });
 			       
 			       
+			       
+			       /* 이메일로 인증 번호 받아오기 비동기 비동기  */
 			       $.ajax({
+			    	 
 			          url: "Mail.html",
 			          data : 'modalemail='+$("#modalemail").val(),
 			          dataType: "html",
 			          success: function(responseData){
 			             var codes = JSON.parse(responseData);
 			             var code = "";
-			             console.log("aaa");
+			             
 			             console.log(codes);
 			             $.each(codes, function(index,codelist){
 			                code += codelist;
@@ -141,6 +148,41 @@ $(function(){
 			             console.log($('#hiddencode').val());
 			          }
 			       });
+			       /* 이메일로 인증 번호 받아오기 비동기 비동기 End  */
+			       
+			       
+			       
+			       
+			      /* 비밀번호 찾아주는 코드  */ 
+			      $('#pwdfine').click(function(){
+			    	
+			    	  $.ajax({
+			    		  type: 'POST', 
+			    		  url : 'UserPWDfine.html',
+			    		  data : {user_name : $('#user_name').val() , 
+			    			      user_id : $('#user_id').val(),
+			    			      user_email : $('#user_email').val()
+			    		         },
+			    		  dataType: "html",
+			    		  success: function(responseData){
+			    		  
+			    			  $('#modalfooter2').html("<h4>당신의 Password :"+responseData+"입니다.</h4>");
+			    			  
+			    		  }
+			    		    
+			    		         
+			    		  
+			    	  });
+			      
+			      });
+			      
+			       
+			      
+			       
+			       
+			       
+			      
+			       
 			   });
  
  
@@ -270,16 +312,16 @@ $(function(){
      										
      							    이름 : <input type='text' class='' id='user_name' name='user_name' placeholder='이름 입력'><br>
 								   ID :  <input type='text' class='' id='user_id' name='user_id' placeholder='ID 입력'><br>
-								    이메일 :  <input type='text' class='' id='user_email' name='user_email' placeholder='이메일 입력'>
+								    이메일 :  <input type='text' class='' id='user_email' name='user_email' placeholder='이메일 입력' readonly="readonly">
 								    
 					               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal3">이메일 인증</button><br>
-					               <button type='button' class='btn btn-default'>PWD찾기</button> 
+					               <button type='button' class='btn btn-default' id="pwdfine">PWD찾기</button> 
 					               <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> 
      										
      										
                                         </div>
                                         
-                                        <div id="modalfooter" class="modal-footer" style="text-align: center;">
+                                        <div id="modalfooter2" class="modal-footer" style="text-align: center;">
                                         
                                         </div>
                                         
@@ -306,9 +348,11 @@ $(function(){
       <div class="modal-body" id="modalbody">
         <p>인증할 이메일 주소를 입력해주세요.</p>
         <br>
+        
+        <input type="hidden" id="namehidden" name="namehidden" value="">
         <input type="hidden" id="idhidden" name="idhidden" value="">
         <input type="hidden" id="emailhidden" name="emailhidden" value="">
-        <input type="hidden" id="namehidden" name="namehidden" value="">
+ 
          <input type="text" id="modalemail" name="modalemail">  
         <button type="button" id="modalbtn" name="modalbtn">인증코드 전송</button>
         

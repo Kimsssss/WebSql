@@ -21,5 +21,9 @@
 		SELECT user_id FROM USERS WHERE user_name = #{user_name}
 	</select>
 	
+	<select id="getpwdfine" resultType="com.sqlweb.dto.MemberDTO">
+		SELECT user_pwd FROM USERS WHERE user_name = #{param1} AND user_id = #{param2} AND user_email = #{param3}
+	</select>
+	
 	
 </mapper>
