@@ -41,7 +41,7 @@ public class MemberController {
 
 	@RequestMapping(value = "login.html")
 	public String login() {
-		return "joinus.login";
+		return "login";
 	}
 
 	public void setMessageSource(MessageSource messageSource) {
