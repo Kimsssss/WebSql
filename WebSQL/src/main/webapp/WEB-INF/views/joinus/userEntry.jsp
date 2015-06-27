@@ -15,7 +15,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
 input.user_email{
@@ -116,12 +116,6 @@ $(function(){
 <h2>유저 등록 화면</h2>
 <h3><font color="red"><%=errormessage %></font></h3>
 <form:form modelAttribute="member" method="post" action="userEntry.html" autocomplete="off">
-  <%--  <spring:hasBindErrors name="member">
-      <font color="red"><c:forEach items="${errors.globalErrors}"
-         var="error">
-         <spring:message code="${error.code}" />
-      </c:forEach> </font>
-   </spring:hasBindErrors> --%>
    <table>
       <tr height="40px">
          <td>유저ID</td>
@@ -172,14 +166,6 @@ $(function(){
       </tr>
    </table>
 </form:form></div>
-<%-- <form action="User.html" method="post">
-      아이디:    <input type="text" name="userid"><br>
-      비번:    <input type="text" name="userpwd"><br>
-      이메일:    <input type="text" name="useremail"><br>
-      이름:      <input type="text" name="username"><br>
-      활성:    <input type="text" name="enabled"><br>
-      <input type="submit" value="회원등록">
-</form> --%>
 
 
 <!-- MODAL START -->
@@ -222,36 +208,6 @@ $(function(){
   </div>
 </div>
 </div>
-   <!-- ----------------------------------------------------------------------------------------------------- -->
-<!-- <script type="text/javascript">
-$(function(){
-	$('#mainsubmit').click(function(){
-		
-		console.log($('#user_id').val());
-		console.log($('#user_pwd').val());
-		console.log($('#user_pwd2').val());
-		console.log($('#user_email').val());
-		console.log($('#user_name').val());
-		console.log($('#enabled').val());
-		
-		$.ajax({
-			  type: 'POST',
-	          url: "userEntry.html",
-	          data: {user_id: $('#user_id').val(),
-        			user_pwd: $('#user_pwd').val(),
-          			user_email: $('#user_email').val(),
-          			user_name: $('#user_name').val(),
-          			enabled: $('#enabled').val(),
-          			user_pwd2: $('#user_pwd2').val()}, 
-	          dataType: "html",
-	          success: function(responseData){
-	             console.log($('#pwdhidden1').val());
-	             console.log($('#pwdhidden2').val());
-	          }
-	       })
-	});
-});
-</script> -->
 </body>
 </html>
 

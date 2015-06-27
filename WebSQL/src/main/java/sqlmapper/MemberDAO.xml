@@ -22,4 +22,13 @@
 	</select>
 	
 	
+	<select id="getMypage" resultType="com.sqlweb.dto.MemberDTO" parameterType="String">
+		SELECT * FROM USERS WHERE user_id = #{user_id}
+	</select>
+	
+	<update id="mypageUpdate" >
+     UPDATE USERS SET user_pwd=#{param1} WHERE user_id=#{param2}
+    </update>
+	
+	
 </mapper>

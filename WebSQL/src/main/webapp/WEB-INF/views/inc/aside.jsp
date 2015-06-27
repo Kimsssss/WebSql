@@ -13,7 +13,7 @@
 
 				<li>
 
-					<button type="button" class="btn btn-warning" onclick="">Mypage</button>
+					<button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
 					<se:authorize ifNotGranted="ROLE_USER">
 						<button type="button" class="btn btn-primary"
 							onclick="location.href='login.html'">Login</button>
