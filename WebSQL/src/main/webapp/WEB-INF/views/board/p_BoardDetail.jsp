@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="main">
 	<div class="row" style="padding-top: 50px; padding-left: 300px">
-		<div class="col-lg-6">
+		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body" style="height: 400px";>
 				<a class="btn btn-info btnposition" href="p_boardlist.html"
