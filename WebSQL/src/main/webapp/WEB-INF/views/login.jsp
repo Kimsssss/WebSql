@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- ID 찾기  -->
 
 <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
@@ -69,7 +71,7 @@ $(function(){
  
  
 
-          $('#modalbtn').click(function(){
+          $('#modalbtn').on("click",function(){
             
             
          
@@ -214,214 +216,240 @@ $(function(){
 
 
 <div id="main">
-   <div class="page-wrapper">
-   
-      <div class="row">
-         <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-               <div class="panel-heading">
-                  <h3 class="panel-title"><b>Please Sign In</b></h3>
-               </div>
-               <div class="panel-body">
-                  <c:if test="${param.error != null}">
-                     <div>
-                        로그인실패<br>
-                        <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-                이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-                        </c:if>
-                     </div>
-                  </c:if>
-                  <c:url value="/j_spring_security_check" var="loginURL"></c:url>
-                  <form name="f" action="${loginURL}" method="post">
-                     <fieldset>
-                        <div class="form-group">
-                           <label for="uid">ID</label> <input class="form-control"
-                              placeholder="ID" name="j_username" type="text" autofocus>
-                        </div>
-                        <div class="form-group">
-                           <label for="pwd">PWD</label> <input class="form-control"
-                              placeholder="Password" name="j_password" type="password"
-                              value="">
-                        </div>
+	<div class="page-wrapper">
+
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<b>Please Sign In</b>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<c:if test="${param.error != null}">
+							<div>
+								로그인실패<br>
+								<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+                이유 : <c:out
+										value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+								</c:if>
+							</div>
+						</c:if>
+						<c:url value="/j_spring_security_check" var="loginURL"></c:url>
+						<form name="f" action="${loginURL}" method="post">
+							<fieldset>
+								<div class="form-group">
+									<label for="uid">ID</label> <input class="form-control"
+										placeholder="ID" name="j_username" type="text" autofocus>
+								</div>
+								<div class="form-group">
+									<label for="pwd">PWD</label> <input class="form-control"
+										placeholder="Password" name="j_password" type="password"
+										value="">
+								</div>
 
 								<div class="checkbox">
 									<label> <input name="remember" type="checkbox"
 										value="Remember Me">Remember Me
 									</label>
-								</div>
+									
 								
-								<table><tr>
-								<td width="120px">
+								</div>
+
+
 								<!-- Change this to a button or input when using this as a form -->
-								<input type="submit" class="btn btn-success" value="로그인" />
+								<input type="submit" class="btn btn-primary btn-lg btn-block"
+									value="로그인" />
 								<!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
-								</td>
-															
-							<td width="150px" align="right">
+
+
+							</fieldset>
+						</form>
+							
+									
+							<table>
+							<tr><td colspan="3" height="5px"></td></tr>
+							<tr>
+							<td width="280px" align="right">
+								<a href="userEntry.html" class="btn btn-outline btn-primary btn-xs">회원가입</a>
+							</td> 
+										
+							<td width="55px" align="right">
 
                            <!-- ID 찾기  -->
-                            <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="btnidfine">
-                                   ID찾기
-                            </button>
+                            <button class="btn btn-outline btn-primary btn-xs"
+										data-toggle="modal" data-target="#myModal" id="btnidfine">
+										ID찾기</button>
                             </td>
-                            <!-- ID 찾기 End  -->
+                            <!-- ID 찾기 End --> 
                             
                             
                             <!-- PWD 찾기  -->
-                            <td width="100px" align="right">
-                            <button class="btn btn-info" data-toggle="modal" data-target="#myModal2" id="btnpwdfine">
+                            <td width="70px" align="right">
+                            <button class="btn btn-outline btn-primary btn-xs" data-toggle="modal" data-target="#myModal2" id="btnpwdfine">
                                     PWD찾기
                             </button>
                             </td>
                             <!-- PWD찾기 End  -->
                             </tr></table>
-                            </fieldset>
-						</form>
-                            
-                            
-                            <!-- Modal ID-->
-                            <!-- ID찾기 팝업창 -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h4 class="modal-title" id="myModalLabel" style="text-align: center">ID찾기</h4>
-                                        </div>
-                                        <div class="modal-body" id="modal-bodyID">
-     
-                                        </div>
-                                        
-                                        <div id="modalfooter" class="modal-footer" style="text-align: center;">
-                                        
-                                        </div>
-                                        
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-                            <!-- /.modal ID End -->
-                            
-                            
-                            
-                            
-                            <!-- Modal PWD -->
-                            <!-- 비밀번호 찾기 팝업창  -->
-                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h4 class="modal-title" id="myModalLabel" style="text-align: center">PWD찾기</h4>
-                                        </div>
-                                        <div class="modal-body" id="modal-bodyPWD">
-                                     
-                                     <div align="center">   
-                             <table style="width: 450px;">      
-                             <tr height="40px">
-                                <td><b>이름</b></td>
-                                 <td>
-                                    <input class='form-control' id='user_name' name='user_name' placeholder='이름 입력'>
-                               </td>
-                               <td width="110px"></td>
-                            </tr>
-                            <tr height="40px">
-                               <td><b>ID</b></td>
-                               <td>
-                                   <input class='form-control' id='user_id' name='user_id' placeholder='ID 입력'>
-                               </td>
-                               <td></td>
-                            </tr>
-                            <tr height="40px">
-                               <td><b>이메일</b></td>
-                               <td>
-                                  <input class='form-control' id='user_email' name='user_email' placeholder='이메일 입력' readonly="readonly">
-                               </td>
-                               <td align="right">
-                                  <button type="button" class="btn btn-outline btn-primary" data-toggle="modal" data-target="#myModal3">이메일 인증</button><br>
-                               </td>
-                            </tr>
-                                 <tr height="40px">
-                                    <td colspan="3" align="center">
-                              <button type='button' class='btn btn-outline btn-primary btn-sm' id="pwdfine">PWD찾기</button> 
-                              <button type='button' class='btn btn-outline btn-primary btn-sm' data-dismiss='modal'>Close</button> 
-                             </td>
-                             </tr>
-                             
-                             
-                             
-                             </table>      
-                             
-                                        </div>
-                                        
-                                        <div id="modalfooter2" class="modal-footer" style="text-align: center;">
-                                        
-                                        </div>
-                                        
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-                            <!-- /.modal PWD End -->
-                            
-    <!-- 이메일 인증  -->                       
-      <div id="myModal3" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">이메일 인증</h4>
-      </div>
-      
-      <form action="Mailsave.html" 
-      method="post" enctype="multipart/form-data" name="emailform" accept-charset="utf-8"> 
-      <div class="modal-body" id="modalbody">
-        <p>인증할 이메일 주소를 입력해주세요.</p>
-        <br>
-        
-        <input type="hidden" id="namehidden" name="namehidden" value="">
-        <input type="hidden" id="idhidden" name="idhidden" value="">
-        <input type="hidden" id="emailhidden" name="emailhidden" value="">
- 
-         <input type="text" id="modalemail" name="modalemail">  
-        <button type="button" id="modalbtn" name="modalbtn">인증코드 전송</button>
-        
-        <input type="hidden" value="0" id="hiddencode" name="hiddencode">
-        <div id="modalbodydetail">
-        </div>
-        
-      </div>
-      </form>
-      
-      <div class="modal-footer" id="modal-footer" name="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    
-    <!-- 이메일 인증 End  -->    
 
-  </div>
-  
+
+						<!-- Modal ID-->
+						<!-- ID찾기 팝업창 -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">×</button>
+										<h4 class="modal-title" id="myModalLabel"
+											style="text-align: center">ID찾기</h4>
+									</div>
+									<div class="modal-body" id="modal-bodyID"></div>
+
+									<div id="modalfooter" class="modal-footer"
+										style="text-align: center;"></div>
+
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+						<!-- /.modal ID End -->
+
+
+
+
+						<!-- Modal PWD -->
+						<!-- 비밀번호 찾기 팝업창  -->
+						<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">×</button>
+										<h4 class="modal-title" id="myModalLabel"
+											style="text-align: center">PWD찾기</h4>
+									</div>
+									<div class="modal-body" id="modal-bodyPWD">
+
+										<div align="center">
+											<table style="width: 450px;">
+												<tr height="40px">
+													<td><b>이름</b></td>
+													<td><input class='form-control' id='user_name'
+														name='user_name' placeholder='이름 입력'></td>
+													<td width="110px"></td>
+												</tr>
+												<tr height="40px">
+													<td><b>ID</b></td>
+													<td><input class='form-control' id='user_id'
+														name='user_id' placeholder='ID 입력'></td>
+													<td></td>
+												</tr>
+												<tr height="40px">
+													<td><b>이메일</b></td>
+													<td><input class='form-control' id='user_email'
+														name='user_email' placeholder='이메일 입력' readonly="readonly">
+													</td>
+													<td align="right">
+														<button type="button" class="btn btn-outline btn-primary"
+															data-toggle="modal" data-target="#myModal3">이메일
+															인증</button>
+														<br>
+													</td>
+												</tr>
+												<tr height="40px">
+													<td colspan="3" align="center">
+														<button type='button'
+															class='btn btn-outline btn-primary btn-sm' id="pwdfine">PWD찾기</button>
+														<button type='button'
+															class='btn btn-outline btn-primary btn-sm'
+															data-dismiss='modal'>Close</button>
+													</td>
+												</tr>
+
+
+
+											</table>
+
+										</div>
+
+										<div id="modalfooter2" class="modal-footer"
+											style="text-align: center;"></div>
+
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal PWD End -->
+
+							<!-- 이메일 인증  -->
+							<div id="myModal3" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">이메일 인증</h4>
+										</div>
+
+										<form action="Mailsave.html" method="post"
+											enctype="multipart/form-data" name="emailform"
+											accept-charset="utf-8">
+											<div class="modal-body" id="modalbody">
+												<p>인증할 이메일 주소를 입력해주세요.</p>
+												<br> <input type="hidden" id="namehidden"
+													name="namehidden" value=""> <input type="hidden"
+													id="idhidden" name="idhidden" value=""> <input
+													type="hidden" id="emailhidden" name="emailhidden" value="">
+
+												<input type="text" id="modalemail" name="modalemail">
+												<button type="button" id="modalbtn" name="modalbtn">인증코드
+													전송</button>
+
+												<input type="hidden" value="0" id="hiddencode"
+													name="hiddencode">
+												<div id="modalbodydetail"></div>
+
+											</div>
+										</form>
+
+										<div class="modal-footer" id="modal-footer"
+											name="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+										</div>
+									</div>
+
+									<!-- 이메일 인증 End  -->
+
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-</div>
-                           
-                           
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                        </div>
-                  
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
 
