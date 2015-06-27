@@ -55,8 +55,7 @@
 					method="get">
 					<!-- hidden 태그  값을 숨겨서 처리  -->
 
-					<input type="hidden" name="r_sequence" value="1"> <input
-						type="hidden" name="board_p_id" value="5">
+					 <input type="hidden" name="board_p_id" value="${p_detail.board_p_id}">
 
 
 					<!-- hidden data -->

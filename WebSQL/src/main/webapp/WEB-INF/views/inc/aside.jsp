@@ -47,7 +47,7 @@
 				<!-- 소개 DDL , DML Menu END   -->
 
 				<!-- DDL Menu  -->
-				<li><a href="tables.html">
+				<li><a href="DDL.jsp">
 						<h4>
 							<i class="fa fa-table fa-fw"></i> DDL
 						</h4>
@@ -71,10 +71,6 @@
 
 			</ul>
 			<!-- /.nav-second-level -->
-
-
-
-
 		</div>
 		<!-- /.sidebar-collapse -->
 	</div>
