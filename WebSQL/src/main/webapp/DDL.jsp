@@ -74,6 +74,12 @@
 <body>
 <%
 %>
+
+<div id="page-wrapper">
+
+<div class="row">
+			<div class="col-lg-12">
+
 <header>
 <%pageContext.include("DropTest.jsp"); %>
 </header>
@@ -88,5 +94,11 @@
 </table>
 </form>
 </section>
+	
+	
+			</div>
+	</div>
+	
+</div>
 </body>
 </html>
