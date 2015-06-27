@@ -13,7 +13,7 @@ public class IndexController {
 	@RequestMapping("index.html")
 	public String index()
 	{
-		return "index";
+		return "home.index";
 	}	
 	
 	
