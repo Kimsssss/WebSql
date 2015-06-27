@@ -22,7 +22,7 @@ $(function(){
 	
 		$('#modalfooter').empty();
 
-	  $('#modal-bodyID').html("이름 : <input type='text' class='' id='user_name' name='user_name' placeholder='이름 입력'> <button type='button' class='btn btn-primary' id='modalbtn'>ID찾기</button> <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> ");
+	  $('#modal-bodyID').html("<table align='center'><tr><td width='40px'><b>이름</b></td><td width='200px'><input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'></td><td align='right' width='75px'><button type='button' class='btn btn-info' id='modalbtn'>ID찾기</button></td><td align='right' width='65px'><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></td></tr></table> ");
 
 	   $('#modalbtn').click(function(){
 	     
@@ -220,7 +220,7 @@ $(function(){
 			<div class="col-md-4 col-md-offset-4">
 				<div class="login-panel panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Please Sign In</h3>
+						<h3 class="panel-title"><b>Please Sign In</b></h3>
 					</div>
 					<div class="panel-body">
 						<c:if test="${param.error != null}">
@@ -275,6 +275,7 @@ $(function(){
                             
                             
                             <!-- Modal ID-->
+                            <!-- ID찾기 팝업창 -->
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -301,6 +302,7 @@ $(function(){
                             
                             
                             <!-- Modal PWD -->
+                            <!-- 비밀번호 찾기 팝업창  -->
                             <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -309,16 +311,43 @@ $(function(){
                                             <h4 class="modal-title" id="myModalLabel" style="text-align: center">PWD찾기</h4>
                                         </div>
                                         <div class="modal-body" id="modal-bodyPWD">
-     										
-     							    이름 : <input type='text' class='' id='user_name' name='user_name' placeholder='이름 입력'><br>
-								   ID :  <input type='text' class='' id='user_id' name='user_id' placeholder='ID 입력'><br>
-								    이메일 :  <input type='text' class='' id='user_email' name='user_email' placeholder='이메일 입력' readonly="readonly">
-								    
-					               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal3">이메일 인증</button><br>
-					               <button type='button' class='btn btn-default' id="pwdfine">PWD찾기</button> 
-					               <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> 
-     										
-     										
+                                     
+                                     <div align="center">   
+     								<table style="width: 450px;">		
+     								<tr height="40px">
+     									<td><b>이름</b></td>
+     							    	<td>
+     							    		<input class='form-control' id='user_name' name='user_name' placeholder='이름 입력'>
+								    	</td>
+								    	<td width="110px"></td>
+								    </tr>
+								    <tr height="40px">
+								    	<td><b>ID</b></td>
+								    	<td>
+								        	<input class='form-control' id='user_id' name='user_id' placeholder='ID 입력'>
+								    	</td>
+								    	<td></td>
+								    </tr>
+								    <tr height="40px">
+								    	<td><b>이메일</b></td>
+								    	<td>
+								    		<input class='form-control' id='user_email' name='user_email' placeholder='이메일 입력' readonly="readonly">
+								    	</td>
+								    	<td align="right">
+								    		<button type="button" class="btn btn-outline btn-primary" data-toggle="modal" data-target="#myModal3">이메일 인증</button><br>
+								    	</td>
+								    </tr>
+					               	<tr height="40px">
+					               		<td colspan="3" align="center">
+					               <button type='button' class='btn btn-outline btn-primary btn-sm' id="pwdfine">PWD찾기</button> 
+					               <button type='button' class='btn btn-outline btn-primary btn-sm' data-dismiss='modal'>Close</button> 
+     								</td>
+     								</tr>
+     								
+     								
+     								
+     								</table>		
+     								
                                         </div>
                                         
                                         <div id="modalfooter2" class="modal-footer" style="text-align: center;">
