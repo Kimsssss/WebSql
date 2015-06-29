@@ -102,9 +102,13 @@ $(function(){
 <div class="row">
          <div class="col-lg-12">
 <div align="left" >
-<h3>
+
+
+				<%-- <h3>
                   <font color="red"><%=errormessage%></font>
-               </h3>
+               </h3> --%>
+               
+               
 <form:form modelAttribute="member" method="post" action="userEntry.html">
    <spring:hasBindErrors name="member">
       <font color="red"><c:forEach items="${errors.globalErrors}"
