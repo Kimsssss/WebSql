@@ -8,7 +8,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body" style="height: 400px";>
-					<a class="btn btn-info btnposition" href="p_boardlist.html"
+				<a class="btn btn-info btnposition" href="p_boardlist.html"
 						style="float: right;">글목록</a>
 					<h3 style="text-align: center;">글 상세 보기</h3>
 
@@ -55,8 +55,7 @@
 					method="get">
 					<!-- hidden 태그  값을 숨겨서 처리  -->
 
-					<input type="hidden" name="board_p_id"
-						value="${p_detail.board_p_id}">
+					 <input type="hidden" name="board_p_id" value="${p_detail.board_p_id}">
 
 
 					<!-- hidden data -->
@@ -75,9 +74,10 @@
 									<tr class="warning">
 										<se:authentication property="name" var="LoingUser" />
 										<th align="left" width="80px">작성자</th>
-										<td colspan="2"><input type="text" name="r_id"
-											readonly="readonly" value="${ LoingUser}"></td>
+										<td colspan="2"><input type="text" name="r_id" readonly="readonly"
+											value="${ LoingUser}"></td>
 										<!-- ${LoingUser } -->
+										
 									<tr class="warning">
 										<th>내용</th>
 										<td><textarea name="r_content" placeholder="댓글을 작성하세요."
@@ -94,47 +94,45 @@
 					</div>
 
 				</form>
-
+				
 				<div class="panel-body">
-					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr class="warning">
-									<th colspan="5">REPLY LIST</th>
-								</tr>
-							</thead>
+	<div class="table-responsive">
+		<table class="table">
+					<thead>
+					<tr class="warning">
+						<th colspan="5">REPLY LIST</th>
+					</tr>
+			</thead>
 
-							<c:forEach var="reply" items="${reply }">
-
-
-								<tr class="warning">
-									<th width="15%">[${reply.r_id }]</th>
-									<td colspan="2" width="50%">${reply.r_content }</td>
-									<th>작성일 : ${reply.r_date }</th>
-									<td width="5%" align="right">
-										<form action="board_replydeleteok.jsp" method="POST"
-											name="replyDel">
-
-											<input type="hidden" name="no" value="${reply.r_sequence }">
-											<input type="hidden" name="idx" value="${reply.board_p_id }">
-
-											<input type="button" class="btn btn-primary btn-xs"
-												value="삭제"
-												onclick="location.href='replyDel.html?r_sequence=${reply.r_sequence}&r_id=${reply.r_id }&board_p_id=${reply.board_p_id }'">
-
-										</form>
-									</td>
-								</tr>
-							</c:forEach>
-						</table>
+					<c:forEach var="reply" items="${reply }">
 
 
+						<tr class="warning">
+							<th width="15%" >[${reply.r_id }]</th>
+							<td colspan="2" width="50%">${reply.r_content }</td>
+							<th>작성일 : ${reply.r_date }</th>
+							<td width="5%" align="right">
+								<form action="board_replydeleteok.jsp" method="POST"
 
-					</div>
-				</div>
-				<!-- /.col-lg-12 -->
+									name="replyDel">
+
+									<input type="hidden" name="no" value="${reply.r_sequence }">
+									<input type="hidden" name="idx" value="${reply.board_p_id }">
+
+									<input type="button" class="btn btn-primary btn-xs" value="삭제"
+
+										onclick="location.href='replyDel.html?r_sequence=${reply.r_sequence}&r_id=${reply.r_id }&board_p_id=${reply.board_p_id }'">
+
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+
+
+
 			</div>
 		</div>
+		<!-- /.col-lg-12 -->
 	</div>
 </div>
-
