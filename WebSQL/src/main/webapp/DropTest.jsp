@@ -76,7 +76,9 @@
 	<table border="1" id="createtable">
 		<tr><td>테이블</td></tr>
 	</table>
-	<!-- /#wrapper -->
+
+
+<!-- /#wrapper -->
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -91,7 +93,9 @@
 
 	<!-- Custom Theme JavaScript -->
 	<script src="<%=request.getContextPath()%>/dist/js/sb-admin-2.js"></script>
-	
+
+
 	버튼 : <input type="button" value="저장" id="save">
+
 </body>
 </html>
