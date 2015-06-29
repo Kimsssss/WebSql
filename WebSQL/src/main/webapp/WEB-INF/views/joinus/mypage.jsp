@@ -36,50 +36,52 @@ $(document).ready(function() {
    }); 
 }); 
 </script> 
-<div id="main">
-   <div class="container">
-      <div align="center" class="body">
-         <h2>회원 정보 수정</h2>
+
+
+<div id="page-wrapper" align="center">
+
+<div class="row">
+	<div class="body">
+		<h2 class="page-header">회원 정보 수정</h2>
+	</div>
+
+</div>
+
          <form action="">
          <table>
-            <tr height="40px">
-               <td>아이디</td>
+         <tbody><tr height="40px">
+               <td width="100px"><b>아이디</b></td>
                <se:authentication property="name" var="LoginUser" />
-               <td><input type="text" id="user_id" value="${LoginUser }"
+               <td width="250px"><input type="text" class="form-control" id="user_id" value="${LoginUser }"
                   readonly="readonly"></td>
             </tr>
             <tr height="40px">
-               <td>새로운 패스워드</td>
-               <td><input type="password" id="user_pwd" value=""></td>
+               <td><b>새로운 패스워드</b></td>
+               <td><input type="password" class="form-control" id="user_pwd" value=""></td>
                
             </tr>
             <tr height="40px">
-               <td>새로운 패스워드 확인</td>
-               <td><input type="password" id="user_pwd2"></td>
+               <td><b>새로운 패스워드 확인</b></td>
+               <td><input type="password" class="form-control" id="user_pwd2"></td>
             </tr>
 
             <tr height="40px">
-               <td>이메일</td>
-               <td><input type="text" id="user_email" readonly="readonly"
+               <td><b>이메일</b></td>
+               <td><input type="text" class="form-control" id="user_email" readonly="readonly"
                   value="${mypage.user_email }"></td>
             </tr>
             <tr height="40px">
-               <td>이름</td>
-               <td><input type="text" id="user_name" readonly="readonly"
+               <td><b>이름</b></td>
+               <td><input type="text" class="form-control" id="user_name" readonly="readonly"
                   value="${mypage.user_name}"></td>
             </tr>
 
-         </table>
-         <table>
             <tr>
-               <td height="40px" align="center"><input type="submit"
-                  id="btnSubmit" value="수정" ></td>
-               <td height="40px" align="center"><input type="reset"
-                  name="btnReset" value="다시작성"></td>
+            <td></td>
+               <td height="40px" align="right">
+               <input type="submit" class="btn btn-primary btn-xs" id="btnSubmit" value="수정" >
+               <input type="reset" class="btn btn-primary btn-xs" name="btnReset" value="다시작성"></td>
             </tr>
-         </table>
+         </tbody></table>
          </form>
       </div>
-
-   </div>
-</div>
