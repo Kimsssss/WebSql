@@ -8,19 +8,18 @@
       <div class="sidebar-nav navbar-collapse">
          <ul class="nav" id="side-menu" style="text-align: center;">
 
-<<<<<<< HEAD
-				<li>
-=======
+
+				
 
 
 
             <li>
->>>>>>> branch 'master' of https://github.com/Kimsssss/WebSql.git
+
 
                <button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
                <se:authorize ifNotGranted="ROLE_USER">
                   <button type="button" class="btn btn-primary"
-                     onclick="location.href='login.html'">Login</button>
+                     onclick="location.href='login.html'" style=" width: 73.22222042083743px;">Login</button>
                   <h3>로그인하세요.</h3>
                </se:authorize> <se:authentication property="name" var="LoginUser" /> <se:authorize
                   ifAnyGranted="ROLE_USER,ROLE_ADMIN">
@@ -34,7 +33,7 @@
 
 
 
-               <button type="button" class="btn btn-success" style="width: 140px"
+               <button type="button" class="btn btn-success" style="width: 101.22222042083743px;""
                   onclick="">TableList</button>
             </li>
             <!--사이드 bar Menu1End  -->
