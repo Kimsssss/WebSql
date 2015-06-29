@@ -43,5 +43,9 @@ public interface BoardDAO {
    public int P_Boarddelete(int board_p_id);
    
    public int reply_Del(int board_p_id);
+   
+   public int reply_board_del(String user_id);
+   
+   public int memBoardDel(String user_id);
 
 }

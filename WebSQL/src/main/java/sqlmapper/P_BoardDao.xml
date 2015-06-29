@@ -2,47 +2,60 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- namespace="dao.NoticeDao 인터페이스 동일 경로 
-     구현된되는 ID 값들을 인터페이스 함수명과 동일
- -->
+<!-- namespace="dao.NoticeDao 인터페이스 동일 경로 구현된되는 ID 값들을 인터페이스 함수명과 동일 -->
 <mapper namespace="com.sqlweb.dao.BoardDAO">
-	<select id="p_getCount" resultType="Integer">
- 		SELECT COUNT(BOARD_p_TITLE) FROM P_NOTICE 
- 	</select>
-    <select id="P_Boardlist" resultType="com.sqlweb.dto.Board_P_DTO">
+   <select id="p_getCount" resultType="Integer">
+      SELECT COUNT(BOARD_p_TITLE) FROM P_NOTICE
+   </select>
+   <select id="P_Boardlist" resultType="com.sqlweb.dto.Board_P_DTO">
       SELECT * FROM
-               ( SELECT ROWNUM NUM, N.* 
-                 FROM 
-                     ( SELECT * 
-                       FROM P_NOTICE
-                       WHERE ${param2} LIKE '%${param3}%' ORDER BY BOARD_P_DATE DESC) N
-                ) WHERE NUM BETWEEN 1 + (${param1}-1)*5 AND 5 + (${param1}-1)*5
-              
-    </select>
-    <insert id="P_Boardwrite">
-    
-      <selectKey order="BEFORE" keyProperty="board_p_id" resultType="Integer">
-       SELECT NVL(MAX(board_p_id),0)+1 FROM P_NOTICE
+      ( SELECT ROWNUM NUM, N.*
+      FROM
+      ( SELECT *
+      FROM P_NOTICE
+      WHERE ${param2} LIKE '%${param3}%' ORDER BY BOARD_P_DATE DESC) N
+      ) WHERE NUM BETWEEN 1 + (${param1}-1)*5 AND 5 + (${param1}-1)*5
+
+   </select>
+   <insert id="P_Boardwrite">
+
+      <selectKey order="BEFORE" keyProperty="board_p_id"
+         resultType="Integer">
+         SELECT NVL(MAX(board_p_id),0)+1 FROM P_NOTICE
       </selectKey>
-      INSERT INTO P_NOTICE(BOARD_P_ID, BOARD_P_TITLE, BOARD_P_CONTENT, USER_ID, BOARD_P_DATE)
+      INSERT INTO P_NOTICE(BOARD_P_ID, BOARD_P_TITLE, BOARD_P_CONTENT,
+      USER_ID, BOARD_P_DATE)
       VALUES(#{board_p_id}, #{board_p_title}, #{board_p_content}, #{user_id}, SYSDATE)
-     </insert>
-     
-     <select id="P_BoardDetail" resultType="com.sqlweb.dto.Board_P_DTO">
-     SELECT * FROM P_NOTICE WHERE board_p_id=#{board_p_id}
-    </select>
-    
-     <update id="P_Boardupdate" >
-     UPDATE P_NOTICE SET board_p_title=#{board_p_title}, board_p_content=#{board_p_content} WHERE board_p_id=#{board_p_id}
-    </update>
-    
-    <delete id="P_Boarddelete" >
-    
-     DELETE P_NOTICE WHERE board_p_id=#{board_p_id}
-     
-    </delete>
-    <delete id="reply_Del">
-    	delete reply where board_p_id=#{board_p_id}
-    </delete>
-    
+   </insert>
+
+   <select id="P_BoardDetail" resultType="com.sqlweb.dto.Board_P_DTO">
+      SELECT * FROM P_NOTICE WHERE board_p_id=#{board_p_id}
+   </select>
+
+   <update id="P_Boardupdate">
+      UPDATE P_NOTICE SET board_p_title=#{board_p_title},
+      board_p_content=#{board_p_content} WHERE board_p_id=#{board_p_id}
+   </update>
+
+   <delete id="P_Boarddelete">
+
+      DELETE P_NOTICE WHERE board_p_id=#{board_p_id}
+
+   </delete>
+   <delete id="reply_Del">
+      delete reply where board_p_id=#{board_p_id}
+   </delete>
+
+
+   <delete id="memBoardDel">
+
+      DELETE from P_NOTICE WHERE user_id=#{user_id}
+
+   </delete>
+
+   <delete id="reply_board_del">
+      delete from reply
+      where board_p_id = (select board_p_id from p_notice where
+      user_id=#{user_id})
+   </delete>
 </mapper>

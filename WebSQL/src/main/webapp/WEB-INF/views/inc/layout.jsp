@@ -36,7 +36,7 @@
 
    <div id="wrapper">
    
-      <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"> 
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="height: 70px;margin-bottom: 0px;">
          <!-- header, aside --> 
          <tiles:insertAttribute name="header" />
          <tiles:insertAttribute name="aside" />
@@ -44,7 +44,9 @@
       
       <!-- Content 영역 -->
       <tiles:insertAttribute name="content" />
-            
+      
+      
+       
 
    </div>
    <!-- /#wrapper -->

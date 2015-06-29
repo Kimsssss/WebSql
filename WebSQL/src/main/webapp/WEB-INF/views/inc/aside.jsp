@@ -4,6 +4,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="aside">
+
+
+
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu" style="text-align: center;">
@@ -13,7 +16,7 @@
 
 				<li>
 
-					<button type="button" class="btn btn-warning" onclick="">Mypage</button>
+					<button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
 					<se:authorize ifNotGranted="ROLE_USER">
 						<button type="button" class="btn btn-primary"
 							onclick="location.href='login.html'">Login</button>
@@ -58,17 +61,27 @@
 
 
 				<!-- DML Menu  -->
-				<li><a href="forms.html">
+				<li><a href="dml.html">
 						<h4>
 							<i class="fa fa-table fa-fw"></i> DML
 							<h4>
 				</a></li>
 				<!-- DML MenuEnd  -->
 
-
-				<li><a href="#"><h4>
-							<i class="fa fa-sitemap fa-fw"></i>BOARD
-						</h4> <span class="fa arrow"></span></a></li>
+ 
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>BOARD<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Q&A</a>
+                                </li>
+                                <li>
+                                    <a href="#">공지사항</a>
+                                </li>
+                           
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
 
 			</ul>
 			<!-- /.nav-second-level -->
