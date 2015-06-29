@@ -1,7 +1,6 @@
 package com.sqlweb.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Random;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 import net.sf.json.JSONArray;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sqlweb.dao.MemberDAO;
+import com.sqlweb.dto.AuthorityDTO;
 import com.sqlweb.dto.MemberDTO;
 import com.sqlweb.utils.MailTest;
 
@@ -140,7 +139,7 @@ public class MemberController {
 
    @RequestMapping(value = "/userEntry.html", method = RequestMethod.POST)
    public ModelAndView fromMemberController(
-         @Valid @ModelAttribute("member") MemberDTO member,
+         @Valid @ModelAttribute("member") MemberDTO member, AuthorityDTO authority,
          BindingResult bindingResult, HttpServletRequest req) {
 
       ModelAndView modelAndView = new ModelAndView();
@@ -175,6 +174,7 @@ public class MemberController {
          System.out.println("dao 전");
          MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
          dao.insertMember(member);
+         dao.insertAuthority(authority);
          System.out.println("dao 후");
          System.out.println(member.getUser_id());
          System.out.println(member.getUser_pwd());

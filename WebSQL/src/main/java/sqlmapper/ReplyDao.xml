@@ -21,6 +21,9 @@
 		delete from reply where r_sequence=#{r_sequence} 
 	</delete>
 	
+	<delete id="memReDel">
+		delete from reply where r_id=#{r_id} 
+	</delete>
 	
    
 </mapper>

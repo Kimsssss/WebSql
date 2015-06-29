@@ -305,7 +305,7 @@ $(function(){
 								<td></td>
 								<td align="right">
 									<!-- Trigger the modal with a button -->
-									<button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+									<button type="button" class="btn btn-info" data-toggle="modal"
 										data-target="#myModal">이메일 인증</button>
 
 								</td>
@@ -331,9 +331,8 @@ $(function(){
 								<td></td>
 
 								<td height="40px" align="right"><input
-									class="btn btn-info" type="submit" name="btnSubmit"
-									value="등록"> 
-									<input class="btn btn-danger" type="reset"
+									class="btn btn-success" type="submit" name="btnSubmit"
+									value="등록"> <input class="btn btn-danger" type="reset"
 									name="btnReset" value="취소"></td>
 							</tr>
 						</table>
