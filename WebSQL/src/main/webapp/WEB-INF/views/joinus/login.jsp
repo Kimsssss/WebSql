@@ -261,11 +261,15 @@
    });
 </script>
 <div id="main">
-   <div class="page-wrapper">
-
-      <div class="row">
-         <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
+   <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12" align="left">
+                    
+                    
+                    <div class="col-lg-5" style="position: absolute; left: 300px;" >
+                      <div class="login-panel panel panel-default">
                <div class="panel-heading">
                   <h3 class="panel-title">
                      <b>Please Sign In</b>
@@ -471,7 +475,36 @@
                   </div>
                </div>
             </div>
-         </div>
+                    
+                       
+                       </div>
+                         <!-- /.col-lg-6 -->
+                       
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+</div>
+<!-- /#main  -->
+
+
+
+
+
+
+
+
+<!--   <div class="page-wrapper">
+
+      <div class="row">
+         <div class="col-md-4 col-md-offset-4" >
+          
+         </div> 
       </div>
    </div>
-</div>
+</div> -->
