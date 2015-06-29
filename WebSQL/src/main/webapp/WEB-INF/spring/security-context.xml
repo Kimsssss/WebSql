@@ -12,6 +12,7 @@
       authentication-failure-url="/login.html?error"
       default-target-url="/index.html"/>
       <security:logout logout-success-url="/index.html"/>
+      <security:remember-me/>
       
    
       <security:intercept-url pattern="/P_*" access="ROLE_USER" />
