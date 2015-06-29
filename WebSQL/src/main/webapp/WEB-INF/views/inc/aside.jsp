@@ -8,10 +8,14 @@
       <div class="sidebar-nav navbar-collapse">
          <ul class="nav" id="side-menu" style="text-align: center;">
 
+<<<<<<< HEAD
+				<li>
+=======
 
 
 
             <li>
+>>>>>>> branch 'master' of https://github.com/Kimsssss/WebSql.git
 
                <button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
                <se:authorize ifNotGranted="ROLE_USER">
@@ -24,6 +28,7 @@
                   <button type="button" class="btn btn-primary"
                      onclick="location.href='${pageContext.request.contextPath}/j_spring_security_logout'">Logout</button>
                   <h3>${LoginUser }님환영합니다.</h3>
+
 
                </se:authorize>
 
@@ -56,9 +61,8 @@
             </a></li>
             <!-- DDL Menu End  -->
 
-
             <!-- DML Menu  -->
-            <li><a href="forms.html">
+            <li><a href="dml.html">
                   <h4>
                      <i class="fa fa-table fa-fw"></i> DML
                      <h4>
