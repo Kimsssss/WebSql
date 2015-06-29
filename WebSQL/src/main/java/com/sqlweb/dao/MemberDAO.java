@@ -19,4 +19,6 @@ public interface MemberDAO {
 	public int mypageUpdate(String user_pwd, String user_id);
 	
 	public int memberDel(String user_id);
+	
+	public int authorityDel(String user_id);
 }

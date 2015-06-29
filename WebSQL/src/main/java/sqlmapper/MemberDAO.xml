@@ -39,9 +39,11 @@
 		UPDATE USERS SET user_pwd=#{param1} WHERE user_id=#{param2}
 	</update>
 
-
-
 	<delete id="memberDel">
 		delete from users where user_id=#{user_id}
+	</delete>
+	
+	<delete id="authorityDel">
+		delete from user_authority where user_id=#{user_id}
 	</delete>
 </mapper>
