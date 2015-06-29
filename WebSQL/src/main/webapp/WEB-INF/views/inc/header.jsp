@@ -24,7 +24,7 @@
 
 		<ul class="nav navbar-top-links">
 
-			<li>
+			<!-- <li>
 
 				<div class="alert alert-success"
 					style="position: absolute; left: 150px; width: 457px;"">
@@ -33,7 +33,7 @@
 						<a href="userEntry.html" class="alert-link">회원가입</a>
 				</div>
 
-			</li>
+			</li> -->
 
 
 

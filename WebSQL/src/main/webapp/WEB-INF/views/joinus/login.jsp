@@ -78,8 +78,8 @@
 
                                     $('#modalbodydetail')
                                           .html(
-                                                "<br><br><input type='text' id='modalcode' name='modalcode'>"
-                                                      + "<button type='button' id='modalcodebtn' name='modalcodebtn'>인증</button>");
+                                                "<br><br><table><tr><td><input type='text' id='modalcode' name='modalcode'></td><td width='5px'></td><td>"
+                                                      + "<button type='button' class='btn btn-primary btn-xs' id='modalcodebtn' name='modalcodebtn' style='padding-left: 14px;padding-right: 14px;padding-top: 3px;padding-bottom: 3px;'>인증</button></td></tr></table>");
                                     $('#modalcodebtn')
                                           .click(
                                                 function() {
@@ -385,36 +385,33 @@
                            <div class="modal-body" id="modal-bodyPWD">
 
                               <div align="center">
-                                 <table style="width: 450px;">
+                                 <table style="width: 350px;">
                                     <tr height="40px">
                                        <td><b>이름</b></td>
                                        <td><input class='form-control' id='user_name'
                                           name='user_name' placeholder='이름 입력'></td>
-                                       <td width="110px"></td>
                                     </tr>
                                     <tr height="40px">
                                        <td><b>ID</b></td>
                                        <td><input class='form-control' id='user_id'
                                           name='user_id' placeholder='ID 입력'></td>
-                                       <td></td>
                                     </tr>
                                     <tr height="40px">
                                        <td><b>이메일</b></td>
                                        <td><input class='form-control' id='user_email'
                                           name='user_email' placeholder='이메일 입력' readonly="readonly">
                                        </td>
-                                       <td align="right">
-                                          <button type="button" class="btn btn-outline btn-primary"
-                                             data-toggle="modal" data-target="#myModal3">이메일
-                                             인증</button> <br>
-                                       </td>
+                                       
                                     </tr>
                                     <tr height="40px">
-                                       <td colspan="3" align="center">
+                                       <td colspan="2" align="right">
+                                          <button type="button" class="btn btn-outline btn-primary btn-sm"
+                                             data-toggle="modal" data-target="#myModal3">이메일인증</button>
+                                       
                                           <button type='button'
-                                             class='btn btn-outline btn-primary btn-sm' id="pwdfine">PWD찾기</button>
+                                             class='btn btn-info' id="pwdfine">PW찾기</button>
                                           <button type='button'
-                                             class='btn btn-outline btn-primary btn-sm'
+                                             class='btn btn-default'
                                              data-dismiss='modal'>Close</button>
                                        </td>
                                     </tr>
@@ -439,23 +436,28 @@
                            <div class="modal-content">
                               <div class="modal-header">
                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                 <h4 class="modal-title">이메일 인증</h4>
+                                 <h4 class="modal-title" style="text-align: center">이메일 인증</h4>
                               </div>
 
                               <form action="Mailsave.html" method="post"
                                  enctype="multipart/form-data" name="emailform"
                                  accept-charset="utf-8">
-                                 <div class="modal-body" id="modalbody">
+                                 <div class="modal-body" id="modalbody" align="center">
                                     <p>인증할 이메일 주소를 입력해주세요.</p>
                                     <br> <input type="hidden" id="namehidden"
                                        name="namehidden" value=""> <input type="hidden"
                                        id="idhidden" name="idhidden" value=""> <input
                                        type="hidden" id="emailhidden" name="emailhidden" value="">
-
-                                    <input type="text" id="modalemail" name="modalemail">
-                                    <button type="button" id="modalbtn" name="modalbtn">인증코드
-                                       전송</button>
-
+									  <table style="width: 310px;">
+        								<tr height="40px">
+        								<td>
+                                    <input class='form-control' id="modalemail" name="modalemail">
+                                    </td>
+                                    <td align="right">
+                                    <button type="button" class="btn btn-outline btn-primary" id="modalbtn" name="modalbtn" style="padding-left: 3px; padding-right: 3px;">인증코드전송</button>
+									</td>
+									</tr>
+									</table>
                                     <input type="hidden" value="0" id="hiddencode"
                                        name="hiddencode">
                                     <div id="modalbodydetail"></div>
