@@ -261,11 +261,15 @@
    });
 </script>
 <div id="main">
-   <div class="page-wrapper">
-
-      <div class="row">
-         <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
+   <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12" align="left">
+                    
+                    
+                    <div class="col-lg-5" style="position: absolute; left: 300px;" >
+                      <div class="login-panel panel panel-default">
                <div class="panel-heading">
                   <h3 class="panel-title">
                      <b>Please Sign In</b>
@@ -367,62 +371,55 @@
 
                   <!-- Modal PWD -->
                   <!-- 비밀번호 찾기 팝업창  -->
-                  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true"
-                     style="display: none;">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal"
-                                 aria-hidden="true">×</button>
-                              <h4 class="modal-title" id="myModalLabel"
-                                 style="text-align: center">PWD찾기</h4>
-                           </div>
-                           <div class="modal-body" id="modal-bodyPWD">
-
-                              <div align="center">
-                                 <table style="width: 350px;">
-                                    <tr height="40px">
-                                       <td><b>이름</b></td>
-                                       <td><input class='form-control' id='user_name'
-                                          name='user_name' placeholder='이름 입력'></td>
-                                    </tr>
-                                    <tr height="40px">
-                                       <td><b>ID</b></td>
-                                       <td><input class='form-control' id='user_id'
-                                          name='user_id' placeholder='ID 입력'></td>
-                                    </tr>
-                                    <tr height="40px">
-                                       <td><b>이메일</b></td>
-                                       <td><input class='form-control' id='user_email'
-                                          name='user_email' placeholder='이메일 입력' readonly="readonly">
-                                       </td>
-                                       
-                                    </tr>
-                                    <tr height="40px">
-                                       <td colspan="2" align="right">
-                                          <button type="button" class="btn btn-outline btn-primary btn-sm"
-                                             data-toggle="modal" data-target="#myModal3">이메일인증</button>
-                                       
-                                          <button type='button'
-                                             class='btn btn-info' id="pwdfine">PW찾기</button>
-                                          <button type='button'
-                                             class='btn btn-default'
-                                             data-dismiss='modal'>Close</button>
-                                       </td>
-                                    </tr>
-                                 </table>
-                              </div>
-
-                              <div id="modalfooter2" class="modal-footer"
-                                 style="text-align: center;"></div>
-
-                           </div>
-                           <!-- /.modal-content -->
-                        </div>
-                        <!-- /.modal-dialog -->
-                     </div>
-                     <!-- /.modal PWD End -->
+                  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title" id="myModalLabel" style="text-align: center">PWD찾기</h4>
+                                        </div>
+                                        <div class="modal-body" id="modal-bodyPWD" align="center">
+                                        
+                                   <table style="width: 350px">
+                                   	<tr height="40px">
+                                   		<td><b>이름</b></td>
+                              			<td>
+                               			<input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'>
+                           				</td>
+                           		   </tr>
+                           		   <tr height="40px">
+                           				<td><b>ID</b></td>
+                           				<td>      
+                            			<input type='text' class='form-control' id='user_id' name='user_id' placeholder='ID 입력'>
+                           				</td>
+                          		  </tr>
+                           		  <tr height="40px">
+                           				<td><b>이메일</b></td>
+                            			<td>
+                              			<input type='text' class='form-control' id='user_email' name='user_email' placeholder='이메일 인증을 눌러주세요' readonly="readonly">
+                            			</td>
+                            	 </tr>             
+                                 <tr height="40px">
+                              			<td colspan="2" align="right">
+                              			<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal3">이메일 인증</button>
+                              			<button type='button' class='btn btn-default' id="pwdfine">PWD찾기</button> 
+                              			<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> 
+                               			</td>
+                               	</tr>
+                               	</table>    
+                                   
+                                        </div>
+                                        
+                                        <div id="modalfooter2" class="modal-footer" style="text-align: center;">
+                                        
+                                        </div>
+                                        
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal PWD End -->
 
                      <!-- 이메일 인증  -->
                      <div id="myModal3" class="modal fade" role="dialog">
@@ -472,8 +469,37 @@
                      </div>
                   </div>
                </div>
+
+                    
+                       
+                       </div>
+                         <!-- /.col-lg-6 -->
+                       
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
             </div>
-         </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+</div>
+<!-- /#main  -->
+
+
+
+
+
+
+
+
+<!--   <div class="page-wrapper">
+
+      <div class="row">
+         <div class="col-md-4 col-md-offset-4" >
+          
+         </div> 
       </div>
    </div>
-</div>
+</div> -->
