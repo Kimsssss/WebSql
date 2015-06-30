@@ -12,6 +12,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <title>Insert title here</title>
 </head>
@@ -55,7 +57,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                    $('.check-all').click(function(){
                      $('.sel').prop('checked',this.checked);
                         });
-                   $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                   $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                         
                    $('#selectviewbtn').click(function(){
                       var obj = document.getElementsByName("columncheck");

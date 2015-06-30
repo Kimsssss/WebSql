@@ -1,6 +1,7 @@
 package com.sqlweb.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Random;
@@ -24,7 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sqlweb.dao.BoardDAO;
 import com.sqlweb.dao.MemberDAO;
+import com.sqlweb.dao.ReplyDAO;
 import com.sqlweb.dto.AuthorityDTO;
 import com.sqlweb.dto.MemberDTO;
 import com.sqlweb.utils.MailTest;
@@ -139,8 +142,9 @@ public class MemberController {
 
    @RequestMapping(value = "/userEntry.html", method = RequestMethod.POST)
    public ModelAndView fromMemberController(
-         @Valid @ModelAttribute("member") MemberDTO member, AuthorityDTO authority,
-         BindingResult bindingResult, HttpServletRequest req) {
+         @Valid @ModelAttribute("member") MemberDTO member,
+         AuthorityDTO authority, BindingResult bindingResult,
+         HttpServletRequest req) {
 
       ModelAndView modelAndView = new ModelAndView();
 
@@ -195,76 +199,108 @@ public class MemberController {
       }
 
    }
-   
-   @RequestMapping(value="/userIDfine.html"  , method = RequestMethod.POST)
-   public void IDfine(MemberDTO memberDTO, String user_name ,  HttpServletResponse response) throws IOException{
-      
-     
-      
+
+   @RequestMapping(value = "/userIDfine.html", method = RequestMethod.POST)
+   public void IDfine(MemberDTO memberDTO, String user_name,
+         HttpServletResponse response) throws IOException {
+
       response.setContentType("text/html;charset=utf-8");
-       response.setCharacterEncoding("utf-8");
-    
+      response.setCharacterEncoding("utf-8");
+
       System.out.println(user_name);
 
-    response.setContentType("text/html;charset=utf-8");
-   response.setCharacterEncoding("utf-8");
-    
-   MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
-  
-   memberDTO = memberdao.getidfine(user_name);
-    
-   System.out.println(memberDTO);
-    
-   System.out.println(memberDTO.getUser_id());
-    
+      response.setContentType("text/html;charset=utf-8");
+      response.setCharacterEncoding("utf-8");
+
+      MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+
+      memberDTO = memberdao.getidfine(user_name);
+
+      System.out.println(memberDTO);
+
+      System.out.println(memberDTO.getUser_id());
 
       response.getWriter().print(memberDTO.getUser_id());
-     
 
    }
-   
-   
-   
-   @RequestMapping(value="/UserPWDfine.html"  , method = RequestMethod.POST)
-   public void PWDfine(MemberDTO memberDTO, String user_name, String user_id , String user_email ,    HttpServletResponse response) throws IOException{
-      
-   
+
+   @RequestMapping(value = "/UserPWDfine.html", method = RequestMethod.POST)
+   public void PWDfine(MemberDTO memberDTO, String user_name, String user_id,
+         String user_email, HttpServletResponse response) throws IOException {
+
       response.setContentType("text/html;charset=utf-8");
-       response.setCharacterEncoding("utf-8");
+      response.setCharacterEncoding("utf-8");
 
-    
-   MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
-   memberDTO = memberdao.getpwdfine(user_name, user_id, user_email);
+      MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+      memberDTO = memberdao.getpwdfine(user_name, user_id, user_email);
 
-   
-
+      System.out.println(memberDTO.getUser_pwd());
+      
       response.getWriter().print(memberDTO.getUser_pwd());
-     
 
    }
+
    @RequestMapping(value = "mypage.html")
    public String mypage(MemberDTO memberDTO, Model model, Principal principal) {
       String user_id = principal.getName();
       MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
       memberDTO = memberdao.getMypage(user_id);
       model.addAttribute("mypage", memberDTO);
-      
+
       return "joinus.mypage";
    }
 
-   @RequestMapping(value = "mypageUpdate.html", method=RequestMethod.GET)
-   public String mypageUpdate(String user_pwd, String user_id, 
+   @RequestMapping(value = "mypageUpdate.html", method = RequestMethod.GET)
+   public String mypageUpdate(String user_pwd, String user_id,
          HttpServletRequest request, Principal principal,
          HttpServletResponse response) throws IOException {
-      System.out.println("여기");
       user_pwd = request.getParameter("user_pwd");
       user_id = principal.getName();
       MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
-       memberdao.mypageUpdate(user_pwd, user_id);
-      
-       
+      memberdao.mypageUpdate(user_pwd, user_id);
+
       return "redirect:index.html";
    }
+
+   @RequestMapping(value = "memberDel.html")
+   public String memberDel(String user_id, Principal principal, HttpServletRequest request,
+         HttpServletResponse response) throws IOException {
+      response.setContentType("text/html;charset=utf-8");
       
-   
+      
+      
+      PrintWriter out = response.getWriter();
+
+      user_id = principal.getName();
+      String user_pwd = request.getParameter("user_pwd");
+      
+      
+      System.out.println(user_pwd);
+      
+      ReplyDAO replyDao = sqlSession.getMapper(ReplyDAO.class);
+      replyDao.memReDel(user_id);
+      
+      System.out.println(replyDao.memReDel(user_id));
+      BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+      boardDao.reply_board_del(user_id);
+      boardDao.memBoardDel(user_id);
+      
+      System.out.println("-----------------------------------");
+      System.out.println(boardDao.reply_board_del(user_id));
+      System.out.println( boardDao.memBoardDel(user_id));
+      System.out.println("-----------------------------------");
+      
+      MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
+      memberdao.authorityDel(user_id);
+      memberdao.memberDel(user_id);
+      out.println("<script>");
+      out.println("location.href='WebSql/j_spring_security_logout?j_username="
+               + user_id + "&j_password=" + user_pwd + "'");
+      out.println("alert('회원탈퇴가 완료되었습니다.');");
+      out.println("</script>");
+      out.close();
+
+      return "home.index";
+   }
+
 }

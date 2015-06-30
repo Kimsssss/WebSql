@@ -45,7 +45,7 @@
 									<div class="form-group">
 										<label>글 내용</label>
 										<textarea class="form-control" rows="3" name="board_p_content"
-											style="height: 290px">${p_detail.board_p_content}</textarea>
+											style="height: 290px";>${p_detail.board_p_content}</textarea>
 									</div>
 									<!-- 글내용End  -->
 

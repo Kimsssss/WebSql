@@ -6,42 +6,44 @@
 
 <mapper namespace="com.sqlweb.dao.MemberDAO">
 
-	<insert id="insertAuthority">
-		INSERT INTO user_authority(user_id, authority)
-		VALUES(#{user_id}, (select case when enabled=1 then 'ROLE_ADMIN'
-		else 'ROLE_USER' end authority from users where user_id=#{user_id}))
-	</insert>
+   <insert id="insertAuthority">
+      INSERT INTO user_authority(user_id, authority)
+      VALUES(#{user_id}, (select case when enabled=1 then 'ROLE_ADMIN'
+      else 'ROLE_USER' end authority from users where user_id=#{user_id}))
+   </insert>
 
-	<insert id="insertMember" parameterType="com.sqlweb.dto.MemberDTO">
-		insert into
-		USERS(user_id,user_pwd,user_email,user_name,enabled)
-		values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
-	</insert>
+   <insert id="insertMember" parameterType="com.sqlweb.dto.MemberDTO">
+      insert into
+      USERS(user_id,user_pwd,user_email,user_name,enabled)
+      values(#{user_id}, #{user_pwd},#{user_email},#{user_name},#{enabled})
+   </insert>
 
-	<select id="getidfine" resultType="com.sqlweb.dto.MemberDTO"
-		parameterType="String">
-		SELECT user_id FROM USERS WHERE user_name = #{user_name}
-	</select>
+   <select id="getidfine" resultType="com.sqlweb.dto.MemberDTO"
+      parameterType="String">
+      SELECT user_id FROM USERS WHERE user_name = #{user_name}
+   </select>
 
-	<select id="getpwdfine" resultType="com.sqlweb.dto.MemberDTO">
-		SELECT user_pwd FROM USERS
-		WHERE user_name = #{param1} AND user_id = #{param2} AND user_email =
-		#{param3}
-	</select>
-
-
-	<select id="getMypage" resultType="com.sqlweb.dto.MemberDTO"
-		parameterType="String">
-		SELECT * FROM USERS WHERE user_id = #{user_id}
-	</select>
-
-	<update id="mypageUpdate">
-		UPDATE USERS SET user_pwd=#{param1} WHERE user_id=#{param2}
-	</update>
+   <select id="getpwdfine" resultType="com.sqlweb.dto.MemberDTO">
+      SELECT user_pwd FROM USERS
+      WHERE user_name = #{param1} AND user_id = #{param2} AND user_email =
+      #{param3}
+   </select>
 
 
+   <select id="getMypage" resultType="com.sqlweb.dto.MemberDTO"
+      parameterType="String">
+      SELECT * FROM USERS WHERE user_id = #{user_id}
+   </select>
 
-	<delete id="memberDel">
-		delete from users where user_id=#{user_id}
-	</delete>
+   <update id="mypageUpdate">
+      UPDATE USERS SET user_pwd=#{param1} WHERE user_id=#{param2}
+   </update>
+
+   <delete id="memberDel">
+      delete from users where user_id=#{user_id}
+   </delete>
+   
+   <delete id="authorityDel">
+      delete from user_authority where user_id=#{user_id}
+   </delete>
 </mapper>

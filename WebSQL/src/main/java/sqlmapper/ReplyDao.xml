@@ -5,25 +5,25 @@
     
 <mapper namespace="com.sqlweb.dao.ReplyDAO">
 
-	<select id="replyDetail" resultType="com.sqlweb.dto.ReplyDTO">
+   <select id="replyDetail" resultType="com.sqlweb.dto.ReplyDTO">
      select * from reply where board_p_id = #{board_p_id} order by r_sequence desc
     </select>
 
-	<insert id="replyInsert">
-	  <selectKey order="BEFORE" keyProperty="r_sequence" resultType="Integer">
+   <insert id="replyInsert">
+     <selectKey order="BEFORE" keyProperty="r_sequence" resultType="Integer">
        SELECT NVL(MAX(r_sequence),0)+1 FROM reply
       </selectKey>
-		insert into reply(r_sequence,board_p_id,r_id,r_content,r_date) 
-		values(#{r_sequence},#{board_p_id},#{r_id},#{r_content},SYSDATE)
-	</insert>
-	
-	<delete id="replyDelete">
-		delete from reply where r_sequence=#{r_sequence} 
-	</delete>
-	
-	<delete id="memReDel">
-		delete from reply where r_id=#{r_id} 
-	</delete>
-	
+      insert into reply(r_sequence,board_p_id,r_id,r_content,r_date) 
+      values(#{r_sequence},#{board_p_id},#{r_id},#{r_content},SYSDATE)
+   </insert>
+   
+   <delete id="replyDelete">
+      delete from reply where r_sequence=#{r_sequence} 
+   </delete>
+   
+   <delete id="memReDel">
+      delete from reply where r_id=#{r_id} 
+   </delete>
+   
    
 </mapper>

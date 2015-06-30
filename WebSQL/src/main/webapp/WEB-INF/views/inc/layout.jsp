@@ -36,7 +36,7 @@
 
    <div id="wrapper">
    
-      <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"> 
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="height: 70px;margin-bottom: 0px;">
          <!-- header, aside --> 
          <tiles:insertAttribute name="header" />
          <tiles:insertAttribute name="aside" />
@@ -44,12 +44,14 @@
       
       <!-- Content 영역 -->
       <tiles:insertAttribute name="content" />
-            
+      
+      
+       
 
    </div>
    <!-- /#wrapper -->
 
-  <%--  <!-- jQuery -->
+   <!-- jQuery -->
    <script src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
 
    <!-- Bootstrap Core JavaScript -->
@@ -64,7 +66,7 @@
    <script src="<%=request.getContextPath()%>/resources/js/morris-data.js"></script>
 
    <!-- Custom Theme JavaScript -->
-   <script src="<%=request.getContextPath()%>/resources/dist/js/sb-admin-2.js"></script> --%>
+   <script src="<%=request.getContextPath()%>/resources/dist/js/sb-admin-2.js"></script>
 
 </body>
 
