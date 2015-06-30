@@ -3,6 +3,7 @@ package com.sqlweb.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -90,6 +91,68 @@ public class DMLController {
 		System.out.println("서버로 list 전송완료");
 		
 		
+	}
+	
+	@RequestMapping(value="inputselect.html", method=RequestMethod.POST)
+	public void inputselect(String ip, String id, String pwd, HttpServletResponse res,String tablename){
+		try {
+			ArrayList<String> arr = new ArrayList<String>();
+			
+			System.out.println("inputselect ip :"+ip);
+			System.out.println("inputselect id :"+id);
+			System.out.println("inputselect pwd :"+pwd);
+			System.out.println("inputselect tablename :"+tablename);
+			
+			Jdbc jb = new Jdbc();
+			c = jb.ConnectionMake(ip, id, pwd);
+			
+			DMLDAO dao = new DMLDAO();
+			
+			arr = dao.columnselect(c, tablename, id);
+			
+			JSONArray codes = JSONArray.fromObject(arr);
+			
+			res.getWriter().print(codes);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("서버로 list 전송완료");
+	}
+	
+	@RequestMapping(value="selectview.html", method=RequestMethod.POST)
+	public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res){
+		List<String> checkList = JSONArray.fromObject(list);
+		System.out.println("list : "+checkList.get(0));
+		String str = "";
+		for(int i=0; i<checkList.size(); i++){
+			str += checkList.get(i)+",";
+		}
+		System.out.println(str);
+		System.out.println(str.substring(0,str.length()-1));
+		try {
+			ArrayList<String> arr = new ArrayList<String>();
+			
+			System.out.println("selectview ip :"+ip);
+			System.out.println("selectview id :"+id);
+			System.out.println("selectview pwd :"+pwd);
+			System.out.println("selectview tablename :"+tablename);
+			
+			Jdbc jb = new Jdbc();
+			c = jb.ConnectionMake(ip, id, pwd);
+			
+			DMLDAO dao = new DMLDAO();
+			
+			arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1));
+			
+			JSONArray codes = JSONArray.fromObject(arr);
+			
+			res.getWriter().print(codes);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("서버로 list 전송완료");
 	}
 	/*@RequestMapping
 	public void Select(){

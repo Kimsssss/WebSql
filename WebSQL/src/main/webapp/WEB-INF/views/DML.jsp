@@ -17,6 +17,100 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </head>
 <script type="text/javascript">
 	$(function(){
+		$('#crudbtn').click(function(){
+			console.log($('#crudselect').val());
+			console.log($('#tableselect').val());
+			if($('#crudselect').val() == "select"){
+				console.log("select if문");
+				console.log($('#crudselect').val());
+				console.log($('#tableselect').val());
+				console.log($('#ipip').val());
+				console.log($('#idid').val());
+				console.log($('#pwdpwd').val());
+				var inputstr = "";
+				
+				
+				
+				 $.ajax({
+					type: 'POST',
+			        url: "inputselect.html",
+			        data : {ip: $('#iptext').val(),
+		        	  	id: $('#idtext').val(),
+		        	  	pwd: $('#pwdtext').val(),
+		        	  	tablename: $('#tableselect').val()},
+			        dataType: "html",
+			        success: function(responseData){
+			             var codes = JSON.parse(responseData);
+			             var columninput = "<input type='checkbox' name='all' class='check-all'> <label>Check ALL</label>&nbsp;&nbsp;&nbsp;";
+			             console.log("select 비동기 성공");
+			             console.log(codes);
+			             $.each(codes,function(index,items){
+		              			
+			            	 columninput += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
+			            	 console.log(columninput);
+		              		})
+		              	/* columninput += "<br>----------------------------------------------------------------<br>"+
+		              	"<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
+			             $('#modalbody2').html(columninput);
+						 $('.check-all').click(function(){
+							$('.sel').prop('checked',this.checked);
+								});
+						 $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+								
+						 $('#selectviewbtn').click(function(){
+							 var obj = document.getElementsByName("columncheck");
+							 var list = [];
+							 console.log($('#columncheck').val());
+							 $.each(obj,function(index,ob){
+								if(ob.checked){
+									list.push(ob.value);
+								}
+								console.log(ob);
+								console.log(index);
+								console.log(ob.value);
+								console.log(ob.checked);
+							 })
+							 console.log(list);
+						 $.ajax({
+							type: 'POST',
+			       			url: "selectview.html",
+			       		    data : {list: JSON.stringify(list),
+			       		    	ip: $('#iptext').val(),
+				        	  	id: $('#idtext').val(),
+				        	  	pwd: $('#pwdtext').val(),
+				        	  	tablename: $('#tableselect').val()},
+			       			dataType: "html",
+			       		    success: function(responseData){
+			                var codes = JSON.parse(responseData);
+			                console.log("select 비동기 성공");
+			                console.log(codes);
+			                var code = "<table border='1'>";
+			                console.log(codes[codes.length-1]);
+			                var colend = codes[codes.length-1];
+			                $.each(codes,function(index,items){
+			                	if((index+1)%colend == 0){
+			                		code += "<td>"+items+"</td></tr>";
+			                		if(codes.length-1==index){
+			                			code += "</table>";
+			                		}
+			                	}else{
+			                	code += "<tr><td>"+items+"</td>"
+			                	}
+			                }) 
+			                $('#tableviewdiv').html(code);
+			       		    } 
+						})
+							  
+						 });
+						 
+						}
+			        }); 
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(function(){
 		$('#conbtn').click(function(){
 			  $.ajax({
 				  type: 'POST',
@@ -94,7 +188,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
 <h3>DML 입니다.</h3>
-<select>
+<select id="crudselect" name="crudselect">
 	<option value="select" id="select">select</option>
 	<option value="insert" id="insert">insert</option>
 	<option value="update" id="update">update</option>
@@ -109,8 +203,16 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <select id="tableselect" name="tableselect">
 	<option>테이블 종류</option>
 </select>
+<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-info btn-sm" data-toggle="modal" data-target="#crudModal">
+
+<!-- 테이블 출력 div -->
+<div id="tableviewdiv" name="tableviewdiv">
+</div>
 
 <div class="container">
+
+
+
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -139,7 +241,33 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
       
     </div>
   </div>
-  
+  <!-- -------------------------------------modal end------------------------------------------------------------- -->
+  <!-- Modal -->
+  <div class="modal fade" id="crudModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">세부 설정</h4>
+        </div>
+        <div class="modal-body" id="modalbody2">
+          <!-- modal 메인 html 정보 body -->
+        </div>
+        <!-- <button type="button" class="btn btn-danger" onclick="javascript:msgform.submit();">Send</button> -->
+        
+        <div class="modal-footer">
+       	 <div id="modalfooter2" name="modalfooter2">
+       	 	<!-- modal 확인 버튼 등 footer -->
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- -------------------------------------modal end------------------------------------------------------------- -->
 </div>
 
 </div>

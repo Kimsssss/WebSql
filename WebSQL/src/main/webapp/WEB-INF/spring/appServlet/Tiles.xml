@@ -17,7 +17,6 @@
          
          
           <definition name="*.*" template="/WEB-INF/views/indexinc/indexlayout.jsp"> 
-
          	<put-attribute name="headernav"  value="/WEB-INF/views/indexinc/headernav.jsp" />
          	<put-attribute name="footer"   value="/WEB-INF/views/indexinc/footer.jsp" />
          	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
