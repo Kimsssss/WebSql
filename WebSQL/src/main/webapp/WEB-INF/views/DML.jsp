@@ -359,7 +359,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                    dataType: "html",
                    success: function(responseData){
                         var codes = JSON.parse(responseData);
-                        var columninput = "<table><tr><td width='130px'><b>WHERE</b></td> <td width='170px'><select id='deleteselect' class='form-control' name='deleteselect'>";
+                        var columninput = "<table><tr><td width='75px'><h4>WHERE</h4></td> <td width='170px'><select id='deleteselect' class='form-control' name='deleteselect'>";
                         $.each(codes,function(index,items){
                                
                            columninput += "<option value='"+items+"' id='"+items+"' name='"+items+"'>"+items+"</option>";
