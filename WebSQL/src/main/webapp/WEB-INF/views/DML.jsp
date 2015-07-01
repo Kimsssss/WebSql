@@ -350,7 +350,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          
          else if($('#crudselect').val() == "delete"){ 
 
-            $('#modalbody2').html("where <input type='text' id='deletetxt' name='deletetxt'>");
+            $('#modalbody2').html("<table><tr><td width='75px'><h4>WHERE</h4></td><td width='170px'><input type='text'class='form-control' id='deletetxt' name='deletetxt'></td></tr></table>");
           	 $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
 
                

@@ -66,7 +66,7 @@
 							<table class="table">
 								<thead>
 									<tr class="info">
-										<th colspan="3">댓글쓰기</th>
+										<th colspan="4">댓글쓰기</th>
 
 									</tr>
 								</thead>
@@ -74,17 +74,17 @@
 									<tr class="warning">
 										<se:authentication property="name" var="LoingUser" />
 										<th align="left" width="80px">작성자</th>
-										<td colspan="2"><input type="text" name="r_id" readonly="readonly"
+										<td width="200px"><input type="text" class="form-control" name="r_id" readonly="readonly"
 											value="${ LoingUser}"></td>
 										<!-- ${LoingUser } -->
-										
+										<td width="600px"></td><td></td></tr>
 									<tr class="warning">
 										<th>내용</th>
-										<td><textarea name="r_content" placeholder="댓글을 작성하세요."
+										<td colspan="2"><textarea name="r_content" class="form-control" placeholder="댓글을 작성하세요."
 												rows="2" cols="60" style="resize: none"></textarea></td>
 
 										<td align="right"><input type="submit"
-											class="btn btn-info" value="등록"></td>
+											class="btn btn-info" value="등록" style="height: 54px; width: 71px;"></td>
 									</tr>
 								</tbody>
 
