@@ -14,10 +14,18 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- 
+  
  <script src="https://code.jquery.com/jquery-1.10.2.js"></script> 
+ <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <title>Insert title here</title>
 </head>
+
+<script>
+  $(function() {
+    $( ".modal-dialog" ).draggable();
+  });
+</script>
+
 <script type="text/javascript">
    $(function(){
       $('#crudbtn').click(function(){
@@ -54,7 +62,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           columninput += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
                           console.log(columninput);
                            })
-                           columninput += "<br><br><table><tr><td width='75px'><h4>WHERE</h4></td><td width='170px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
+                           columninput += "<br><br><br><h3>WHERE&nbsp;&nbsp;</h3><input type='text' id='wheretext' name='wheretext' value=''>";
                         /* columninput += "<br>----------------------------------------------------------------<br>"+
                         "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
                        $('#modalbody2').html(columninput);
@@ -91,20 +99,26 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           var codes = JSON.parse(responseData);
                           console.log("select 비동기 성공");
                           console.log(codes);
-                          var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover' border='1'><tr>";
+                          var code = "<table border='1'><tr><td>row</td>";
                           console.log(codes[codes.length-1]);
                           console.log(codes.length-1);
                           var colend = codes[codes.length-1];
+                          var sort = 1;
                           console.log(colend);
                           $.each(codes,function(index,items){
                              console.log(index);
                              if((index+1)%colend == 0){
-                                code += "<td>"+items+"</td></tr><tr>";
+                                if(index != codes.length-2){
+                                code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                                sort +=1;}else{
+                                   code += "<td>"+items+"</td></tr>";
+                                }
+                                
                              }else{
                                 if(codes.length-1 ==index){
-                                     code += "</table></div>";
+                                     code += "</table>";
                                   }else{
-                                     code += "<td>"+items+"</td>"
+                                     code += "<td>"+items+"</td>";
                                   }
                              
                              }
@@ -117,7 +131,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                     
                    }
                   }); 
-          } /**********************select end  ******************************/
+          }/**********************select end  ******************************/
         
          
           

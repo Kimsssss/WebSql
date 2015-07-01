@@ -123,22 +123,17 @@ public class DMLController {
    }
    
    @RequestMapping(value="selectview.html", method=RequestMethod.POST)
-   public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res){
-
-	   res.setCharacterEncoding("utf-8");
-	   
-	   List<String> checkList = JSONArray.fromObject(list);
+   public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res,String wheretext){
       
-  
-      System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
-    
+      res.setCharacterEncoding("utf-8");
       
+      List<String> checkList = JSONArray.fromObject(list);
+      System.out.println("list : "+checkList.get(0));
+      System.out.println("controller wheretext : "+wheretext);
       String str = "";
-      
       for(int i=0; i<checkList.size(); i++){
          str += checkList.get(i)+",";
       }
-      
       System.out.println(str);
       System.out.println(str.substring(0,str.length()-1));
       try {
@@ -154,7 +149,7 @@ public class DMLController {
          
          DMLDAO dao = new DMLDAO();
          
-         arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1));
+         arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1),wheretext);
          
          JSONArray codes = JSONArray.fromObject(arr);
          
@@ -163,7 +158,7 @@ public class DMLController {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      System.out.println("서버로 list 전송완료");
+      System.out.println("selectview 서버로 list 전송완료");
    }
    
    @RequestMapping(value="inputdataTYPE.html", method=RequestMethod.POST)
