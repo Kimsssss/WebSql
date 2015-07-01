@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+   <script src="<%=request.getContextPath() %>/resources/ckeditor/ckeditor.js"></script>
 <div id="main">
 	<form action="p_board.html" method="post">
 		<div id="page-wrapper">
@@ -40,7 +41,7 @@
 									<!-- 글내용  -->
 									<div class="form-group">
 										<label>글 내용</label>
-										<textarea class="form-control" rows="3" name="board_p_content"
+										<textarea class="ckeditor" rows="3" name="board_p_content"
 											style="height: 290px";></textarea>
 									</div>
 									<!-- 글내용End  -->
