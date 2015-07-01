@@ -54,7 +54,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           columninput += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
                           console.log(columninput);
                            })
-                           columninput += "<table><tr><td width='75px'><h4>WHERE</h4></td><td width='150px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
+                           columninput += "<br><br><table><tr><td width='75px'><h4>WHERE</h4></td><td width='170px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
                         /* columninput += "<br>----------------------------------------------------------------<br>"+
                         "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
                        $('#modalbody2').html(columninput);
@@ -170,7 +170,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                
                                $.each(codes,function(index,items){
                             
-                                  columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel' value=''</td></tr> ";
+                                  columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td width='250px'><input type='text' class='form-control' name='columnname' id='columnname' value=''</td></tr> ";
                          
                             /*   columninput += "<label>"+items+"</label> <p>"+codedata[index]+"</p> "+" &nbsp;&nbsp;&nbsp; <input type='text' name='columnname' id='columnname' class='sel' value='"+items+"'> ";
                                   console.log(columninput);  */
@@ -270,7 +270,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                     dataType: "html",
                     success: function(responseData){
                          var codes = JSON.parse(responseData);
-                         var columninput = "UPDATE Column : <select id='updateselect' name='updateselect'>";
+                         var columninput = "<table><tr><td width='130px'><b>UPDATE Column</b></td> <td width='170px'><select id='updateselect' class='form-control' name='updateselect'>";
                          console.log("update 비동기 성공");
                          console.log(codes);
                          $.each(codes,function(index,items){
@@ -278,8 +278,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                             columninput += "<option value='"+items+"' id='"+items+"' name='"+items+"'>"+items+"</option>";
                             console.log(columninput);
                              })
-                             columninput += "</select>&nbsp;&nbsp; UPDATE Value : <input type='text' id='textupdate' name='textupdate' value=''>";
-                             columninput += "<br><h3>WHERE&nbsp;&nbsp;</h3><input type='text' id='wheretext' name='wheretext' value=''>";
+                             columninput += "</select></td><td width='10px'></td><td width='113px'><b>UPDATE Value</b></td> <td width='170px'><input type='text' id='textupdate' class='form-control' name='textupdate' value=''></td></tr></table>";
+                             columninput += "<br><br><table><tr><td width='75px'><h4>WHERE</h4></td><td width='170px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
                           /* columninput += "<br>----------------------------------------------------------------<br>"+
                           "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
                          $('#modalbody2').html(columninput);
@@ -349,7 +349,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          /********************************* DML delete 부분 ******************/
          else if($('#crudselect').val() == "delete"){ 
             /*  $('#modalbody2').html("<h5>모든 데이터를 삭제하시겠습니까?</h5>"); */
-            $('#modalbody2').html("where <input type='text' id='deletetxt' name='deletetxt'>");
+            $('#modalbody2').html("<table><tr><td width='75px'><h4>WHERE</h4></td><td width='170px'> <input type='text' class='form-control' id='deletetxt' name='deletetxt'></td></tr></table>");
               $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                
              $('#deletebtn').click(function(){

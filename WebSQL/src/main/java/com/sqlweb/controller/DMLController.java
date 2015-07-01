@@ -123,7 +123,9 @@ public class DMLController {
    
    @RequestMapping(value="selectview.html", method=RequestMethod.POST)
    public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res){
-      List<String> checkList = JSONArray.fromObject(list);
+	   res.setCharacterEncoding("utf-8");
+	   
+	   List<String> checkList = JSONArray.fromObject(list);
       
   
       System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
