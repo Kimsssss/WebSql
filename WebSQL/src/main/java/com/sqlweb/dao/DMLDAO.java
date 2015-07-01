@@ -5,14 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DMLDAO {
-
+   
    Connection con;
    PreparedStatement pstmt;
    ResultSet rs;
@@ -24,7 +20,7 @@ public class DMLDAO {
       
       //select * from all_tables where owner='PROJECT';
       
-      String selectTableSql = "select * from all_tables where owner='"+id.toUpperCase()+"'";
+      String selectTableSql = "select * from all_tables where owner='"+id+"'";
       //String createTableSql = "create table aaa(asd varchar2(20))";
       System.out.println("contable DAO : "+selectTableSql);
       
@@ -52,7 +48,7 @@ public class DMLDAO {
       return list;
       
    }
-   
+  /* 컬럼명 */
    public ArrayList<String> columnselect(Connection c,String tablename,String id){
       
       ArrayList<String> list = new ArrayList<String>();
@@ -60,7 +56,9 @@ public class DMLDAO {
       
       //select * from all_tables where owner='PROJECT';
       
-      String columnselectSql = "SELECT COLUMN_NAME FROM ALL_COL_COMMENTS where owner='"+id.toUpperCase()+"' and table_name='"+tablename+"'";
+      String columnselectSql = "SELECT COLUMN_NAME FROM ALL_COL_COMMENTS where owner='"+id+"' and table_name='"+tablename+"'";
+     
+     
       //String createTableSql = "create table aaa(asd varchar2(20))";
       
       System.out.println("columnselect DAO : "+columnselectSql);
@@ -90,84 +88,57 @@ public class DMLDAO {
       
    }
    
-public ArrayList<String> tableview(Connection c,String tablename,String id,String list,String wheretext){
+   
+   /*데이터 타입*/
+   public ArrayList<String> columntype(Connection c,String tablename){
+      
+      
+       ArrayList<String> list = new ArrayList<String>();
+        
+       this.con = c;
+
+        
+        String columnDatatypeSql = "SELECT DATA_TYPE FROM all_tab_columns where table_name='"+tablename+"'";
+     
+        System.out.println("columnDatatypeSql DAO : "+columnDatatypeSql);
+        System.out.println(tablename);
+        
+        
+        try {
+           pstmt = con.prepareStatement(columnDatatypeSql);
+           rs = pstmt.executeQuery();
+           System.out.println("DAO 테이블 컬럼타입 불러오기");
+           while(rs.next()){
+               list.add(rs.getString("DATA_TYPE"));
+               System.out.println(rs.getString("DATA_TYPE"));
+               
+            }
+           
+        } catch (SQLException e) {
+          
+           e.printStackTrace();
+           System.out.println("SQL ERROR");
+           
+        }finally{
+           try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+           try {con.close();} catch (SQLException e) {e.printStackTrace();}
+           try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+        }
+        
+        return list;
+        
+     
+      
+   }
+   
+public ArrayList<String> tableview(Connection c,String tablename,String id,String list){
       
       ArrayList<String> table = new ArrayList<String>();
       this.con = c;
-      String columnselectSql ="";
-      String[] colname = {};
-      //ArrayList<String> datatype = new ArrayList<String>();
-      String datatypeSql ="";
-      Map<String, String> datatype = new HashMap<String, String>();
       
-      
-      colname = list.split(",");
-      System.out.println(list);
-      System.out.println(wheretext);
-      System.out.println(colname);
-      System.out.println(colname.length);
-      for(int i=0; i<colname.length;i++){
-          try {
-           System.out.println(colname[i]);
-           datatypeSql = "select DATA_TYPE from USER_TAB_COLS where table_name='"+tablename+"' and column_name='"+colname[i]+"'";
-           pstmt = con.prepareStatement(datatypeSql);
-         rs = pstmt.executeQuery();
-         if(rs.next()){
-            System.out.println(rs.getString("DATA_TYPE"));
-            datatype.put(colname[i], rs.getString("DATA_TYPE"));
-         }
-         
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-         System.out.println("DAO 데이터 타입 가져오기 오류오류오류");
-      }
-          System.out.println("DAO 데이터 타입 가져오기");
-      }
-      for(int i=0; i<colname.length;i++){
-         System.out.println("datatype key : "+colname[i]+"datatype value : "+datatype.get(colname[i]));}
       //select * from all_tables where owner='PROJECT';
       
-      
-      
-      
-      
-      
-      if(wheretext.equals("")){
-         columnselectSql = "SELECT "+list+" FROM "+tablename;
-      }else{
-         columnselectSql = "SELECT "+list+" FROM "+tablename+" WHERE "+wheretext;
-         /*String a = "";
-         String b = "";
-         a = columnselectSql.substring(0,columnselectSql.indexOf("WHERE"));
-         b = columnselectSql.substring(columnselectSql.indexOf("WHERE"),columnselectSql.length());
-         System.out.println("a : "+a);
-         System.out.println("b : "+b);
-         */
-         for(int i=0; i<colname.length;i++){
-             Pattern p1 = Pattern.compile("("+colname[i].toUpperCase()+")");
-             Pattern p2 = Pattern.compile("("+colname[i].toLowerCase()+")");
-             Matcher m1 = p1.matcher(wheretext);
-             Matcher m2 = p2.matcher(wheretext);
-             System.out.println(datatype.get(colname[i]));
-             System.out.println(wheretext);
-             System.out.println(p1);
-             System.out.println(p2);
-             if(!datatype.get(colname[i]).equals("NUMBER")){
-                while(m1.find()){
-                   System.out.println("시작위치 : "+m1.start()+"  끝나는 위치: "+m1.end());
-                }
-                while(m2.find()){
-                   System.out.println("시작위치 : "+m2.start()+"  끝나는 위치: "+m2.end());
-                }
-             }
-          }
-      }
-      
-      
-      
-      
-      
+      String columnselectSql = "SELECT "+list+" FROM "+tablename;
       //String createTableSql = "create table aaa(asd varchar2(20))";
       int colend = 0;
       System.out.println("columnselect DAO : "+columnselectSql);
@@ -204,7 +175,133 @@ public ArrayList<String> tableview(Connection c,String tablename,String id,Strin
       return table;
       
    }
+
+
+
+
+
+/*데이터 삽입(insert)*/   
+public int insertcheck(Connection c,String tablename,String id,String list){
    
+   int insertresult = 0;
+   this.con=c;
+
+   try {
+
+      String insertQuery="INSERT INTO "+tablename+" VALUES(" +list+ ")";
+      
+      
+      System.out.println(insertQuery);
+      pstmt=con.prepareStatement(insertQuery);
+      
+      insertresult = pstmt.executeUpdate();
+      
+      
+      
+      System.out.println(insertresult);
+      
+      if(insertresult > 0){
+         return insertresult;
+      }
+      
+      
+      
+   } catch (SQLException e) {
+      
+      e.printStackTrace();
+      System.out.println("SQL ERROR");
+      return insertresult;
+      
+   }
+   
+   
+   return insertresult;
+}
+
+/***************************수정부분****************************************/
+
+public int update(Connection c,String tablename,String wheretext,String textupdate,String colupdate){
+
+    int insertresult = 0;
+    this.con=c;
+
+    try {
+       String updateQuery= "";
+    if(wheretext.equals("")){
+         updateQuery = "UPDATE "+tablename+" SET "+colupdate+"="+textupdate;
+     }else{
+        updateQuery = "UPDATE "+tablename+" SET "+colupdate+"="+textupdate+" WHERE "+wheretext;
+     }
+      
+       
+
+       System.out.println(updateQuery);
+       pstmt=con.prepareStatement(updateQuery);
+       
+       insertresult = pstmt.executeUpdate();
+
+       System.out.println(insertresult);
+       
+       if(insertresult > 0){
+          return insertresult;
+       }
+       
+       
+       
+    } catch (SQLException e) {
+       
+       e.printStackTrace();
+       System.out.println("SQL ERROR");
+       return insertresult;
+       
+    }
+    
+    
+    
+ return insertresult;
+}
+
+
+/***************************수정부분 end****************************************/
+
+
+/***************************삭제부분****************************************/
+public int deleteTable(Connection c, String tablename, String id, String deletetxt) {
+
+    this.con = c;
+    String deleteSql = "DELETE FROM " + tablename + " where " + deletetxt;
+    System.out.println("deletetxt : " + deletetxt);
+    if(deletetxt.equals("")){
+       deleteSql = "DELETE FROM " + tablename;
+    }
+    int row = 0;
+    try {
+       pstmt = con.prepareStatement(deleteSql);
+       row = pstmt.executeUpdate();
+    } 
+    catch (SQLException e) {
+       e.printStackTrace();
+    } 
+    finally {
+       try {
+          pstmt.close();
+       } catch (SQLException e) {
+          e.printStackTrace();
+       }
+       try {
+          con.close();
+       } catch (SQLException e) {
+          e.printStackTrace();
+       }
+    }
+
+    return row;
+
+ }
+
+/***************************삭제부분END*****************************************/
+
+
 
 
 }

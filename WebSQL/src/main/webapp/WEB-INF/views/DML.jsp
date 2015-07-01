@@ -12,110 +12,21 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+ 
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script> 
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
    $(function(){
-      
       $('#crudbtn').click(function(){
          console.log($('#crudselect').val());
          console.log($('#tableselect').val());
+         
+         /**********************select  ******************************/
          if($('#crudselect').val() == "select"){
-            console.log("select if문");
-            console.log($('#crudselect').val());
-            console.log($('#tableselect').val());
-            console.log($('#ipip').val());
-            console.log($('#idid').val());
-            console.log($('#pwdpwd').val());
-            var inputstr = "";
-            
-            
-            
-             $.ajax({
-               type: 'POST',
-                 url: "inputselect.html",
-                 data : {ip: $('#iptext').val(),
-                      id: $('#idtext').val(),
-                      pwd: $('#pwdtext').val(),
-                      tablename: $('#tableselect').val()},
-                 dataType: "html",
-                 success: function(responseData){
-                      var codes = JSON.parse(responseData);
-                      var columninput = "<input type='checkbox' name='all' class='check-all'> <label>Check ALL</label>&nbsp;&nbsp;&nbsp;";
-                      console.log("select 비동기 성공");
-                      console.log(codes);
-                      $.each(codes,function(index,items){
-                             
-                         columninput += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
-                         console.log(columninput);
-                          })
-                          columninput += "<table><tr><td width='75px'><h4>WHERE</h4></td><td width='150px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
-                       /* columninput += "<br>----------------------------------------------------------------<br>"+
-                       "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
-                      $('#modalbody2').html(columninput);
-                   $('.check-all').click(function(){
-                     $('.sel').prop('checked',this.checked);
-                        });
-                   $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                        
-                   $('#selectviewbtn').click(function(){
-                      var obj = document.getElementsByName("columncheck");
-                      var list = [];
-                      console.log($('#columncheck').val());
-                      $.each(obj,function(index,ob){
-                        if(ob.checked){
-                           list.push(ob.value.toUpperCase());
-                        }
-                        console.log(ob);
-                        console.log(index);
-                        console.log(ob.value);
-                        console.log(ob.checked);
-                      })
-                      console.log(list);
-                   $.ajax({
-                     type: 'POST',
-                         url: "selectview.html",
-                          data : {list: JSON.stringify(list),
-                             ip: $('#iptext').val(),
-                            id: $('#idtext').val(),
-                            pwd: $('#pwdtext').val(),
-                            tablename: $('#tableselect').val(),
-                            wheretext: $('#wheretext').val()},
-                         dataType: "html",
-                          success: function(responseData){
-                         var codes = JSON.parse(responseData);
-                         console.log("select 비동기 성공");
-                         console.log(codes);
-                         var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover' border='1'><tr>";
-                         console.log(codes[codes.length-1]);
-                         console.log(codes.length-1);
-                         var colend = codes[codes.length-1];
-                         console.log(colend);
-                         $.each(codes,function(index,items){
-                            console.log(index);
-                            if((index+1)%colend == 0){
-                               code += "<td>"+items+"</td></tr><tr>";
-                            }else{
-                               if(codes.length-1 ==index){
-                                    code += "</table></div>";
-                                 }else{
-                                    code += "<td>"+items+"</td>"
-                                 }
-                            
-                            }
-                         }) 
-                         $('#tableviewdiv').html(code);
-                          } 
-                  })
-                       
-                   });
-                   
-                  }
-                 }); 
-         }else if($('#crudselect').val() == "update"){
-            console.log("update if문");
+             console.log("select if문");
              console.log($('#crudselect').val());
              console.log($('#tableselect').val());
              console.log($('#ipip').val());
@@ -123,89 +34,353 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
              console.log($('#pwdpwd').val());
              var inputstr = "";
              
-             $.ajax({
-                 type: 'POST',
-                   url: "inputselect.html",
-                   data : {ip: $('#iptext').val(),
-                        id: $('#idtext').val(),
-                        pwd: $('#pwdtext').val(),
-                        tablename: $('#tableselect').val()},
-                   dataType: "html",
-                   success: function(responseData){
-                        var codes = JSON.parse(responseData);
-                        var columninput = "UPDATE Column : <select id='updateselect' name='updateselect'>";
-                        console.log("update 비동기 성공");
-                        console.log(codes);
-                        $.each(codes,function(index,items){
-                               
-                           columninput += "<option value='"+items+"' id='"+items+"' name='"+items+"'>"+items+"</option>";
-                           console.log(columninput);
-                            })
-                            columninput += "</select>&nbsp;&nbsp; UPDATE Value : <input type='text' id='textupdate' name='textupdate' value=''>";
-                            columninput += "<br><h3>WHERE&nbsp;&nbsp;</h3><input type='text' id='wheretext' name='wheretext' value=''>";
-                         /* columninput += "<br>----------------------------------------------------------------<br>"+
-                         "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
-                        $('#modalbody2').html(columninput);
-                     $('#modalfooter2').html("<input type='button' id='updateviewbtn' name='updateviewbtn' class='btn btn-info' data-dismiss='modal' value='삽입'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                          
-                     $('#updateviewbtn').click(function(){
-                        var textupdate = $('#textupdate').val();
-                        var wheretext = $('#wheretext').val();
-                        var colupdate = $('#updateselect').val();
-                        console.log(textupdate);
-                        console.log(wheretext);
-                        console.log(colupdate);
-                        /* $.each(obj,function(index,ob){
-                          if(ob.checked){
-                             list.push(ob.value.toUpperCase());
-                          }
-                          console.log(ob);
-                          console.log(index);
-                          console.log(ob.value);
-                          console.log(ob.checked);
-                        })
-                        console.log(list);
-                     $.ajax({
-                       type: 'POST',
-                           url: "selectview.html",
-                            data : {list: JSON.stringify(list),
-                               ip: $('#iptext').val(),
-                              id: $('#idtext').val(),
-                              pwd: $('#pwdtext').val(),
-                              tablename: $('#tableselect').val(),
-                              wheretext: $('#wheretext').val()},
-                           dataType: "html",
-                            success: function(responseData){
-                           var codes = JSON.parse(responseData);
-                           console.log("select 비동기 성공");
-                           console.log(codes);
-                           var code = "<table border='1'><tr>";
-                           console.log(codes[codes.length-1]);
-                           console.log(codes.length-1);
-                           var colend = codes[codes.length-1];
-                           console.log(colend);
-                           $.each(codes,function(index,items){
-                              console.log(index);
-                              if((index+1)%colend == 0){
-                                 code += "<td>"+items+"</td></tr><tr>";
-                              }else{
-                                 if(codes.length-1 ==index){
-                                      code += "</table>";
-                                   }else{
-                                      code += "<td>"+items+"</td>"
-                                   }
+             
+             
+              $.ajax({
+                type: 'POST',
+                  url: "inputselect.html",
+                  data : {ip: $('#iptext').val(),
+                       id: $('#idtext').val(),
+                       pwd: $('#pwdtext').val(),
+                       tablename: $('#tableselect').val()},
+                  dataType: "html",
+                  success: function(responseData){
+                       var codes = JSON.parse(responseData);
+                       var columninput = "<input type='checkbox' name='all' class='check-all'> <label>Check ALL</label>&nbsp;&nbsp;&nbsp;";
+                       console.log("select 비동기 성공");
+                       console.log(codes);
+                       $.each(codes,function(index,items){
                               
-                              }
-                           }) 
-                           $('#tableviewdiv').html(code);
-                            } 
-                    })
-                         */ 
-                     });
-                     
-                    }
-                   }); 
-         }
+                          columninput += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
+                          console.log(columninput);
+                           })
+                           columninput += "<table><tr><td width='75px'><h4>WHERE</h4></td><td width='150px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
+                        /* columninput += "<br>----------------------------------------------------------------<br>"+
+                        "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
+                       $('#modalbody2').html(columninput);
+                    $('.check-all').click(function(){
+                      $('.sel').prop('checked',this.checked);
+                         });
+                    $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                         
+                    $('#selectviewbtn').click(function(){
+                       var obj = document.getElementsByName("columncheck");
+                       var list = [];
+                       console.log($('#columncheck').val());
+                       $.each(obj,function(index,ob){
+                         if(ob.checked){
+                            list.push(ob.value.toUpperCase());
+                         }
+                         console.log(ob);
+                         console.log(index);
+                         console.log(ob.value);
+                         console.log(ob.checked);
+                       })
+                       console.log(list);
+                    $.ajax({
+                      type: 'POST',
+                          url: "selectview.html",
+                           data : {list: JSON.stringify(list),
+                              ip: $('#iptext').val(),
+                             id: $('#idtext').val(),
+                             pwd: $('#pwdtext').val(),
+                             tablename: $('#tableselect').val(),
+                             wheretext: $('#wheretext').val()},
+                          dataType: "html",
+                           success: function(responseData){
+                          var codes = JSON.parse(responseData);
+                          console.log("select 비동기 성공");
+                          console.log(codes);
+                          var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover' border='1'><tr>";
+                          console.log(codes[codes.length-1]);
+                          console.log(codes.length-1);
+                          var colend = codes[codes.length-1];
+                          console.log(colend);
+                          $.each(codes,function(index,items){
+                             console.log(index);
+                             if((index+1)%colend == 0){
+                                code += "<td>"+items+"</td></tr><tr>";
+                             }else{
+                                if(codes.length-1 ==index){
+                                     code += "</table></div>";
+                                  }else{
+                                     code += "<td>"+items+"</td>"
+                                  }
+                             
+                             }
+                          }) 
+                          $('#tableviewdiv').html(code);
+                           } 
+                   })
+                        
+                    });
+                    
+                   }
+                  }); 
+          } /**********************select end  ******************************/
+        
+         
+         
+         /*********************insert ********************************  */
+         else if($('#crudselect').val() == "insert"){
+             console.log("insert if문");
+             console.log($('#crudselect').val());
+             console.log($('#tableselect').val());
+             console.log($('#ipip').val());
+             console.log($('#idid').val());
+             console.log($('#pwdpwd').val());
+             
+             
+             var inputstr ="";
+             
+             $.ajax({
+                type: 'POST',
+                 url: "inputdataTYPE.html",
+                 data : {ip: $('#iptext').val(),
+                      id: $('#idtext').val(),
+                      pwd: $('#pwdtext').val(),
+                      tablename: $('#tableselect').val()},
+                 dataType: "html",
+                 success: function(responseData){
+                      var codedata = JSON.parse(responseData);
+                      var columninput = "";
+                      console.log("컬럼명타입 비동기 성공");
+                      console.log(codedata);
+                      
+                 
+                      /********************** ajax(비동기) inputselect.html********************************/
+                      $.ajax({
+                        type: 'POST',
+                          url: "inputselect.html",
+                          data : {ip: $('#iptext').val(),
+                               id: $('#idtext').val(),
+                               pwd: $('#pwdtext').val(),
+                               tablename: $('#tableselect').val()},
+                          dataType: "html",
+                          success: function(responseData){
+                               var codes = JSON.parse(responseData);
+                               var columninput = "";
+
+                               console.log("컬럼명 비동기 성공");
+                               console.log(codes);
+                         
+                               columninput += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
+                               columninput += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
+                                 
+                               
+                               $.each(codes,function(index,items){
+                            
+                                  columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel' value=''</td></tr> ";
+                         
+                            /*   columninput += "<label>"+items+"</label> <p>"+codedata[index]+"</p> "+" &nbsp;&nbsp;&nbsp; <input type='text' name='columnname' id='columnname' class='sel' value='"+items+"'> ";
+                                  console.log(columninput);  */
+                                  
+                               
+                               });
+                               
+                               columninput +="</table>";
+                               
+                               
+                               $('#modalbody2').html(columninput);
+                           
+                               
+                               
+                               
+                               
+                            $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                                 
+                            $('#selectviewbtn').click(function(){
+                               
+                                var obj = document.getElementsByName("columnname");
+                                var list = [];
+                                console.log($('#columnname').val());
+                                $.each(obj,function(index,ob){
+                                
+                                  list.push(ob.value);
+                                  console.log(ob.value+"value");
+                                  
+                                })
+                              
+                             
+                            jQuery.ajaxSettings.traditional = true;   
+                            $.ajax({
+                              type: 'POST',
+                                  url: "insertcheck.html",
+                                   data : {list: JSON.stringify(list),
+                                      ip: $('#iptext').val(),
+                                     id: $('#idtext').val(),
+                                     pwd: $('#pwdtext').val(),
+                                     tablename: $('#tableselect').val()},
+                                  dataType: "html",
+                                   success: function(resultdata){
+                              
+                                      if(resultdata > 0){
+                                         
+                                         alert("insert 성공");
+                                         
+                                      }else{
+                                         
+                                         alert("insert 실패");
+                                      }
+                                      
+                                   } 
+                           })
+                                
+                            });
+                            
+                           }
+                          
+                      
+                      
+                      
+                      });  /********************** ajax(비동기) inputselect.html END********************************/
+                      
+                      
+
+                      
+                                             }
+         
+                 });
+             
+             
+    
+     
+       
+        
+          } /* ********************insertEND ********************************  */
+      
+ 
+          /*********************UPDATE ********************************  */
+         else if($('#crudselect').val() == "update"){
+             console.log("update if문");
+              console.log($('#crudselect').val());
+              console.log($('#tableselect').val());
+              console.log($('#ipip').val());
+              console.log($('#idid').val());
+              console.log($('#pwdpwd').val());
+              var inputstr = "";
+              
+              $.ajax({
+                  type: 'POST',
+                    url: "inputselect.html",
+                    data : {ip: $('#iptext').val(),
+                         id: $('#idtext').val(),
+                         pwd: $('#pwdtext').val(),
+                         tablename: $('#tableselect').val()},
+                    dataType: "html",
+                    success: function(responseData){
+                         var codes = JSON.parse(responseData);
+                         var columninput = "UPDATE Column : <select id='updateselect' name='updateselect'>";
+                         console.log("update 비동기 성공");
+                         console.log(codes);
+                         $.each(codes,function(index,items){
+                                
+                            columninput += "<option value='"+items+"' id='"+items+"' name='"+items+"'>"+items+"</option>";
+                            console.log(columninput);
+                             })
+                             columninput += "</select>&nbsp;&nbsp; UPDATE Value : <input type='text' id='textupdate' name='textupdate' value=''>";
+                             columninput += "<br><h3>WHERE&nbsp;&nbsp;</h3><input type='text' id='wheretext' name='wheretext' value=''>";
+                          /* columninput += "<br>----------------------------------------------------------------<br>"+
+                          "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
+                         $('#modalbody2').html(columninput);
+                      $('#modalfooter2').html("<input type='button' id='updateviewbtn' name='updateviewbtn' class='btn btn-default' data-dismiss='modal' value='삽입'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                           
+                      $('#updateviewbtn').click(function(){
+                         var textupdate = $('#textupdate').val();
+                         var wheretext = $('#wheretext').val();
+                         var colupdate = $('#updateselect').val();
+                         console.log(textupdate);
+                         console.log(wheretext);
+                         console.log(colupdate);
+                        
+                      $.ajax({
+                        type: 'POST',
+                            url: "updateview.html",
+                             data : {ip: $('#iptext').val(),
+                               id: $('#idtext').val(),
+                               pwd: $('#pwdtext').val(),
+                               tablename: $('#tableselect').val(),
+                               wheretext: wheretext,
+                               textupdate: textupdate,
+                               colupdate: colupdate},
+                            dataType: "html",
+                             success: function(responseData){
+                            var codes = JSON.parse(responseData);
+                            console.log("select 비동기 성공");
+                            console.log(codes);
+                            if(codes == 0){
+                               alert("변경 실패");
+                            }else{
+                               alert("변경 성공");
+                            }
+                           /*  var code = "<table border='1'><tr>";
+                            console.log(codes[codes.length-1]);
+                            console.log(codes.length-1);
+                            var colend = codes[codes.length-1];
+                            console.log(colend);
+                            $.each(codes,function(index,items){
+                               console.log(index);
+                               if((index+1)%colend == 0){
+                                  code += "<td>"+items+"</td></tr><tr>";
+                               }else{
+                                  if(codes.length-1 ==index){
+                                       code += "</table>";
+                                    }else{
+                                       code += "<td>"+items+"</td>"
+                                    }
+                               
+                               }
+                            }) 
+                            $('#tableviewdiv').html(code); */
+                             } 
+                     })
+                          
+                      });
+                      
+                     }
+                    }); 
+          } /*********************UPDATE end ********************************  */
+          
+          
+         
+         
+         
+         
+         /********************************* DML delete 부분 ******************/
+         else if($('#crudselect').val() == "delete"){ 
+            /*  $('#modalbody2').html("<h5>모든 데이터를 삭제하시겠습니까?</h5>"); */
+            $('#modalbody2').html("where <input type='text' id='deletetxt' name='deletetxt'>");
+              $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+               
+             $('#deletebtn').click(function(){
+                $.ajax({
+                    type: 'POST',
+                        url: "deleteTable.html",
+                         data : {
+                            ip: $('#iptext').val(),
+                           id: $('#idtext').val(),
+                        pwd: $('#pwdtext').val(),
+                        tablename: $('#tableselect').val(),
+                        deletetxt : $('#deletetxt').val()},
+                     dataType: "html",
+                     success: function(responseData){
+                         var codes = JSON.parse(responseData);
+                         console.log(codes);
+                        if(codes==0){
+                           alert("삭제실패");
+                        }else{
+                            $('#tableviewdiv').html("<h5>" + codes + "개 데이터가 삭제되었습니다.</h5>");
+                        }
+                        }
+                          
+              })
+              
+          });
+          
+         }  /************************************* DML delete 부분 끝~~ ******************************/
+       
+         
+         
       });
    });
 </script>
@@ -274,20 +449,19 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                      })
                    })
                   
-                }
-             })
+                } 
+             }) 
       })
    });
 </script>
 <body>
-
 <div id="page-wrapper">
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="body">
-				<h2 align="left" class="page-header">DML 입니다.</h2>
-			</div>
-		
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="body">
+            <h2 align="left" class="page-header">DML 입니다.</h2>
+         </div>
+      
 
 
 
@@ -342,6 +516,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
 
+  
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -354,34 +529,34 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
         </div>
         <div class="modal-body" align="center">
           <p>연결 정보 입력</p>
-			<table style="width: 350px">
-				<tr height="40px">
-					<td><b>IP 주소</b></td>
-					<td>
-          				<input type="text" class='form-control' name="iptext" id="iptext">
-          				<input type="hidden" name="iphidden" id="iphidden" value="">
-            		</td>   
-				</tr>
-				<tr height="40px">
-					<td><b>계정 ID</b></td>
-					<td>
-						<input type="text" class='form-control' name="idtext" id="idtext">
-						<input type="hidden" name="idhidden" id="idhidden" value="">
-					</td>  
-				</tr>
-				<tr height="40px">
-					<td><b>계정 PWD</b></td>
-					<td>  
-						<input type="text" class='form-control' name="pwdtext" id="pwdtext">
-						<input type="hidden" name="pwdhidden" id="pwdhidden" value="">
-          			</td>
-          		</tr>
-          		<tr>
-          			<td align="right" colspan="2">	          				
-          				<input type="button" class='btn btn-info' value="연결" id="conbtn" name="conbtn">
-          			</td>
-          		</tr>
-          	</table>	      
+         <table style="width: 350px">
+            <tr height="40px">
+               <td><b>IP 주소</b></td>
+               <td>
+                      <input type="text" class='form-control' name="iptext" id="iptext">
+                      <input type="hidden" name="iphidden" id="iphidden" value="">
+                  </td>   
+            </tr>
+            <tr height="40px">
+               <td><b>계정 ID</b></td>
+               <td>
+                  <input type="text" class='form-control' name="idtext" id="idtext">
+                  <input type="hidden" name="idhidden" id="idhidden" value="">
+               </td>  
+            </tr>
+            <tr height="40px">
+               <td><b>계정 PWD</b></td>
+               <td>  
+                  <input type="text" class='form-control' name="pwdtext" id="pwdtext">
+                  <input type="hidden" name="pwdhidden" id="pwdhidden" value="">
+                   </td>
+                </tr>
+                <tr>
+                   <td align="right" colspan="2">                         
+                      <input type="button" class='btn btn-info' value="연결" id="conbtn" name="conbtn">
+                   </td>
+                </tr>
+             </table>         
         </div>
         <!-- <button type="button" class="btn btn-danger" onclick="javascript:msgform.submit();">Send</button> -->
         
@@ -397,13 +572,14 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
   
   
   <!-- -------------------------------------modal end------------------------------------------------------------- -->
+  
   <!-- Modal -->
-  <div class="modal fade" id="crudModal" role="dialog" tabindex="-1">
+  <div class="modal fade" id="crudModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="cursor:move">
+        <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">세부 설정</h4>
         </div>
@@ -428,6 +604,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </div>
 </div>
 </div>
+
 
 
 </body>
