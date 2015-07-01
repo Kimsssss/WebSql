@@ -52,11 +52,9 @@
 				<!-- 소개 DDL , DML Menu END   -->
 
 				<!-- DDL Menu  -->
-				<li><a href="DDL.jsp">
-						<h4>
-							<i class="fa fa-table fa-fw"></i> DDL
-						</h4>
-				</a></li>
+				<li><a href="DDL.html">
+                  <h4>DDL</h4>
+               </a></li>
 				<!-- DDL Menu End  -->
 
 
@@ -87,7 +85,9 @@
 			<!-- /.nav-second-level -->
 
 
-
+   <!-- jQuery -->
+    <script src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
+ 
 
 		</div>
 		<!-- /.sidebar-collapse -->
