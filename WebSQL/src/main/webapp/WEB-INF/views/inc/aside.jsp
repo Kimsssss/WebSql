@@ -9,7 +9,7 @@
 
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
-			<ul class="nav" id="side-menu" style="text-align: center;">
+			<ul class="nav in" id="side-menu" style="text-align: center;">
 
 
 
@@ -40,9 +40,7 @@
 
 				<!-- 소개 DDL , DML Menu  -->
 				<li><a href="#">
-						<h4>
-							<i class="fa fa-bar-chart-o fa-fw"></i>소개 <span class="fa arrow"></span>
-						</h4>
+						<h4>소개</h4>
 				</a>
 
 
@@ -53,23 +51,19 @@
 
 				<!-- DDL Menu  -->
 				<li><a href="DDL.jsp">
-						<h4>
-							<i class="fa fa-table fa-fw"></i> DDL
-						</h4>
+						<h4>DDL</h4>
 				</a></li>
 				<!-- DDL Menu End  -->
 
 
 				<!-- DML Menu  -->
 				<li><a href="dml.html">
-						<h4>
-							<i class="fa fa-table fa-fw"></i> DML
-							<h4>
+						<h4> DML<h4>
 				</a></li>
 				<!-- DML MenuEnd  -->
 
  
-                        <li>
+                        <li class="">
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>BOARD<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -82,11 +76,12 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                      
 
 			</ul>
 			<!-- /.nav-second-level -->
 
-
+				
 
 
 		</div>

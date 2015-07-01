@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="intro-header">
+<div class="intro-header" style="background: url(<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/grt2.jpg) no-repeat center center; background-size: cover;">
         <div class="container">
 
             <div class="row">
@@ -47,7 +47,7 @@
                     <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/ipad.png" alt="">
+                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/rrbc.jpg" alt="">
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                     <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/dog.png" alt="">
+                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/crg.jpg" alt="">
                 </div>
             </div>
 

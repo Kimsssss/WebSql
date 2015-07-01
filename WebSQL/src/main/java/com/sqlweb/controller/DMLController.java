@@ -20,6 +20,7 @@ import com.sqlweb.utils.Jdbc;
 @Controller
 public class DMLController {
 
+
    Connection c;
    
    @RequestMapping(value="/dml.html", method=RequestMethod.GET)
@@ -121,9 +122,13 @@ public class DMLController {
    }
    
    @RequestMapping(value="selectview.html", method=RequestMethod.POST)
-   public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res){
+   public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res,String wheretext){
+      
+      res.setCharacterEncoding("utf-8");
+      
       List<String> checkList = JSONArray.fromObject(list);
       System.out.println("list : "+checkList.get(0));
+      System.out.println("controller wheretext : "+wheretext);
       String str = "";
       for(int i=0; i<checkList.size(); i++){
          str += checkList.get(i)+",";
@@ -143,7 +148,7 @@ public class DMLController {
          
          DMLDAO dao = new DMLDAO();
          
-         arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1));
+         arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1),wheretext);
          
          JSONArray codes = JSONArray.fromObject(arr);
          
@@ -153,6 +158,33 @@ public class DMLController {
          e.printStackTrace();
       }
       System.out.println("서버로 list 전송완료");
+   }
+   
+   @RequestMapping(value="inputupdate.html", method=RequestMethod.POST)
+   public void inputupdate(String ip, String id, String pwd, HttpServletResponse res,String tablename){
+      try {
+            ArrayList<String> arr = new ArrayList<String>();
+            
+            System.out.println("inputselect ip :"+ip);
+            System.out.println("inputselect id :"+id);
+            System.out.println("inputselect pwd :"+pwd);
+            System.out.println("inputselect tablename :"+tablename);
+            
+            Jdbc jb = new Jdbc();
+            c = jb.ConnectionMake(ip, id, pwd);
+            
+            DMLDAO dao = new DMLDAO();
+            
+            arr = dao.columnselect(c, tablename, id);
+            
+            JSONArray codes = JSONArray.fromObject(arr);
+            
+            res.getWriter().print(codes);
+         } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+         System.out.println("서버로 list 전송완료");
    }
    /*@RequestMapping
    public void Select(){
