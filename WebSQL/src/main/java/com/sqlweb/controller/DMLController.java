@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -241,27 +242,30 @@ public class DMLController {
       }
    
    
-   @RequestMapping(value = "deleteTable.html", method = RequestMethod.POST)
-   public void deleteTable(String tablename, String ip, String id, String pwd,
-         String deletetxt, HttpServletResponse res) throws IOException {
-      int row = 0;
+	@RequestMapping(value = "deleteTable.html", method = RequestMethod.POST)
+	public void deleteTable(String tablename, String ip, String id, String pwd,
+			String deletetxt, HttpServletResponse res, HttpServletRequest req) throws IOException {
+		int row = 0;
 
-      DMLDAO dao = new DMLDAO();
-      System.out.println("selectview ip :" + ip);
-      System.out.println("selectview id :" + id);
-      System.out.println("selectview pwd :" + pwd);
-      System.out.println("selectview tablename :" + tablename);
-      System.out.println("deletetxt : " + deletetxt);
+		DMLDAO dao = new DMLDAO();
+		System.out.println("selectview ip :" + ip);
+		System.out.println("selectview id :" + id);
+		System.out.println("selectview pwd :" + pwd);
+		System.out.println("selectview tablename :" + tablename);
+		System.out.println("deletetxt : " + deletetxt);
+		Jdbc jb = new Jdbc();
+		c = jb.ConnectionMake(ip, id, pwd);
+		
+		row = dao.deleteTable(c, tablename, id, deletetxt);
+		
+		String error = dao.getStr();
+		
+		JSONObject json = new JSONObject();
+		json.put("row", row);
+		json.put("error", error);
+		res.getWriter().print(json);
 
-      Jdbc jb = new Jdbc();
-      c = jb.ConnectionMake(ip, id, pwd);
-
-      row = dao.deleteTable(c, tablename, id, deletetxt);
-
-      System.out.println(row + "개");
-      res.getWriter().print(row);
-
-   }
+	}
    
    @RequestMapping(value="updateview.html", method=RequestMethod.POST)
    public void updateview(String ip, String id, String pwd, HttpServletResponse res,String tablename,

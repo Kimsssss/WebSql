@@ -5,14 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DMLDAO {
    
    Connection con;
    PreparedStatement pstmt;
    ResultSet rs;
-   
+   String str;
+
+	public String getStr() {
+		return str;
+	}
+
+	public void setStr(String str) {
+		this.str = str;
+	}
+
    public ArrayList<String> gettablelist(Connection c,String id){
       
       ArrayList<String> list = new ArrayList<String>();
@@ -266,38 +274,61 @@ public int update(Connection c,String tablename,String wheretext,String textupda
 
 
 /***************************삭제부분****************************************/
-public int deleteTable(Connection c, String tablename, String id, String deletetxt) {
+public int deleteTable(Connection c, String tablename, String id,
+		String deletetxt) {
 
-    this.con = c;
-    String deleteSql = "DELETE FROM " + tablename + " where " + deletetxt;
-    System.out.println("deletetxt : " + deletetxt);
-    if(deletetxt.equals("")){
-       deleteSql = "DELETE FROM " + tablename;
-    }
-    int row = 0;
-    try {
-       pstmt = con.prepareStatement(deleteSql);
-       row = pstmt.executeUpdate();
-    } 
-    catch (SQLException e) {
-       e.printStackTrace();
-    } 
-    finally {
-       try {
-          pstmt.close();
-       } catch (SQLException e) {
-          e.printStackTrace();
-       }
-       try {
-          con.close();
-       } catch (SQLException e) {
-          e.printStackTrace();
-       }
-    }
+	this.con = c;
+	String deleteSql = "DELETE FROM " + tablename + " where " + deletetxt;
+	System.out.println("deletetxt : " + deletetxt);
+	if (deletetxt.equals("")) {
+		deleteSql = "DELETE FROM " + tablename;
+	}
+	int row = 0;
+	try {
+		pstmt = con.prepareStatement(deleteSql);
+		row = pstmt.executeUpdate();
+		if (row == 0) {
+			throw new SQLException();
+		}
+	} catch (SQLException e) {
+		str = printStackTraceToString(e);
+		System.out.println("에러메세지 : " + str);
+		setStr(str);
+	} finally {
+		try {
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    return row;
+	return row;
 
- }
+}
+
+public String printStackTraceToString(Throwable e) {
+	StringBuilder sb = new StringBuilder();
+
+	try {
+		sb.append(e.toString());
+		sb.append("\n");
+		StackTraceElement element[] = e.getStackTrace();
+		/*
+		 * for (int idx=0; idx<element.length; idx++){ sb.append("\tat ");
+		 * sb.append(element[idx].toString()); sb.append("\n"); }
+		 */
+		sb.append(element[0].toString());
+	} catch (Exception ex) {
+		return e.toString();
+	}
+
+	return sb.toString();
+}
 
 /***************************삭제부분END*****************************************/
 

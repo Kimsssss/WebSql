@@ -347,37 +347,41 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          
          
          /********************************* DML delete 부분 ******************/
+         
          else if($('#crudselect').val() == "delete"){ 
-            /*  $('#modalbody2').html("<h5>모든 데이터를 삭제하시겠습니까?</h5>"); */
             $('#modalbody2').html("where <input type='text' id='deletetxt' name='deletetxt'>");
-              $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+          	 $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                
-             $('#deletebtn').click(function(){
-                $.ajax({
-                    type: 'POST',
-                        url: "deleteTable.html",
-                         data : {
-                            ip: $('#iptext').val(),
-                           id: $('#idtext').val(),
+         	 $('#deletebtn').click(function(){
+            	 $.ajax({
+                	 type: 'POST',
+                    	 url: "deleteTable.html",
+                    	  data : {
+                       	  ip: $('#iptext').val(),
+                       	 id: $('#idtext').val(),
                         pwd: $('#pwdtext').val(),
                         tablename: $('#tableselect').val(),
                         deletetxt : $('#deletetxt').val()},
                      dataType: "html",
                      success: function(responseData){
-                         var codes = JSON.parse(responseData);
-                         console.log(codes);
-                        if(codes==0){
-                           alert("삭제실패");
-                        }else{
-                            $('#tableviewdiv').html("<h5>" + codes + "개 데이터가 삭제되었습니다.</h5>");
-                        }
+                         var json = JSON.parse(responseData);
+                         console.log(json.row);
+                         console.log(json.error);
+                       if(json.row==0){
+                    	   $('#tableviewdiv').html("<h5>" + json.error + "</h5>");
+                       }
+                        	
+                       else{
+                         	$('#tableviewdiv').html("<h5>" + json.row + "개 데이터가 삭제되었습니다.</h5>");
+                       }
                         }
                           
               })
               
           });
           
-         }  /************************************* DML delete 부분 끝~~ ******************************/
+         }
+         /************************************* DML delete 부분 끝~~ ******************************/
        
          
          
