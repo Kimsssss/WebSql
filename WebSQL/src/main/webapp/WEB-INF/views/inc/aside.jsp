@@ -39,9 +39,8 @@
 
 
             <!-- 소개 DDL , DML Menu  -->
-            <li><a href="#">
-                  <h4>소개 <span class="fa arrow"></span>
-                  </h4>
+            <li><a href="index.html">
+                  <h4>소개</h4>
             </a>
 
 
