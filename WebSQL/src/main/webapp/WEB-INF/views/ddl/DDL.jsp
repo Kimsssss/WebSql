@@ -34,7 +34,7 @@
              
          //클릭시 다이얼 로그 생성
                $(document).on('click',"#constraint"+ tableNumber +"_"+ colNumber ,function() {
-                  console.log($(this).parent().children("#conhidden").val());
+                  
                   $("#"+$(this).parent().children("#conhidden").val()).dialog({
                            height : 200,
                            width : 600,
@@ -42,7 +42,10 @@
                            draggable : false,
                            buttons: {
                               "설정":function(){
-                                 
+                                $(this).children("input[name=constraint_ck]:checked").each(function() {
+                                    var test = $(this).val();
+                                    console.log(test);
+                                });
                               }
                            }
                          });
@@ -104,7 +107,7 @@
                
                //클릭시 다이얼 로그 생성
                 $(document).on('click',"#constraint"+ tableNumber +"_"+ colNumber ,function() {
-                   console.log($(this));
+                   
                    $("#"+$(this).parent().children("#conhidden").val()).dialog({
                             height : 200,
                             width : 600,
@@ -112,7 +115,11 @@
                             draggable : false,
                             buttons: {
                                "설정":function(){
-                                  
+                                 // document.getElementsByName("constraint_ck");
+                                  $(this).children("input[name=constraint_ck]:checked").each(function() {
+                                         var test = $(this).val();
+                                         console.log(test);
+                                     });
                                }
                             }
                           });
@@ -145,7 +152,7 @@
             <tbody>
             <tr><td colspan="3"><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>
             <tr><td>컬러명</td><td>데이터 타입</td><td>제약조건</td></tr>
-            <tr id='colplus'><td><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td><input type="button" id="constraint" name="constraint" value="제약설정"><input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber'></td></tr>
+            <tr id='colplus'><td><img id="colimg" name="colimg" src="<%=request.getContextPath()%>/resources/img/N.jpg"><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td><input type="button" id="constraint" name="constraint" value="제약설정"><input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber'></td></tr>
             <tr><td colspan="3"><center><input id='sub' type='button' value='전송' style="width: 100px;"> <input type='button' id='plus"+ tableNumber +"' value='추가' style="width: 100px; "></center></td></tr>
             </tbody>
             </table>
@@ -156,13 +163,7 @@
          </div>
       </div>   
    </div>
-   <!-- 
-   <div hidden id='constraintDialog' title='제약조건'>
-            PRIMARY KEY <input type='checkbox' name='constraint_ck' id='constraint_ck' value='PRIMARY KEY'>
-            FOREIGN KEY <input type='checkbox' name='constraint_ck' id='constraint_ck' value='FOREIGN KEY'>
-            NOT NULL <input type='checkbox' name='constraint_ck' id='constraint_ck' value='NOT NULL'>
-            NULL <input type='checkbox' name='constraint_ck' id='constraint_ck' value='NULL'>
-            </div> -->
+   
    
    
 </body>
