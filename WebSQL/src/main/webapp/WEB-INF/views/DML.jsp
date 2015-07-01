@@ -62,7 +62,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           columninput += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
                           console.log(columninput);
                            })
-                           columninput += "<br><br><br><h3>WHERE&nbsp;&nbsp;</h3><input type='text' id='wheretext' name='wheretext' value=''>";
+                           columninput += "<br><br><table><tr><td width='80px'><h4>WHERE</h4></td><td width='300px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
                         /* columninput += "<br>----------------------------------------------------------------<br>"+
                         "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
                        $('#modalbody2').html(columninput);
@@ -99,7 +99,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           var codes = JSON.parse(responseData);
                           console.log("select 비동기 성공");
                           console.log(codes);
-                          var code = "<table border='1'><tr><td>row</td>";
+                          var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover'><tr><td>row</td>";
                           console.log(codes[codes.length-1]);
                           console.log(codes.length-1);
                           var colend = codes[codes.length-1];
@@ -116,7 +116,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                 
                              }else{
                                 if(codes.length-1 ==index){
-                                     code += "</table>";
+                                     code += "</table></div>";
                                   }else{
                                      code += "<td>"+items+"</td>";
                                   }
@@ -186,7 +186,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                 $.each(codes,function(index,items){
                              
                              	   
-                                	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                                	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td width='270px'><input type='text' class='form-control' name='columnname' id='columnname' class='sel'";
                                 	
                              	
                              	if(codedata[index] == "DATE"){
@@ -316,7 +316,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                             console.log(columninput);
                              })
                              columninput += "</select></td><td width='10px'></td><td width='113px'><b>UPDATE Value</b></td> <td width='170px'><input type='text' id='textupdate' class='form-control' name='textupdate' value=''></td></tr></table>";
-                             columninput += "<br><br><table><tr><td width='75px'><h4>WHERE</h4></td><td width='170px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
+                             columninput += "<br><br><table><tr><td width='80px'><h4>WHERE</h4></td><td width='350px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
                           /* columninput += "<br>----------------------------------------------------------------<br>"+
                           "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
                          $('#modalbody2').html(columninput);
@@ -396,13 +396,13 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                    dataType: "html",
                    success: function(responseData){
                         var codes = JSON.parse(responseData);
-                        var columninput = "<table><tr><td width='75px'><h4>WHERE</h4></td> <td width='170px'><select id='deleteselect' class='form-control' name='deleteselect'>";
+                        var columninput = "<table><tr><td width='80px'><h4>WHERE</h4></td> <td width='170px'><select id='deleteselect' class='form-control' name='deleteselect'>";
                         $.each(codes,function(index,items){
                                
                            columninput += "<option value='"+items+"' id='"+items+"' name='"+items+"'>"+items+"</option>";
                            console.log(columninput);
                             })
-                            columninput += "</select></td><td width='10px'></td><td width='20px'><b>=</b></td> <td width='170px'><input type='text' id='deletetxt' class='form-control' name='deletetxt' value=''></td></tr></table>";
+                            columninput += "</select></td><td width='10px'></td><td width='20px'><b>=</b></td> <td width='250px'><input type='text' id='deletetxt' class='form-control' name='deletetxt' value=''></td></tr></table>";
                             
                             
                         $('#modalbody2').html(columninput);
@@ -557,7 +557,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </td>
 
 <td width="86px" align="right">
-<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-info" data-toggle="modal" data-target="#crudModal" style="
+<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-primary" data-toggle="modal" data-target="#crudModal" style="
     padding-left: 24px;
     padding-right: 24px;">
 </td>
