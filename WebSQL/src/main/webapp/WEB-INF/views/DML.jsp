@@ -120,121 +120,144 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
           } /**********************select end  ******************************/
         
          
-         
-         /*********************insert ********************************  */
-         else if($('#crudselect').val() == "insert"){
-             console.log("insert if문");
-             console.log($('#crudselect').val());
-             console.log($('#tableselect').val());
-             console.log($('#ipip').val());
-             console.log($('#idid').val());
-             console.log($('#pwdpwd').val());
-             
-             
-             var inputstr ="";
-             
-             $.ajax({
-                type: 'POST',
-                 url: "inputdataTYPE.html",
-                 data : {ip: $('#iptext').val(),
-                      id: $('#idtext').val(),
-                      pwd: $('#pwdtext').val(),
-                      tablename: $('#tableselect').val()},
-                 dataType: "html",
-                 success: function(responseData){
-                      var codedata = JSON.parse(responseData);
-                      var columninput = "";
-                      console.log("컬럼명타입 비동기 성공");
-                      console.log(codedata);
-                      
-                 
-                      /********************** ajax(비동기) inputselect.html********************************/
-                      $.ajax({
-                        type: 'POST',
-                          url: "inputselect.html",
-                          data : {ip: $('#iptext').val(),
-                               id: $('#idtext').val(),
-                               pwd: $('#pwdtext').val(),
-                               tablename: $('#tableselect').val()},
-                          dataType: "html",
-                          success: function(responseData){
-                               var codes = JSON.parse(responseData);
-                               var columninput = "";
-
-                               console.log("컬럼명 비동기 성공");
-                               console.log(codes);
-                         
-                               columninput += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
-                               columninput += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
-                                 
-                               
-                               $.each(codes,function(index,items){
-                            
-                                  columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td width='250px'><input type='text' class='form-control' name='columnname' id='columnname' value=''</td></tr> ";
-                         
-                            /*   columninput += "<label>"+items+"</label> <p>"+codedata[index]+"</p> "+" &nbsp;&nbsp;&nbsp; <input type='text' name='columnname' id='columnname' class='sel' value='"+items+"'> ";
-                                  console.log(columninput);  */
-                                  
-                               
-                               });
-                               
-                               columninput +="</table>";
-                               
-                               
-                               $('#modalbody2').html(columninput);
-                           
-                               
-                               
-                               
-                               
-                            $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                                 
-                            $('#selectviewbtn').click(function(){
-                               
-                                var obj = document.getElementsByName("columnname");
-                                var list = [];
-                                console.log($('#columnname').val());
-                                $.each(obj,function(index,ob){
+          
+          /*********************insert ********************************  */
+          else if($('#crudselect').val() == "insert"){
+              console.log("insert if문");
+              console.log($('#crudselect').val());
+              console.log($('#tableselect').val());
+              console.log($('#ipip').val());
+              console.log($('#idid').val());
+              console.log($('#pwdpwd').val());
+              
+              
+              var inputstr ="";
+              
+              $.ajax({
+             	 type: 'POST',
+                  url: "inputdataTYPE.html",
+                  data : {ip: $('#iptext').val(),
+                       id: $('#idtext').val(),
+                       pwd: $('#pwdtext').val(),
+                       tablename: $('#tableselect').val()},
+                  dataType: "html",
+                  success: function(responseData){
+                       var codedata = JSON.parse(responseData);
+                       var columninput = "";
+                       console.log("컬럼명타입 비동기 성공");
+                       console.log(codedata);
+                       
+                  
+                       /********************** ajax(비동기) inputselect.html********************************/
+                       $.ajax({
+                         type: 'POST',
+                           url: "inputselect.html",
+                           data : {ip: $('#iptext').val(),
+                                id: $('#idtext').val(),
+                                pwd: $('#pwdtext').val(),
+                                tablename: $('#tableselect').val()},
+                           dataType: "html",
+                           success: function(responseData){
+                                var codes = JSON.parse(responseData);
+                                var columninput = "";
+ 							   var TEST ="";
+ 							   
+                                console.log("컬럼명 비동기 성공");
+                                console.log(codes);
+  								
+                                columninput += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
+                                columninput += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
+                             	  
                                 
-                                  list.push(ob.value);
-                                  console.log(ob.value+"value");
-                                  
-                                })
-                              
+                                $.each(codes,function(index,items){
                              
-                            jQuery.ajaxSettings.traditional = true;   
-                            $.ajax({
-                              type: 'POST',
-                                  url: "insertcheck.html",
-                                   data : {list: JSON.stringify(list),
-                                      ip: $('#iptext').val(),
-                                     id: $('#idtext').val(),
-                                     pwd: $('#pwdtext').val(),
-                                     tablename: $('#tableselect').val()},
-                                  dataType: "html",
-                                   success: function(resultdata){
-                              
-                                      if(resultdata > 0){
-                                         
-                                         alert("insert 성공");
-                                         
-                                      }else{
-                                         
-                                         alert("insert 실패");
-                                      }
-                                      
-                                   } 
-                           })
+                             	   
+                                	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                                	
+                             	
+                             	if(codedata[index] == "DATE"){
+                                 TEST="sysdate";
+                                 console.log(TEST);
+                                 columninput += "value="+TEST+"</td></tr> ";
+                                    }
+                             	
+                             	columninput += "value=''</td></tr> ";
+                             
+                             	
+                                });
                                 
-                            });
-                            
-                           }
-                          
-                      
-                      
-                      
-                      });  /********************** ajax(비동기) inputselect.html END********************************/
-                      
+                                columninput +="</table>";
+      
+                                $('#modalbody2').html(columninput);
+             
+                                $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                                  
+                                $('#selectviewbtn').click(function(){
+                             	
+                                 var obj = document.getElementsByName("columnname");
+                                 var list = [];
+                                 console.log($('#columnname').val());
+                                 $.each(obj,function(index,ob){
+                                 
+                                 	
+                               		  
+                               	    if(codedata[index] == "VARCHAR2"){
+                               		  
+                               		   list.push("'"+ob.value+"'");
+                               		   
+                               	   }else{
+                               		   
+                               		   list.push(ob.value);
+                               	   }
+                               		   
+                               		 
+                               		   
+                               	  
+                                	
+                                 	 
+                                 /*   list.push(ob.value); */
+                                   
+                                   
+                                   
+                                   
+                                   console.log(ob.value+"value");
+                                   
+                                 })
+                               
+                              
+                             jQuery.ajaxSettings.traditional = true;   
+                             $.ajax({
+                               type: 'POST',
+                                   url: "insertcheck.html",
+                                    data : {list: JSON.stringify(list),
+                                       ip: $('#iptext').val(),
+                                      id: $('#idtext').val(),
+                                      pwd: $('#pwdtext').val(),
+                                      tablename: $('#tableselect').val()},
+                                   dataType: "html",
+                                    success: function(resultdata){
+                               
+                                 	   if(resultdata > 0){
+                                 		   
+                                 		   alert("insert 성공");
+                                 		   
+                                 	   }else{
+                                 		   
+                                 		   alert("insert 실패");
+                                 	   }
+                                 	   
+                                    } 
+                            })
+                                 
+                             });
+                             
+                            }
+                           
+                       
+                       
+                       
+                       });  /********************** ajax(비동기) inputselect.html END********************************/
+                       
                       
 
                       
