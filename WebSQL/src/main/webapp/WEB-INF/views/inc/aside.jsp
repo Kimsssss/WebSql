@@ -19,7 +19,7 @@
                <button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
                <se:authorize ifNotGranted="ROLE_USER">
                   <button type="button" class="btn btn-primary"
-                     onclick="location.href='login.html'">Login</button>
+                     onclick="location.href='login.html'" style="padding-left: 20px;padding-right: 20px;">Login</button>
                   <h3>로그인하세요.</h3>
                </se:authorize> <se:authentication property="name" var="LoginUser" /> <se:authorize
                   ifAnyGranted="ROLE_USER,ROLE_ADMIN">
@@ -40,8 +40,7 @@
 
             <!-- 소개 DDL , DML Menu  -->
             <li><a href="#">
-                  <h4>
-                     <i class="fa fa-bar-chart-o fa-fw"></i>소개 <span class="fa arrow"></span>
+                  <h4>소개 <span class="fa arrow"></span>
                   </h4>
             </a>
 
@@ -60,9 +59,7 @@
 
             <!-- DML Menu  -->
             <li><a href="dml.html">
-                  <h4>
-                     <i class="fa fa-table fa-fw"></i> DML
-                     <h4>
+                  <h4>DML<h4>
             </a></li>
             <!-- DML MenuEnd  -->
 
