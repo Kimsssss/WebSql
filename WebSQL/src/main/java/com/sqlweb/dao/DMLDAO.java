@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.*;
 
 public class DMLDAO {
    
@@ -274,15 +275,16 @@ public int update(Connection c,String tablename,String wheretext,String textupda
 
 
 /***************************삭제부분****************************************/
-public int deleteTable(Connection c, String tablename, String id,
+public int deleteTable(Connection c, String tablename, String id, String coldelete,
 		String deletetxt) {
 
 	this.con = c;
-	String deleteSql = "DELETE FROM " + tablename + " where " + deletetxt;
-	System.out.println("deletetxt : " + deletetxt);
-	if (deletetxt.equals("")) {
-		deleteSql = "DELETE FROM " + tablename;
-	}
+	String deleteSql="";
+	 if(deletetxt.equals("")){
+		 deleteSql = "DELETE FROM "+tablename;
+     }else{
+    	 deleteSql = "DELETE FROM "+tablename+" WHERE "+coldelete+"="+deletetxt;
+     }
 	int row = 0;
 	try {
 		pstmt = con.prepareStatement(deleteSql);
@@ -318,10 +320,13 @@ public String printStackTraceToString(Throwable e) {
 		sb.append(e.toString());
 		sb.append("\n");
 		StackTraceElement element[] = e.getStackTrace();
-		/*
-		 * for (int idx=0; idx<element.length; idx++){ sb.append("\tat ");
-		 * sb.append(element[idx].toString()); sb.append("\n"); }
-		 */
+		
+		  /*for (int idx=0; idx<element.length; idx++){ 
+			  sb.append("\tat ");
+		  sb.append(element[idx].toString()); 
+		  sb.append("\n"); 
+		  }*/
+		sb.append("\tat "); 
 		sb.append(element[0].toString());
 	} catch (Exception ex) {
 		return e.toString();

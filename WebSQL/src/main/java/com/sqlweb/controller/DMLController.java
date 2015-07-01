@@ -244,19 +244,14 @@ public class DMLController {
    
 	@RequestMapping(value = "deleteTable.html", method = RequestMethod.POST)
 	public void deleteTable(String tablename, String ip, String id, String pwd,
-			String deletetxt, HttpServletResponse res, HttpServletRequest req) throws IOException {
+			String coldelete, String deletetxt, HttpServletResponse res, HttpServletRequest req) throws IOException {
 		int row = 0;
 
 		DMLDAO dao = new DMLDAO();
-		System.out.println("selectview ip :" + ip);
-		System.out.println("selectview id :" + id);
-		System.out.println("selectview pwd :" + pwd);
-		System.out.println("selectview tablename :" + tablename);
-		System.out.println("deletetxt : " + deletetxt);
 		Jdbc jb = new Jdbc();
 		c = jb.ConnectionMake(ip, id, pwd);
 		
-		row = dao.deleteTable(c, tablename, id, deletetxt);
+		row = dao.deleteTable(c, tablename, id, coldelete, deletetxt);
 		
 		String error = dao.getStr();
 		

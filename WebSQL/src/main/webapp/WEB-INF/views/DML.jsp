@@ -349,38 +349,63 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          /********************************* DML delete 부분 ******************/
          
          else if($('#crudselect').val() == "delete"){ 
-
-            $('#modalbody2').html("where <input type='text' id='deletetxt' name='deletetxt'>");
-          	 $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+        	 $.ajax({
+                 type: 'POST',
+                   url: "inputselect.html",
+                   data : {ip: $('#iptext').val(),
+                        id: $('#idtext').val(),
+                        pwd: $('#pwdtext').val(),
+                        tablename: $('#tableselect').val()},
+                   dataType: "html",
+                   success: function(responseData){
+                        var codes = JSON.parse(responseData);
+                        var columninput = "<table><tr><td width='130px'><b>WHERE</b></td> <td width='170px'><select id='deleteselect' class='form-control' name='deleteselect'>";
+                        $.each(codes,function(index,items){
+                               
+                           columninput += "<option value='"+items+"' id='"+items+"' name='"+items+"'>"+items+"</option>";
+                           console.log(columninput);
+                            })
+                            columninput += "</select></td><td width='10px'></td><td width='20px'><b>=</b></td> <td width='170px'><input type='text' id='deletetxt' class='form-control' name='deletetxt' value=''></td></tr></table>";
+                            
+                            
+                        $('#modalbody2').html(columninput);
+                        $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                          
+                        $('#deletebtn').click(function(){
+                       	 $.ajax({
+                           	 type: 'POST',
+                               	 url: "deleteTable.html",
+                               	  data : {
+                                  	  ip: $('#iptext').val(),
+                                  	 id: $('#idtext').val(),
+                                   pwd: $('#pwdtext').val(),
+                                   tablename: $('#tableselect').val(),
+                                   coldelete : $('#deleteselect').val(),
+                                   deletetxt : $('#deletetxt').val()},
+                                dataType: "html", 
+                                success: function(responseData){
+                               	 var json = JSON.parse(responseData);
+                               	  
+                                  		if(json.row==0){
+                               	   		$('#tableviewdiv').html("<h5>" + json.error + "</h5>");
+                                  		}
+                                   	
+                                  		else{
+                                    		$('#tableviewdiv').html("<h5>" + json.row + "개 데이터가 삭제되었습니다.</h5>");
+                                  		}
+                                   }
+                                   
+                                     
+                         })
+                         
+                     });
+                     
+                    }
+                   }); 
+          	 
 
                
-         	 $('#deletebtn').click(function(){
-            	 $.ajax({
-                	 type: 'POST',
-                    	 url: "deleteTable.html",
-                    	  data : {
-                       	  ip: $('#iptext').val(),
-                       	 id: $('#idtext').val(),
-                        pwd: $('#pwdtext').val(),
-                        tablename: $('#tableselect').val(),
-                        deletetxt : $('#deletetxt').val()},
-                     dataType: "html", 
-                     success: function(responseData){
-                         var json = JSON.parse(responseData);
-                         console.log(json.row);
-                         console.log(json.error);
-                       if(json.row==0){
-                    	   $('#tableviewdiv').html("<h5>" + json.error + "</h5>");
-                       }
-                        	
-                       else{
-                         	$('#tableviewdiv').html("<h5>" + json.row + "개 데이터가 삭제되었습니다.</h5>");
-                       }
-                        }
-                          
-              })
-              
-          });
+         	 
           
          }
          /************************************* DML delete 부분 끝~~ ******************************/
