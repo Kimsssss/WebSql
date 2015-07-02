@@ -381,32 +381,32 @@
                                         <div class="modal-body" id="modal-bodyPWD" align="center">
                                         
                                    <table style="width: 350px">
-                                      <tr height="40px">
-                                         <td><b>이름</b></td>
-                                       <td>
-                                        <input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'>
-                                       </td>
-                                    </tr>
-                                    <tr height="40px">
-                                       <td><b>ID</b></td>
-                                       <td>      
-                                     <input type='text' class='form-control' id='user_id' name='user_id' placeholder='ID 입력'>
-                                       </td>
-                                  </tr>
-                                   <tr height="40px">
-                                       <td><b>이메일</b></td>
-                                     <td>
-                                       <input type='text' class='form-control' id='user_email' name='user_email' placeholder='이메일 인증을 눌러주세요' readonly="readonly">
-                                     </td>
-                                </tr>             
+                                   	<tr height="40px">
+                                   		<td><b>이름</b></td>
+                              			<td>
+                               			<input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'>
+                           				</td>
+                           		   </tr>
+                           		   <tr height="40px">
+                           				<td><b>ID</b></td>
+                           				<td>      
+                            			<input type='text' class='form-control' id='user_id' name='user_id' placeholder='ID 입력'>
+                           				</td>
+                          		  </tr>
+                           		  <tr height="40px">
+                           				<td><b>이메일</b></td>
+                            			<td>
+                              			<input type='text' class='form-control' id='user_email' name='user_email' placeholder='이메일 인증을 눌러주세요' readonly="readonly">
+                            			</td>
+                            	 </tr>             
                                  <tr height="40px">
-                                       <td colspan="2" align="right">
-                                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal3">이메일 인증</button>
-                                       <button type='button' class='btn btn-default' id="pwdfine">PWD찾기</button> 
-                                       <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> 
-                                        </td>
-                                  </tr>
-                                  </table>    
+                              			<td colspan="2" align="right">
+                              			<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal3">이메일 인증</button>
+                              			<button type='button' class='btn btn-default' id="pwdfine">PWD찾기</button> 
+                              			<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> 
+                               			</td>
+                               	</tr>
+                               	</table>    
                                    
                                         </div>
                                         
@@ -441,16 +441,16 @@
                                        name="namehidden" value=""> <input type="hidden"
                                        id="idhidden" name="idhidden" value=""> <input
                                        type="hidden" id="emailhidden" name="emailhidden" value="">
-                             <table style="width: 310px;">
-                                <tr height="40px">
-                                <td>
+									  <table style="width: 310px;">
+        								<tr height="40px">
+        								<td>
                                     <input class='form-control' id="modalemail" name="modalemail">
                                     </td>
                                     <td align="right">
                                     <button type="button" class="btn btn-outline btn-primary" id="modalbtn" name="modalbtn" style="padding-left: 3px; padding-right: 3px;">인증코드전송</button>
-                           </td>
-                           </tr>
-                           </table>
+									</td>
+									</tr>
+									</table>
                                     <input type="hidden" value="0" id="hiddencode"
                                        name="hiddencode">
                                     <div id="modalbodydetail"></div>

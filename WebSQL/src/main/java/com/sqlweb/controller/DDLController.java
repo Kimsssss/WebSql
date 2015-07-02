@@ -92,10 +92,6 @@ public class DDLController {
       
       String[] colName = request.getParameterValues("colName");
       String[] colDataType = request.getParameterValues("coldatatype");
-      String[] colCons = request.getParameterValues("colcons");
-      
-      System.out.println(Arrays.toString(colCons)+"나어나?");
-      
       String tableName = request.getParameter("tablename");
       
       
@@ -108,7 +104,7 @@ public class DDLController {
       }
       
       
-      //테이블 생성
+   
       String createTableSql = "create table "+tableName+"(";
       for(int i=0;i<colName.length;i++){
          createTableSql += colName[i]+" "+colDataType[i];
@@ -120,18 +116,6 @@ public class DDLController {
 
       System.out.println(createTableSql);
       
-      /*
-       Alter table 테이블명 add constraint 제약조건이름 primary key(컬럼명);
-      alter table 테이블명 add constraint 제약조건이름 foreign key(컬럼명) references 테이블명(컬럼명)
-      */
-      //alter table sql문 만들기
-      String alterTableSql = "alter table " + tableName +" add constraint " + tableName +"_";
-      
-      for(int i=0;i<colName.length;i++){
-         String[] colConsArray = colCons[i].split(",");
-         alterTableSql += colName[i]+"_";
-          System.out.println(Arrays.toString(colConsArray));
-       }
       
       try {
          pstmt= con.prepareStatement(createTableSql);
