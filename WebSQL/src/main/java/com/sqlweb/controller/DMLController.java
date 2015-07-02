@@ -55,7 +55,7 @@ public class DMLController {
          
          JSONArray codes = JSONArray.fromObject(m);
          res.getWriter().print(codes);
-         System.out.println("서버로 list 전송완료");
+         System.out.println("connectionview 서버로 list 전송완료");
          
          
          
@@ -89,7 +89,7 @@ public class DMLController {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      System.out.println("서버로 list 전송완료");
+      System.out.println("contable 서버로 list 전송완료");
       
       
    }
@@ -118,13 +118,17 @@ public class DMLController {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      System.out.println("서버로 list 전송완료");
+      System.out.println("inputselect 서버로 list 전송완료");
    }
    
    @RequestMapping(value="selectview.html", method=RequestMethod.POST)
-   public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res){
-      List<String> checkList = JSONArray.fromObject(list);
+   public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res,String wheretext){
+      
+	   res.setCharacterEncoding("utf-8");
+	   
+	   List<String> checkList = JSONArray.fromObject(list);
       System.out.println("list : "+checkList.get(0));
+      System.out.println("controller wheretext : "+wheretext);
       String str = "";
       for(int i=0; i<checkList.size(); i++){
          str += checkList.get(i)+",";
@@ -144,7 +148,7 @@ public class DMLController {
          
          DMLDAO dao = new DMLDAO();
          
-         arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1));
+         arr = dao.tableview(c, tablename, id, str.substring(0,str.length()-1),wheretext);
          
          JSONArray codes = JSONArray.fromObject(arr);
          
@@ -153,7 +157,38 @@ public class DMLController {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      System.out.println("서버로 list 전송완료");
+      System.out.println("selectview 서버로 list 전송완료");
+   }
+   
+   @RequestMapping(value="updateview.html", method=RequestMethod.POST)
+   public void updateview(String ip, String id, String pwd, HttpServletResponse res,String tablename,
+		   String wheretext,String textupdate,String colupdate){
+	   try {
+	        
+	         
+	         System.out.println("updateview ip :"+ip);
+	         System.out.println("updateview id :"+id);
+	         System.out.println("updateview pwd :"+pwd);
+	         System.out.println("updateview tablename :"+tablename);
+	         System.out.println("updateview wheretext :"+wheretext);
+	         System.out.println("updateview textupdate :"+textupdate);
+	         System.out.println("updateview colupdate :"+colupdate);
+	         
+	         Jdbc jb = new Jdbc();
+	         c = jb.ConnectionMake(ip, id, pwd);
+	         
+	         DMLDAO dao = new DMLDAO();
+	         
+	         int result = dao.update(c, tablename, wheretext, textupdate, colupdate);
+	         
+	         JSONArray codes = JSONArray.fromObject(result);
+	         
+	         res.getWriter().print(codes);
+	      } catch (IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      System.out.println("updateview 서버로 list 전송완료");
    }
    /*@RequestMapping
    public void Select(){

@@ -14,6 +14,9 @@
    <script>
    var tableNumber2 = 1;
      $(function() {
+        
+        
+        
        $( "#sections" ).droppable({
          
          accept: "#createtable",
@@ -21,24 +24,49 @@
            var tableNumber = tableNumber2++; 
            var colNumber = 1;
            
-             /* 테이블 생성 "+ tableNumber +" */
-            //$( this ).prepend("<form action='create.htm' method='post'><table border='1' id='tbs' class='draggable' ><tbody><tr><td><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr><tr id='colplus'><td>컬럼명1 : <input type='text' name='col"+ tableNumber +"_"+ colNumber +"'><br>컬럼1 데이터타입 : <input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td></tr><tr><td><input id='sub' type='button' value='전송'> <input type='button' id='plus"+ tableNumber +"' value='추가'></td></tr></tbody></table></form>");
-            $( this ).prepend("<form action='create.htm' method='post'><table border='1' id='tbs' class='draggable' ><tbody><tr><td colspan='3'><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>   <tr><td>컬러명</td><td>데이터 타입</td><td>제약조건</td></tr><tr id='colplus'><td><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td></td></tr><tr><td colspan='3'><center><input id='sub' type='button' value='전송' style='width: 100px;'> <input type='button' id='plus"+ tableNumber +"' value='추가' style='width: 100px; '></center></td></tr></tbody></table></form>");
-          
-             /* 생성된 테이블에 드래그 추가 */
+           
+           
+           //테이블 생성
+           $( this ).prepend("<form action='create.htm' method='post'><table border='1' id='tbs' class='draggable' ><tbody><tr><td colspan='3'><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>   <tr><td>컬러명</td><td>데이터 타입</td><td>제약조건</td></tr><tr id='colplus'><td><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td id='cons'><input type='button' id='constraint"+ tableNumber +"_"+ colNumber +"' name='constraint' value='제약설정'><input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber +"'><input type='hidden' id='constraints' value=''></td></tr><tr><td colspan='3'><center><input id='sub"+ tableNumber +"' type='button' value='전송' style='width: 100px;'> <input type='button' id='plus"+ tableNumber +"' value='추가' style='width: 100px; '></center></td></tr></tbody></table></form>");
+           //다이얼 로그 생성
+           $(this).append("<div hidden id='constraintDialog"+ tableNumber +"_"+ colNumber +"' title='제약조건'>PRIMARY KEY <input type='checkbox' name='constraint_ck' id='constraint_ck' value='PRIMARY KEY'>   FOREIGN KEY <input type='checkbox' name='constraint_ck' id='constraint_ck' value='FOREIGN KEY'>   NOT NULL <input type='checkbox' name='constraint_ck' id='constraint_ck' value='NOT NULL'></div>");
+           /* 생성된 테이블에 드래그 추가 */
             $( ".draggable" ).draggable();
              
+         //클릭시 다이얼 로그 생성
+          $(document).on('click',"#constraint"+ tableNumber +"_"+ colNumber ,function() {
+                  var constraints = $(this).parent().children("#constraints");
+                  $("#"+$(this).parent().children("#conhidden").val()).dialog({
+                           height : 200,
+                           width : 600,
+                           modal : true,
+                           draggable : false,
+                           buttons: {
+                              "설정":function(){
+                                 var constraintName="";
+                                $(this).children("input[name=constraint_ck]:checked").each(function() {
+                                   constraintName+=$(this).val()+",";
+                                });
+                                $(constraints).val(constraintName);
+                                console.log($(constraints).val());
+                              }
+                           }
+                         });
+               });
+           
            //데이터 전송
-              $(document).on('click',"#sub" ,function() {
+              $(document).on('click',"#sub"+tableNumber ,function() {
                
-               var colNameArray= new Array(colNumber);
-               var coldataArray= new Array(colNumber);
+               var colNameArray= new Array(colNumber);//컬럼의 이름을 받는 배열
+               var coldataArray= new Array(colNumber);//컬럼의 데이터 타입을 받는 배열
+               var colconsArray= new Array(colNumber);//컬럼의 제약조건을 받는 배열
                var tableName = $("input[name=tablename"+tableNumber+"]").val();
-               console.log(tableName);
+               //console.log(tableName);
                /* colNumber 갯수많큼 값을 넣어준다. */
                for(var i=0;i<colNumber;i++){
                   colNameArray[i] = $("input[name=col"+tableNumber+"_"+(i+1)+"]").val();
-                  coldataArray[i] = $("input[name=col_data"+tableNumber+"_"+(i+1)+"]").val()
+                  coldataArray[i] = $("input[name=col_data"+tableNumber+"_"+(i+1)+"]").val();
+                  colconsArray[i] = $("input[name=col"+tableNumber+"_"+(i+1)+"]").parent().parent().children("#cons").children("#constraints").val();
                }
                
                
@@ -50,10 +78,10 @@
                url : "create.htm",
                dataType : "html",
                data : {
-                  "colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName
+                  "colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName, "colcons":colconsArray
                },
-               success : function(myfeed) {
-                  console.log(myfeed);
+               success : function(table) {
+                  
                   alert("테이블 생성 성공")
                },
                error : function(xhr) {
@@ -66,18 +94,46 @@
            /* 클릭시 컬럼 추가 */
              $(document).on('click',"#plus"+tableNumber ,function() {
                
-               console.log($(this).parent().parent().parent().parent());
-               console.log($(this).parent().parent().parent());
+               //console.log($(this).parent().parent().parent().parent());
+               //console.log($(this).parent().parent().parent());
+               console.log($(this).parent().parent().parent().parent().parent().parent().parent());
                
+               //컬럼을 추가 한다
+               $(this).parent().parent().parent().parent().append("<tr><td><input type='text' name='col"+ tableNumber +"_"+ ++colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td id='cons'><input type='button' id='constraint"+ tableNumber +"_"+ colNumber +"' name='constraint' value='제약설정'><input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber +"'><input type='hidden' id='constraints' value=''></td></tr>");
                
-               //console.log($(this).parent().parent().parent().children("#colplus"));
+               //버튼을 추가
+               $(this).parent().parent().parent().parent().append("<tr><td colspan='3'><center><input id='sub"+ tableNumber +"' type='button' value='전송' style='width: 100px;'> <input type='button' id='plus"+ tableNumber +"' value='추가' style='width: 100px; '></center></td></tr>");
                
-               $(this).parent().parent().parent().parent().append("<tr><td><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td></td></tr>");
-               $(this).parent().parent().parent().parent().append("<tr><td colspan='3'><center><input id='sub' type='button' value='전송' style='width: 100px;'> <input type='button' id='plus"+ tableNumber +"' value='추가' style='width: 100px; '></center></td></tr>");
+               //다이얼 로그 추가
+               $(this).parent().parent().parent().parent().parent().parent().parent().append("<div hidden id='constraintDialog"+ tableNumber +"_"+ colNumber +"' title='제약조건'>PRIMARY KEY <input type='checkbox' name='constraint_ck' id='constraint_ck' value='PRIMARY KEY'>   FOREIGN KEY <input type='checkbox' name='constraint_ck' id='constraint_ck' value='FOREIGN KEY'>   NOT NULL <input type='checkbox' name='constraint_ck' id='constraint_ck' value='NOT NULL'></div>");
+               
+               //버튼 삭제
                $(this).parent().parent().parent().empty();
+               
+             //클릭시 다이얼 로그 생성
+               $(document).on('click',"#constraint"+ tableNumber +"_"+ colNumber ,function() {
+                       var constraints = $(this).parent().children("#constraints");
+                       $("#"+$(this).parent().children("#conhidden").val()).dialog({
+                                height : 200,
+                                width : 600,
+                                modal : true,
+                                draggable : false,
+                                buttons: {
+                                   "설정":function(){
+                                      var constraintName="";
+                                     $(this).children("input[name=constraint_ck]:checked").each(function() {
+                                        constraintName+=$(this).val()+",";
+                                     });
+                                     $(constraints).val(constraintName);
+                                     console.log($(constraints).val());
+                                   }
+                                }
+                              });
+                    });
                
             });
           
+            
             
            
           }
@@ -86,11 +142,7 @@
      });
   </script>
 </head>
-<!--선연결...
-   <svg width="2000" height="2000">
-      <path stroke="green" stroke-width="6" fill="none" d="M 411 167 C 426 167 426 190 411 190"></path>
-   </svg> 
- -->
+
 <body>
    
    
@@ -105,17 +157,20 @@
             <table border='1' id='tbs' class='draggable' >
             <tbody>
             <tr><td colspan="3"><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>
-            <tr><td>컬러명</td><td>데이터 타입</td><td>제약조건</td></tr>
-            <tr id='colplus'><td><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td></td></tr>
+            <tr><td >컬러명</td><td>데이터 타입</td><td>제약조건</td></tr>
+            <tr id='colplus'><td><img id="colimg" name="colimg" src="<%=request.getContextPath()%>/resources/img/1.jpg"><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td><input type="button" id="constraint" name="constraint" value="제약설정"><input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber'></td></tr>
             <tr><td colspan="3"><center><input id='sub' type='button' value='전송' style="width: 100px;"> <input type='button' id='plus"+ tableNumber +"' value='추가' style="width: 100px; "></center></td></tr>
             </tbody>
             </table>
+            
             </form>
 
             </section>
          </div>
       </div>   
    </div>
+   
+   
    
 </body>
 </html>
