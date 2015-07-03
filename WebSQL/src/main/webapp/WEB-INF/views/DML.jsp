@@ -5,6 +5,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<% 
+HttpSession session = request.getSession();
+String ip = (String) session.getAttribute("iptxt");
+String id = (String) session.getAttribute("idtxt");
+String pwd = (String) session.getAttribute("pwdtxt");
+if(ip==null || id==null || pwd==null){
+   ip="";
+   id="";
+   pwd="";
+}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -177,7 +190,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                var columninput = "";   //기본 데이터 
                                var columninputAuto = "";  //자동 데이터
                                var inserts="" //다중 insert 
-                               var insertsvalue="";
+                               var insertsvalue=0;
                                
                                $('#modalbody3').empty();
 							    
@@ -231,49 +244,27 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                	$("#datepicker"+abc[i]).datepicker ({dateFormat : "yy/mm/dd",
                                										changeMonth: true,
                                	      								changeYear: true}); 
-                     
+                              
                             	  
                                }
-                               columninput +="</table>";
                                
-
-                               $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='insert'> "   
-                               		               +"<input type='button' class='btn btn-default' value='insert(다중row)' data-toggle='modal'  data-target='#insertsmodal' />"
+                               columninput +="</table>"
+                               
+                            	
+                               
+                               inserts = "<h4>row insert수 <input type='number' id='inserts' name='inserts' class='' value=''></h4>";
+       
+               	   	      $('#modalcontent2').html(inserts);
+			
+                            $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='insert'> "           
                                					   +"<input type='button' id='btnauto' name='btnauto' class='btn btn-default' value='자동입력' />"
                                		               +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                            
                             
+                           
+                            
+                           
                                
-                                   inserts += "<h4>row(다중)추가 </h4>"
-                    	   	        inserts += "<input type='text' id='inserts' name='inserts' class='' value=''>";
-								    inserts += "<button type='button' id='test' class='btn btn-default' data-dismiss='modal' >확인</button>";
-								    inserts += "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
-								    
-								    
-								    	
-								    $('#modalbody3').html(inserts);
-										
-								    $('#test').click(function(){
-								    	
-								    	insertsvalue = $('#inserts').val();
-								    	
-								    	
-								    	
-								    	$('#modalbody2').append("<h4>ROW</h4>"
-								    			               +"<input type='text' id='inserts' name='inserts' class='' value='"+insertsvalue+"' readonly='readonly'>"
-								    			               );
-								    	
-						
-								    }); 
-								    
-								    
-								    
-								
-								    
-								    
-								    
-  									
-								    
                        
                              /*********************************자동 변수 출력 ***************************************************/
                         	   $('#btnauto').on("click",function(){
@@ -351,10 +342,13 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                   
                                  jQuery.ajaxSettings.traditional = true;   
                                  $.ajax({
+                                	 
+                                
                                    type: 'POST',
                                        url: "insertcheck.html",
                                         data : {list: JSON.stringify(list),
-                                          inserts : $('#inserts').val(),
+                                        	
+                                          inserts : insertsvalue,
                                           ip: $('#iptext').val(),
                                           id: $('#idtext').val(),
                                           pwd: $('#pwdtext').val(),
@@ -368,7 +362,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                     		 }
                                     		   
                                     	     else{
-                                    	    	$('#tableviewdiv').html("<h4>"+json.result+"가 insert 되었습니다. </h4>");
+                                    	    	$('#tableviewdiv').html("<h4>"+json.result+"ROW insert success. </h4>");
                                     	     }
                                     	   
                                        } 
@@ -379,9 +373,10 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                  
                         	   }); /************************************자동 변수 출력 End************************************* */
 									
-
+			
                         	     $('#selectviewbtn').click(function(){
                                    	
+                        	    	
                         	    	/* datapicker = "'"+$('#datepicker').val()+"'";
                         	    	 
                         	    	 
@@ -394,7 +389,6 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                     	
                                   		  
                                   	    if(codedata[index] == "VARCHAR2"){
-                                  		  
                                   		   list.push("'"+ob.value+"'");
                                   		   
                                   	   }else if(codedata[index] == "DATE"){
@@ -409,6 +403,20 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                   
                                  
                                 jQuery.ajaxSettings.traditional = true;   
+                                
+                                console.log("inserts : "+$('#inserts').val());
+                                
+                                if($('#inserts').val() == 0){
+                                	
+                                	 $('#inserts').val(1);
+                                	
+                                	
+                                	
+                                }else{
+                                	
+                                	
+                                }
+                                
                                 $.ajax({
                                   type: 'POST',
                                       url: "insertcheck.html",
@@ -720,7 +728,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </td>
 
 <td width="86px" align="right">
-<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-primary" data-toggle="modal" data-target="#crudModal" style="
+<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-info" data-toggle="modal" data-target="#crudModal" style="
     padding-left: 24px;
     padding-right: 24px;">
 </td>
@@ -764,21 +772,21 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
             <tr height="40px">
                <td><b>IP 주소</b></td>
                <td>
-                      <input type="text" class='form-control' name="iptext" id="iptext">
+                      <input type="text" class='form-control' name="iptext" id="iptext" value="<%= ip%>">
                       <input type="hidden" name="iphidden" id="iphidden" value="">
                   </td>   
             </tr>
             <tr height="40px">
                <td><b>계정 ID</b></td>
                <td>
-                  <input type="text" class='form-control' name="idtext" id="idtext">
+                  <input type="text" class='form-control' name="idtext" id="idtext" value="<%= id%>">
                   <input type="hidden" name="idhidden" id="idhidden" value="">
                </td>  
             </tr>
             <tr height="40px">
                <td><b>계정 PWD</b></td>
                <td>  
-                  <input type="text" class='form-control' name="pwdtext" id="pwdtext">
+                  <input type="text" class='form-control' name="pwdtext" id="pwdtext" value="<%=pwd%>">
                   <input type="hidden" name="pwdhidden" id="pwdhidden" value="">
                    </td>
                 </tr>
@@ -818,6 +826,11 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
           <!-- modal 메인 html 정보 body -->
         </div>
         <!-- <button type="button" class="btn btn-danger" onclick="javascript:msgform.submit();">Send</button> -->
+        
+          <div class="modal-body" id="modalcontent2">
+          <!-- modal 메인 html 정보 body -->
+        </div>
+        
         
         <div class="modal-footer">
            <div id="modalfooter2" name="modalfooter2">

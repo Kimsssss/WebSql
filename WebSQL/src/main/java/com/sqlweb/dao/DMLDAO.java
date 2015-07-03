@@ -431,16 +431,14 @@ public class DMLDAO {
       try {
 
          String insertQuery="INSERT INTO "+tablename+" VALUES(" +list+ ")";
-         
-         
+
          System.out.println(insertQuery);
          pstmt=con.prepareStatement(insertQuery);
          
          
         System.out.println(inserts);
          
-      
-         
+
        if(inserts > 0){ 
          
         for(int i=0 ; i<inserts ; i++){
