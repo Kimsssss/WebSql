@@ -1,22 +1,30 @@
 package com.sqlweb.controller;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sqlweb.dao.DDLDAO;
+import com.sqlweb.utils.Jdbc;
+
 @Controller
 public class DDLController {
 
+	Connection c;
+	
    static Connection con;
    PreparedStatement pstmt;
    ResultSet rs;
@@ -92,11 +100,16 @@ public class DDLController {
       
       String[] colName = request.getParameterValues("colName");
       String[] colDataType = request.getParameterValues("coldatatype");
+      String[] colCons = request.getParameterValues("colcons");
+      String[] hidden_tablename = request.getParameterValues("hidden_tablename");
+      String[] hidden_colname = request.getParameterValues("hidden_colname");
+      
       String tableName = request.getParameter("tablename");
       
+      boolean isPK = false;
+      boolean isFK = false;
+      boolean isNN = false;
       
-      System.out.println(Arrays.toString(colName));
-      System.out.println(Arrays.toString(colDataType));
       System.out.println(tableName);
       
       if(con.isClosed()){
@@ -104,7 +117,7 @@ public class DDLController {
       }
       
       
-   
+      //테이블 생성
       String createTableSql = "create table "+tableName+"(";
       for(int i=0;i<colName.length;i++){
          createTableSql += colName[i]+" "+colDataType[i];
@@ -116,10 +129,48 @@ public class DDLController {
 
       System.out.println(createTableSql);
       
-      
+      //alter table sql문 만들기
+      String alterTableSql = "alter table " + tableName +" add constraint " + tableName +"_";
+      String alterTableSql_PK="";
+     String alterTableSql_FK="";
+     String alterTableSql_NN="alter table " + tableName +" MODIFY ";
+      for(int i=0;i<colName.length;i++){
+         String[] colConsArray = colCons[i].split(",");
+         alterTableSql += colName[i]+"_";
+         alterTableSql_PK = alterTableSql;
+         alterTableSql_FK = alterTableSql;
+         for(int j=0;j<colConsArray.length;j++){
+            //alter table 테이블명 modify 컬럼명 not null
+            if(colConsArray[j].equals("PRIMARY KEY")){
+               alterTableSql_PK+="PK PRIMARY KEY("+colName[i]+")";
+               isPK=true;
+            }else if(colConsArray[j].equals("FOREIGN KEY")){
+               alterTableSql_FK+="FK FOREIGN KEY("+colName[i]+") REFERENCES "+hidden_tablename[i]+"("+hidden_colname[i]+")";
+               isFK=true;
+            }else if(colConsArray[j].equals("NOT NULL")){
+               alterTableSql_NN+=colName[i]+" NOT NULL";
+               isNN=true;
+            }
+         }
+         
+       }
+      System.out.println(alterTableSql_PK);
+      System.out.println(alterTableSql_FK);
+      System.out.println(alterTableSql_NN);
       try {
          pstmt= con.prepareStatement(createTableSql);
          pstmt.executeUpdate();
+         if(isPK){
+            pstmt = con.prepareStatement(alterTableSql_PK);
+             pstmt.executeUpdate();
+         }
+         if(isFK){
+            pstmt = con.prepareStatement(alterTableSql_FK);
+             pstmt.executeUpdate();
+         }
+         
+         
+         
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          //return null;
@@ -159,16 +210,119 @@ public class DDLController {
       
    }
    
-   /*
-   @RequestMapping(value="")
-   public void DropTable(){
+   
+   // Alter add
+   @RequestMapping(value = "alterAdd.html", method = RequestMethod.POST)
+   public void deleteTable(String tablename, String ip, String id, String pwd,
+         String addtxt, HttpServletResponse res) throws IOException {
+      int row = 0;
+
+      DDLDAO dao = new DDLDAO();
+      Jdbc jb = new Jdbc();
+      c = jb.ConnectionMake(ip, id, pwd);
       
+      row = dao.alterAdd(c, tablename, id, addtxt);
+      String error = dao.getStr();
       
+      JSONObject json = new JSONObject();
+      json.put("row", row);
+      json.put("error", error);
+      res.getWriter().print(json);
+
    }
    
-   @RequestMapping(value="")
-   public void CreateSequence(){
+   // Alter add
+   @RequestMapping(value = "alterModify.html", method = RequestMethod.POST)
+   public void alterModify(String tablename, String ip, String id, String pwd,
+         String modifytxt, HttpServletResponse res) throws IOException {
+      res.setCharacterEncoding("utf-8");
+      boolean row= false;
+      String error = "";
+      DDLDAO dao = new DDLDAO();
+      Jdbc jb = new Jdbc();
+      c = jb.ConnectionMake(ip, id, pwd);
       
-       
-   }*/
+      row = dao.alterModify(c, tablename, id, modifytxt);
+      
+      JSONObject json = new JSONObject();
+      json.put("row", row);
+      json.put("error", error);
+      res.getWriter().print(json);
+   }
+   
+   // DataType 받아오는 ->  modify 후 비동기로 표 나타남
+   @RequestMapping(value="datatype.html", method=RequestMethod.POST)
+   public void inputselect(String ip, String id, String pwd, HttpServletResponse res,String tablename){
+      try { 
+         ArrayList<String> arr = new ArrayList<String>();
+         
+         Jdbc jb = new Jdbc();
+         c = jb.ConnectionMake(ip, id, pwd);
+         
+         DDLDAO dao = new DDLDAO();
+         
+         arr = dao.datatype(c, tablename, id);
+   
+         JSONArray codes = JSONArray.fromObject(arr);
+   
+         res.getWriter().print(codes);
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
+  // dropTable
+   
+   @RequestMapping(value = "dropTable.html", method = RequestMethod.POST)
+   public void dropTable(String tablename, String ip, String id, String pwd, HttpServletResponse res) throws IOException {
+      int row = 0;
+
+      DDLDAO dao = new DDLDAO();
+      Jdbc jb = new Jdbc();
+      c = jb.ConnectionMake(ip, id, pwd);
+      
+      row = dao.dropTable(c, tablename, id);
+      res.getWriter().print(row);
+
+   }
+   
+   
+   @RequestMapping(value = "tableview.html")
+   public String tableimport() {
+      return "import";
+   }
+   
+   @RequestMapping(value="tableview.html", method=RequestMethod.POST)
+   public void tableview(String tablename,String ip,String id,String pwd, HttpServletResponse res){
+
+ res.setCharacterEncoding("utf-8");
+      
+    
+      String str = "";
+      try {
+         ArrayList<String> arr = new ArrayList<String>();
+         
+         System.out.println("selectview ip :"+ip);
+         System.out.println("selectview id :"+id);
+         System.out.println("selectview pwd :"+pwd);
+         System.out.println("selectview tablename :"+tablename);
+         
+         Jdbc jb = new Jdbc();
+         c = jb.ConnectionMake(ip, id, pwd);
+         
+        DDLDAO dao = new DDLDAO();
+         
+         arr = dao.tablecolview(c, tablename, id);
+         System.out.println(arr.toString());
+         
+         JSONArray codes = JSONArray.fromObject(arr);
+         System.out.println(codes);
+         res.getWriter().print(codes);
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
+   
+
 }
