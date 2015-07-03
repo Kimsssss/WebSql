@@ -120,21 +120,36 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           console.log(colend);
                           $.each(codes,function(index,items){
                              console.log(index);
-                             if((index+1)%colend == 0){
-                                if(index != codes.length-2){
-                                code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
-                                sort +=1;}else{
-                                   code += "<td>"+items+"</td></tr>";
-                                }
-                                
+                             if(colend == 1){
+                            	 if(index == codes.length-2){
+                            		 code += "<td>"+items+"</td></tr></table>";
+                            		 
+                            	 }else{
+                            	 if(index != codes.length-1){
+                            	 code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                            	 sort +=1;
+                            	 	}
+                            	 }
+                            	 
                              }else{
-                                if(codes.length-1 ==index){
-                                     code += "</table></div>";
+                            	 if((index+1)%colend == 0){
+                                     if(index != codes.length-2){
+                                     code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                                     sort +=1;}
+                                     else{
+                                        code += "<td>"+items+"</td></tr>";
+                                     }
+                                     
                                   }else{
-                                     code += "<td>"+items+"</td>";
+                                     if(codes.length-1 ==index){
+                                          code += "</table></div>";
+                                       }else{
+                                          code += "<td>"+items+"</td>";
+                                       }
+                                  
                                   }
-                             
                              }
+                             
                           }) 
                           $('#tableviewdiv').html(code);
                            } 
@@ -716,7 +731,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </td>
 
 <td width="95px" align="center">
-<input type="button" name="frbtn" id="frbtn" class="btn btn-info" data-toggle="modal" data-target="#myModal" value="계정연결" style="
+<input type="button" name="frbtn" id="frbtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="계정연결" style="
     padding-left: 10px;
     padding-right: 10px;">
 </td>

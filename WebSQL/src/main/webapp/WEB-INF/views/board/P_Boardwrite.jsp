@@ -16,7 +16,16 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">글쓰기</div>
+						<div class="panel-heading">
+						<table style="width: 100%;">
+							<tr>
+								<td width="" align="left"><h4><b>글쓰기</b></h4></td>
+								<td width="" align="right">
+									<button class="btn btn-primary btn-sm" href="<%=request.getContextPath()%>/p_boardlist.html">글목록 </button>
+								</td>
+							</tr>
+						</table>		
+						</div>
 
 
 
@@ -26,38 +35,55 @@
 									<!-- 게시판 작성자  -->
 									<se:authentication property="name" var="LoginUser" />
 									<div class="form-group">
-										<label>작성자</label> <input class="form-control"
-											style="width: 176px;" name="user_id" readonly="readonly"
-											value=${LoginUser }>
-
+										<table>
+											<tr height="40px;">
+												<td width="55px"><b>작성자</b></td>
+												<td>
+													<input class="form-control" style="width: 175px;" 
+													name="user_id" readonly="readonly" value=${LoginUser }>
+												</td>
+												
+											</tr>											
+											<tr height="40px;">
+												<!-- 글제목  -->
+												<td><b>글 제목</b></td>
+												<td colspan="2">
+												<input class="form-control" style="width: 300px;" name="board_p_title">
+												</td>
+											</tr>
+										</table>
 									</div>
-									<!-- 글제목  -->
-									<div class="form-group">
-										<label>글 제목</label> <input class="form-control"
-											style="width: 300px;" name="board_p_title">
-									</div>
+									<hr>
 									<!-- 글제목 End  -->
 
 									<!-- 글내용  -->
+									
 									<div class="form-group">
-										<label>글 내용</label>
 										<textarea class="ckeditor" rows="3" name="board_p_content"
-											style="height: 290px";></textarea>
+											></textarea>
 									</div>
 									<!-- 글내용End  -->
 
 
 									<!-- 글쓰기 , 다시작성 Button  -->
 									<div class="form-group">
-										<input type="submit" class="layer"
-											style="position: relative; left: 40%" value="글쓰기"> <input
-											type="reset" class="layer"
-											style="position: relative; left: 40%; width: 96px;"
-											value="다시작성">
-										<div style="font-size: 20px;">
-											<a href="<%=request.getContextPath()%>/p_boardlist.html">
-												글목록 </a>
-										</div>
+									<table style="width: 100%">
+										<tr>
+											<td align="right">
+												<input type="submit" class="btn btn-info" value="확인"style="padding-left: 29px;
+																										     padding-right: 29px;
+																										     padding-top: 10px;
+																										     padding-bottom: 10px;">
+											</td>
+											<td width="10px"></td>
+											<td align="left"> 
+												<input type="reset" class="btn btn-danger" value="다시작성" style="padding-top: 10px;
+																											    padding-bottom: 10px;
+																											    padding-left: 15px;
+																											    padding-right: 15px;">
+											</td>
+										</tr>
+									</table>
 									</div>
 									<!-- 글쓰기 , 다시작성 Button End  -->
 
