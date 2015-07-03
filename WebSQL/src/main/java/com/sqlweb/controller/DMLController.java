@@ -210,11 +210,11 @@ public class DMLController {
          
 	   List<String> checkList = JSONArray.fromObject(list);
          
-	   HttpServletRequest req = null;
+	  
 	   
 	 
 	   
-        System.out.println(inserts);
+        System.out.println("inserts "+inserts);
      
          System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
          
@@ -237,12 +237,9 @@ public class DMLController {
             Jdbc jb = new Jdbc();
             c = jb.ConnectionMake(ip, id, pwd);
             
-            
-            
-            
+  
             DMLDAO dao = new DMLDAO();
-            
-            
+   
             int result = 0;
    
             result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1),inserts);
