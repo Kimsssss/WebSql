@@ -55,7 +55,7 @@ public class DMLController {
          
          JSONArray codes = JSONArray.fromObject(m);
          res.getWriter().print(codes);
-         System.out.println("서버로 list 전송완료");
+         System.out.println("connectionview 서버로 list 전송완료");
          
          
          
@@ -89,7 +89,7 @@ public class DMLController {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      System.out.println("서버로 list 전송완료");
+      System.out.println("contable 서버로 list 전송완료");
       
       
    }
@@ -119,12 +119,13 @@ public class DMLController {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-      System.out.println("서버로 list 전송완료");
+      System.out.println("inputselect 서버로 list 전송완료");
    }
    
    @RequestMapping(value="selectview.html", method=RequestMethod.POST)
    public void selectview(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res,String wheretext){
       
+
       res.setCharacterEncoding("utf-8");
       
       List<String> checkList = JSONArray.fromObject(list);
@@ -161,6 +162,7 @@ public class DMLController {
       System.out.println("selectview 서버로 list 전송완료");
    }
    
+
    @RequestMapping(value="inputdataTYPE.html", method=RequestMethod.POST)
    public void inputdatatype(String ip, String id, String pwd, HttpServletResponse res,String tablename){
       try {
@@ -196,13 +198,21 @@ public class DMLController {
    
    
    
+   
    @RequestMapping(value="insertcheck.html", method=RequestMethod.POST)
-   public void insertcheck(String list,String tablename,String ip,String id,String pwd,HttpServletResponse res){
-         List<String> checkList = JSONArray.fromObject(list);
+   public void insertcheck(String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res ) throws IOException{
          
+	   List<String> checkList = JSONArray.fromObject(list);
+         
+	   HttpServletRequest req = null;
+	   
+	 
+	   
+        System.out.println(inserts);
      
          System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
-       
+         
+
          
          String str = "";
          for(int i=0; i<checkList.size(); i++){
@@ -210,7 +220,7 @@ public class DMLController {
          }
          System.out.println(str);
          System.out.println(str.substring(0,str.length()-1));
-         try {
+       
             ArrayList<String> arr = new ArrayList<String>();
             
             System.out.println("selectview ip :"+ip);
@@ -221,18 +231,23 @@ public class DMLController {
             Jdbc jb = new Jdbc();
             c = jb.ConnectionMake(ip, id, pwd);
             
+            
+            
+            
             DMLDAO dao = new DMLDAO();
+            
             
             int result = 0;
    
-            result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1));
-   
-            res.getWriter().print(result);
+            result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1),inserts);
+            String error = dao.getStr();
             
-         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-         }
+            JSONObject json = new JSONObject();
+    		json.put("result", result);
+    		json.put("error", error);
+    		res.getWriter().print(json);
+            
+        
          System.out.println("서버로 list 전송완료");
       }
    

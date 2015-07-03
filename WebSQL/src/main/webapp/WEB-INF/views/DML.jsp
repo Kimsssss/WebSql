@@ -107,21 +107,36 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                           console.log(colend);
                           $.each(codes,function(index,items){
                              console.log(index);
-                             if((index+1)%colend == 0){
-                                if(index != codes.length-2){
-                                code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
-                                sort +=1;}else{
-                                   code += "<td>"+items+"</td></tr>";
-                                }
-                                
+                             if(colend == 1){
+                            	 if(index == codes.length-2){
+                            		 code += "<td>"+items+"</td></tr></table>";
+                            		 
+                            	 }else{
+                            	 if(index != codes.length-1){
+                            	 code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                            	 sort +=1;
+                            	 	}
+                            	 }
+                            	 
                              }else{
-                                if(codes.length-1 ==index){
-                                     code += "</table></div>";
+                            	 if((index+1)%colend == 0){
+                                     if(index != codes.length-2){
+                                     code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                                     sort +=1;}
+                                     else{
+                                        code += "<td>"+items+"</td></tr>";
+                                     }
+                                     
                                   }else{
-                                     code += "<td>"+items+"</td>";
+                                     if(codes.length-1 ==index){
+                                          code += "</table></div>";
+                                       }else{
+                                          code += "<td>"+items+"</td>";
+                                       }
+                                  
                                   }
-                             
                              }
+                             
                           }) 
                           $('#tableviewdiv').html(code);
                            } 
@@ -135,156 +150,319 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
         
          
           
-          /*********************insert ********************************  */
-          else if($('#crudselect').val() == "insert"){
-              console.log("insert if문");
-              console.log($('#crudselect').val());
-              console.log($('#tableselect').val());
-              console.log($('#ipip').val());
-              console.log($('#idid').val());
-              console.log($('#pwdpwd').val());
-              
-              
-              var inputstr ="";
-              
-              $.ajax({
-             	 type: 'POST',
-                  url: "inputdataTYPE.html",
-                  data : {ip: $('#iptext').val(),
-                       id: $('#idtext').val(),
-                       pwd: $('#pwdtext').val(),
-                       tablename: $('#tableselect').val()},
-                  dataType: "html",
-                  success: function(responseData){
-                       var codedata = JSON.parse(responseData);
-                       var columninput = "";
-                       console.log("컬럼명타입 비동기 성공");
-                       console.log(codedata);
-                       
-                  
-                       /********************** ajax(비동기) inputselect.html********************************/
-                       $.ajax({
-                         type: 'POST',
-                           url: "inputselect.html",
-                           data : {ip: $('#iptext').val(),
-                                id: $('#idtext').val(),
-                                pwd: $('#pwdtext').val(),
-                                tablename: $('#tableselect').val()},
-                           dataType: "html",
-                           success: function(responseData){
-                                var codes = JSON.parse(responseData);
-                                var columninput = "";
- 							   var TEST ="";
- 							   
-                                console.log("컬럼명 비동기 성공");
-                                console.log(codes);
-  								
-                                columninput += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
-                                columninput += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
-                             	  
-                                
-                                $.each(codes,function(index,items){
-                             
-                             	   
-                                	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td width='270px'><input type='text' class='form-control' name='columnname' id='columnname' class='sel'";
-                                	
-                             	
-                             	if(codedata[index] == "DATE"){
-                                 TEST="sysdate";
-                                 console.log(TEST);
-                                 columninput += "value="+TEST+"</td></tr> ";
-                                    }
-                             	
-                             	columninput += "value=''</td></tr> ";
-                             
-                             	
-                                });
-                                
-                                columninput +="</table>";
-      
-                                $('#modalbody2').html(columninput);
-             
-                                $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                                  
-                                $('#selectviewbtn').click(function(){
-                             	
-                                 var obj = document.getElementsByName("columnname");
-                                 var list = [];
-                                 console.log($('#columnname').val());
-                                 $.each(obj,function(index,ob){
-                                 
-                                 	
-                               		  
-                               	    if(codedata[index] == "VARCHAR2"){
-                               		  
-                               		   list.push("'"+ob.value+"'");
-                               		   
-                               	   }else{
-                               		   
-                               		   list.push(ob.value);
-                               	   }
-                               		   
-                               		 
-                               		   
-                               	  
-                                	
-                                 	 
-                                 /*   list.push(ob.value); */
-                                   
-                                   
-                                   
-                                   
-                                   console.log(ob.value+"value");
-                                   
-                                 })
-                               
-                              
-                             jQuery.ajaxSettings.traditional = true;   
-                             $.ajax({
-                               type: 'POST',
-                                   url: "insertcheck.html",
-                                    data : {list: JSON.stringify(list),
-                                       ip: $('#iptext').val(),
-                                      id: $('#idtext').val(),
-                                      pwd: $('#pwdtext').val(),
-                                      tablename: $('#tableselect').val()},
-                                   dataType: "html",
-                                    success: function(resultdata){
-                               
-                                 	   if(resultdata > 0){
-                                 		   
-                                 		   alert("insert 성공");
-                                 		   
-                                 	   }else{
-                                 		   
-                                 		   alert("insert 실패");
-                                 	   }
-                                 	   
-                                    } 
-                            })
-                                 
-                             });
-                             
-                            }
-                           
-                       
-                       
-                       
-                       });  /********************** ajax(비동기) inputselect.html END********************************/
-                       
-                      
-
-                      
-                                             }
          
-                 });
+         /*********************insert ********************************  */
+         else if($('#crudselect').val() == "insert"){
+             console.log("insert if문");
+             console.log($('#crudselect').val());
+             console.log($('#tableselect').val());
+             console.log($('#ipip').val());
+             console.log($('#idid').val());
+             console.log($('#pwdpwd').val());
              
              
-    
-     
-       
+             var inputstr ="";
+             
+             $.ajax({
+            	 type: 'POST',
+                 url: "inputdataTYPE.html",
+                 data : {ip: $('#iptext').val(),
+                      id: $('#idtext').val(),
+                      pwd: $('#pwdtext').val(),
+                      tablename: $('#tableselect').val()},
+                 dataType: "html",
+                 success: function(responseData){
+                      var codedata = JSON.parse(responseData);
+                      var columninput = "";
+                      console.log("컬럼명타입 비동기 성공");
+                      console.log(codedata);
+            
+                 
+                      /********************** ajax(비동기) inputselect.html********************************/
+                      $.ajax({
+                        type: 'POST',
+                          url: "inputselect.html",
+                          data : {ip: $('#iptext').val(),
+                               id: $('#idtext').val(),
+                               pwd: $('#pwdtext').val(),
+                               tablename: $('#tableselect').val()},
+                          dataType: "html",
+                          success: function(responseData){
+                               var codes = JSON.parse(responseData);
+                               var columninput = "";   //기본 데이터 
+                               var columninputAuto = "";  //자동 데이터
+                               var inserts="" //다중 insert 
+                               var insertsvalue="";
+                               
+                               $('#modalbody3').empty();
+							    
+                               
+                               
+							    var Value="";
+							    var AutoValue = "";
+							    var AutoNumber = 0;
+							   
+                               console.log("컬럼명 비동기 성공");
+                               console.log(codes);
+ 								
+                               columninput += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
+                               columninput += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
+                            	  
+                               var abc=[];
+                               var cd=0;
+                           
+                               
+                               
+                               $.each(codes,function(index,items){
+	
+                            	if(codedata[index] == "NUMBER"){
+                            		columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                            		columninput += "value=''</td></tr>";
+                            		
+                            		
+                               }else if(codedata[index] == "VARCHAR2"){
+                               	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                            		columninput += "value=''</td></tr>";
+                            	
+                               	
+                               }else if(codedata[index] == "DATE"){
+                               	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td>";
+                            		columninput += "<td><input type='text' name='columnname' id='datepicker"+index+"' class='sel' value=''</td></tr>"; 
+                            	    
+                            		abc[cd]=index;
+                            		cd++;
+ 
+                              	      }
+                  				
+                               });
+                               
+                               $('#modalbody2').html(columninput);
+                               for(var i=0; i<cd; i++){
+                               	console.log(abc);
+                               	console.log(abc[i]);
+                               	console.log(cd);
+                               	
+                         
+                               	$("#datepicker"+abc[i]).datepicker ({dateFormat : "yy/mm/dd",
+                               										changeMonth: true,
+                               	      								changeYear: true}); 
+                     
+                            	  
+                               }
+                               columninput +="</table>";
+                               
+
+                               $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='insert'> "   
+                               		               +"<input type='button' class='btn btn-default' value='insert(다중row)' data-toggle='modal'  data-target='#insertsmodal' />"
+                               					   +"<input type='button' id='btnauto' name='btnauto' class='btn btn-default' value='자동입력' />"
+                               		               +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+                           
+                            
+                               
+                                   inserts += "<h4>row(다중)추가 </h4>"
+                    	   	        inserts += "<input type='text' id='inserts' name='inserts' class='' value=''>";
+								    inserts += "<button type='button' id='test' class='btn btn-default' data-dismiss='modal' >확인</button>";
+								    inserts += "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
+								    
+								    
+								    	
+								    $('#modalbody3').html(inserts);
+										
+								    $('#test').click(function(){
+								    	
+								    	insertsvalue = $('#inserts').val();
+								    	
+								    	
+								    	
+								    	$('#modalbody2').append("<h4>ROW</h4>"
+								    			               +"<input type='text' id='inserts' name='inserts' class='' value='"+insertsvalue+"' readonly='readonly'>"
+								    			               );
+								    	
+						
+								    }); 
+								    
+								    
+								    
+								
+								    
+								    
+								    
+  									
+								    
+                       
+                             /*********************************자동 변수 출력 ***************************************************/
+                        	   $('#btnauto').on("click",function(){
+                        		  
+                        		    $('#modalbody2').empty();
+                        		  	alert("접근성공");
+                        		  	
+	  	
+                        		  	columninputAuto += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
+                        		  	columninputAuto += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
+                        		  	 
+                        		  	 
+                        		    $.each(codes,function(index,items){
+                                       
+                        		    	columninputAuto += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                                   	
+                        		    		
+                        		    		if(codedata[index] == "VARCHAR2"){
+                        		    			
+                        		    			AutoValue = "AutoValue"+AutoNumber++;
+                        		    			columninputAuto += "value='"+AutoValue+"'</td></tr> ";
+                        		    			
+                        		    			
+                        		    		}else if(codedata[index] == "NUMBER"){
+                        		    			
+                        		    			AutoNumber += 1;
+                        		    			columninputAuto += "value='"+AutoNumber+"'</td></tr> ";
+                        		    			
+                        		    		}else if(codedata[index] == "DATE"){
+                        		    			
+                        		    			AutoValue = "sysdate";
+                        		    			columninputAuto += "value='"+AutoValue+"'</td></tr> ";
+                        		    		}
+                        		
+                                   });
+                        		  	 
+                        		  	 
+                        		   columninputAuto +="</table>";
+                        		  	 
+                        		  $('#modalbody2').html(columninputAuto);
+                                 
+                                 $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'> "   
+                                 					   /* +"<input type='button' id='btnauto' name='btnauto' class='btn btn-default' value='자동입력' />" */
+                                 		                  +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+
+                                 
+                                 $('#selectviewbtn').click(function(){
+                               	  
+                               	  
+                            		 
+                                     var obj = document.getElementsByName("columnname");
+                                     var list = [];
+                                     console.log($('#columnname').val());
+                                     $.each(obj,function(index,ob){
+                                     
+                                     	
+                                   		  
+                                   	    if(codedata[index] == "VARCHAR2"){
+                                   		  
+                                   		   list.push("'"+ob.value+"'");
+                                   		   
+                                   	   }else if(codedata[index] == "DATE"){
+                                   		   
+                                   		   list.push(ob.value);
+ 
+                                   	   }else{
+                                   		   list.push(ob.value);
+                                   	   }
+                                   		   
+           
+                                       console.log(ob.value+"value");
+                                       
+                                     })
+                                   
+                                  
+                                 jQuery.ajaxSettings.traditional = true;   
+                                 $.ajax({
+                                   type: 'POST',
+                                       url: "insertcheck.html",
+                                        data : {list: JSON.stringify(list),
+                                          inserts : $('#inserts').val(),
+                                          ip: $('#iptext').val(),
+                                          id: $('#idtext').val(),
+                                          pwd: $('#pwdtext').val(),
+                                          tablename: $('#tableselect').val()},
+                                       dataType: "html",
+                                       success: function(responseData){
+                                       	var json = JSON.parse(responseData);
+                           
+                                    		 if( json.result == 0){
+                                    			 $('#tableviewdiv').html("<h4>에러메세지 : "+json.error+"</h4>");
+                                    		 }
+                                    		   
+                                    	     else{
+                                    	    	$('#tableviewdiv').html("<h4>"+json.result+"가 insert 되었습니다. </h4>");
+                                    	     }
+                                    	   
+                                       } 
+                                })
+                                     
+                                 }); 
+                                 
+                                 
+                        	   }); /************************************자동 변수 출력 End************************************* */
+									
+
+                        	     $('#selectviewbtn').click(function(){
+                                   	
+                        	    	/* datapicker = "'"+$('#datepicker').val()+"'";
+                        	    	 
+                        	    	 
+                                    console.log(datapicker+" / TEST"); */
+                                    var obj = document.getElementsByName("columnname");
+                                    var list = [];
+                                    console.log($('#columnname').val());
+                                    $.each(obj,function(index,ob){
+                                    
+                                    	
+                                  		  
+                                  	    if(codedata[index] == "VARCHAR2"){
+                                  		  
+                                  		   list.push("'"+ob.value+"'");
+                                  		   
+                                  	   }else if(codedata[index] == "DATE"){
+                                  		   
+                                  		   list.push("'"+ob.value+"'");
+                                  	   }else{
+
+                                          list.push(ob.value);
+                                  	   }
+                                      
+                                    });
+                                  
+                                 
+                                jQuery.ajaxSettings.traditional = true;   
+                                $.ajax({
+                                  type: 'POST',
+                                      url: "insertcheck.html",
+                                       data : {list: JSON.stringify(list),
+                                       inserts : $('#inserts').val(),	
+                                          ip: $('#iptext').val(),
+                                         id: $('#idtext').val(),
+                                         pwd: $('#pwdtext').val(),
+                                         tablename: $('#tableselect').val()},
+                                      dataType: "html",
+                                       success: function(responseData){
+                                       	var json = JSON.parse(responseData);
+                           
+                                    		 if( json.result == 0){
+                                    			 $('#tableviewdiv').html("<h3>에러메세지 : "+json.error+"</h3>");
+                                    		 }
+                                    		   
+                                    	     else{
+                                    	    	$('#tableviewdiv').html("<h3>"+json.result+"가 insert 되었습니다. </h3>");
+                                    	     }
+                                    	   
+                                       } 
+                               })
+                                    
+                                }); 
+
+                            
+                           }
+
+                      });  /********************** ajax(비동기) inputselect.html END********************************/
+                      
+                     
+
+                     
+   }
         
-          } /* ********************insertEND ********************************  */
+                });
+
+         } /* ********************insertEND ********************************  */
       
  
           /*********************UPDATE ********************************  */
@@ -386,7 +564,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          /********************************* DML delete 부분 ******************/
          
          else if($('#crudselect').val() == "delete"){ 
-        	 $.ajax({
+            $.ajax({
                  type: 'POST',
                    url: "inputselect.html",
                    data : {ip: $('#iptext').val(),
@@ -409,27 +587,27 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                         $('#modalfooter2').html("<input type='button' id='deletebtn' class='btn btn-default' data-dismiss='modal' name='deletebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                           
                         $('#deletebtn').click(function(){
-                       	 $.ajax({
-                           	 type: 'POST',
-                               	 url: "deleteTable.html",
-                               	  data : {
-                                  	  ip: $('#iptext').val(),
-                                  	 id: $('#idtext').val(),
+                           $.ajax({
+                               type: 'POST',
+                                   url: "deleteTable.html",
+                                    data : {
+                                       ip: $('#iptext').val(),
+                                      id: $('#idtext').val(),
                                    pwd: $('#pwdtext').val(),
                                    tablename: $('#tableselect').val(),
                                    coldelete : $('#deleteselect').val(),
                                    deletetxt : $('#deletetxt').val()},
                                 dataType: "html", 
                                 success: function(responseData){
-                               	 var json = JSON.parse(responseData);
-                               	  
-                                  		if(json.row==0){
-                               	   		$('#tableviewdiv').html("<h5>" + json.error + "</h5>");
-                                  		}
-                                   	
-                                  		else{
-                                    		$('#tableviewdiv').html("<h5>" + json.row + "개 데이터가 삭제되었습니다.</h5>");
-                                  		}
+                                   var json = JSON.parse(responseData);
+                                    
+                                        if(json.row==0){
+                                           $('#tableviewdiv').html("<h5>" + json.error + "</h5>");
+                                        }
+                                      
+                                        else{
+                                          $('#tableviewdiv').html("<h5>" + json.row + "개 데이터가 삭제되었습니다.</h5>");
+                                        }
                                    }
                                    
                                      
@@ -442,7 +620,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
                
-         	 
+             
           
          }
          /************************************* DML delete 부분 끝~~ ******************************/
@@ -666,6 +844,36 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
       
     </div>
   </div>
+  
+  
+  <div class="modal fade" id="insertsmodal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">세부 설정</h4>
+        </div>
+        <div class="modal-body" id="modalbody3">
+          <!-- modal 메인 html 정보 body -->
+        </div>
+        <!-- <button type="button" class="btn btn-danger" onclick="javascript:msgform.submit();">Send</button> -->
+        
+        <div class="modal-footer">
+           <div id="modalfooter2" name="modalfooter2">
+              <!-- modal 확인 버튼 등 footer -->
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  
   <!-- -------------------------------------modal end------------------------------------------------------------- -->
 </div>
 

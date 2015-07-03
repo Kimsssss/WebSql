@@ -31,9 +31,8 @@
                </se:authorize>
 
 
-
-               <button type="button" class="btn btn-success" style="width: 140px"
-                  onclick="">TableList</button>
+<button type="button" class="btn btn-success" style="width: 140px"
+    onclick="location.href='tableview.html'">TableList</button>
             </li>
             <!--사이드 bar Menu1End  -->
 
