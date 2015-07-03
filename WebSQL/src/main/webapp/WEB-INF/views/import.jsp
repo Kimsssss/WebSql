@@ -113,7 +113,43 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                             success: function(responseData){
                                var json = JSON.parse(responseData);
                         console.log(json.row);
-                                $('#viewdiv').html("<h5>테이블에" + json.row + "개 추가 되었습니다.</h5>");
+                                $.ajax({
+                                    type: 'POST',
+                                        url: "datatype.html",
+                                         data : {
+                                            ip: $('#ip_text').val(),
+                                           id: $('#id_text').val(),
+                                        pwd: $('#pwd_text').val(),
+                                        tablename: $('#tablesel').val()},
+                                     dataType: "html",
+                                     success: function(responseData){
+                                         var codes = JSON.parse(responseData);
+                                         var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover' border='1'>";
+                                         code += "<tr><td>COLUMN_NAME</td><td>DATA_TYPE</td><tr>";
+                                         
+                                         var colend = codes[codes.length-1];
+                                         if(codes==0){
+                                           alert('데이터 없음');
+                                        }
+                                         console.log(colend);
+                                         console.log(codes.length-1);
+                                         $.each(codes,function(index,items){
+                                            console.log(items);
+                                            if((index+1)%2 == 0){
+                                               code += "<td>"+items+"</td></tr><tr>";
+                                            }else{
+                                               if(codes.length-1 == index){
+                                                    code += "</tr></table></div>";
+                                                 }else{
+                                                    code += "<td>"+items+"</td>"
+                                                 }
+                                            
+                                            }
+                                         }) 
+                                         alert('추가된 부분 확인해주세요.\n추가 되지 않았다면 DataType을 제대로 입력하세요.');
+                                         $('#viewdiv').html(code);
+                                          } 
+                              })
                           
                             }
                         })
