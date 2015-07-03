@@ -421,45 +421,70 @@ public class DMLDAO {
          
       }
 
+   /***************************삽입부분****************************************/
+   public int insertcheck(Connection c,String tablename,String id,String list ,int inserts){
+      
+      int insertresult = 0;
+     
+      this.con=c;
 
+      try {
 
-/*데이터 삽입(insert)*/   
-public int insertcheck(Connection c,String tablename,String id,String list){
-   
-   int insertresult = 0;
-   this.con=c;
-
-   try {
-
-      String insertQuery="INSERT INTO "+tablename.toUpperCase()+" VALUES(" +list+ ")";
+         String insertQuery="INSERT INTO "+tablename+" VALUES(" +list+ ")";
+         
+         
+         System.out.println(insertQuery);
+         pstmt=con.prepareStatement(insertQuery);
+         
+         
+        System.out.println(inserts);
+         
+      
+         
+       if(inserts > 0){ 
+         
+        for(int i=0 ; i<inserts ; i++){
+         insertresult += pstmt.executeUpdate();
+        }
+         
+       }else{
+       	
+       }
+       insertresult = pstmt.executeUpdate();
+         
+         System.out.println(insertresult);
+         
+         if(insertresult > 0){
+            return insertresult;
+         }else if(insertresult == 0){
+      	   
+      	   throw new SQLException();
+         }     
+         
+         
+      } catch (SQLException e) {
+   		str = printStackTraceToString(e);
+   		System.out.println("에러메세지 : " + str);
+   		setStr(str);
+   	} finally {
+   		try {
+   			pstmt.close();
+   		} catch (SQLException e) {
+   			e.printStackTrace();
+   		}
+   		try {
+   			con.close();
+   		} catch (SQLException e) {
+   			e.printStackTrace();
+   		}
+   	}
       
       
-      System.out.println(insertQuery);
-      pstmt=con.prepareStatement(insertQuery);
-      
-      insertresult = pstmt.executeUpdate();
-      
-      
-      
-      System.out.println(insertresult);
-      
-      if(insertresult > 0){
-         return insertresult;
-      }
-      
-      
-      
-   } catch (SQLException e) {
-      
-      e.printStackTrace();
-      System.out.println("SQL ERROR");
       return insertresult;
-      
    }
+ 
+/***************************삽입부분 끝****************************************/   
    
-   
-   return insertresult;
-}
 
 /***************************수정부분****************************************/
 
