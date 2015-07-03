@@ -47,6 +47,9 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          
          /**********************select  ******************************/
          if($('#crudselect').val() == "select"){
+        	 
+        	 $('#modalcontent2').empty();
+        	 
              console.log("select if문");
              console.log($('#crudselect').val());
              console.log($('#tableselect').val());
@@ -263,14 +266,15 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                             	  
                                }
                                
-                               columninput +="</table>"
+                               columninput +="</table>";
                                
                             	
                                
-                               inserts = "<h4>row insert수 <input type='number' id='inserts' name='inserts' class='' value=''></h4>";
-       
-               	   	      $('#modalcontent2').html(inserts);
-			
+                             inserts = "<h4>row insert수 <input type='number' id='inserts' name='inserts' class='' value=''></h4>";
+                           
+               	   	        $('#modalcontent2').html(inserts);
+                          
+               	   	        
                             $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='insert'> "           
                                					   +"<input type='button' id='btnauto' name='btnauto' class='btn btn-default' value='자동입력' />"
                                		               +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
@@ -283,8 +287,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                        
                              /*********************************자동 변수 출력 ***************************************************/
                         	   $('#btnauto').on("click",function(){
-                        		  
                         		    $('#modalbody2').empty();
+                        		    
                         		  	alert("접근성공");
                         		  	
 	  	
@@ -474,7 +478,9 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
       
  
           /*********************UPDATE ********************************  */
-         else if($('#crudselect').val() == "update"){
+         else if($('#crudselect').val() == "update"){	 
+        	 $('#modalcontent2').empty();
+        	 
              console.log("update if문");
               console.log($('#crudselect').val());
               console.log($('#tableselect').val());
@@ -572,6 +578,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          /********************************* DML delete 부분 ******************/
          
          else if($('#crudselect').val() == "delete"){ 
+        $('#modalcontent2').empty();
+        
             $.ajax({
                  type: 'POST',
                    url: "inputselect.html",
