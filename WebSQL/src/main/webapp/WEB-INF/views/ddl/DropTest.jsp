@@ -54,12 +54,30 @@
    <table border="1" id="createtable">
       <tr><td>테이블</td></tr>
    </table>
+   <br>
    
-   <div  id="connection" title="DB계정연결">
-      아이피  &nbsp;&nbsp; :  <input type="text" id="ipAdress" name="ipAdress"><br><br>
-      아이디  &nbsp;&nbsp; :  <input type="text" id="DBid" name="DBid"><br><br>
-      비밀번호 :  <input type="password" id="DBpwd" name="DBpwd"><br><br>
-      
+   <div align="center" id="connection" title="DB계정연결">
+   <p>연결 정보 입력</p>
+	<table width="350px">
+		<tr height="40px">
+			<td><b>아이피</b></td>
+			<td>
+				<input type="text" class='form-control' id="ipAdress" name="ipAdress">
+			</td>
+		</tr>
+		<tr height="40px">
+			<td><b>아이디</b></td>
+			<td>
+				<input type="text" class='form-control' id="DBid" name="DBid">
+			</td>
+		</tr>
+		<tr height="40px">
+			<td><b>비밀번호</b></td>
+			<td>
+				<input type="password" class='form-control' id="DBpwd" name="DBpwd">
+      		</td>
+      	</tr>
+	</table>
    </div>
    
 </body>

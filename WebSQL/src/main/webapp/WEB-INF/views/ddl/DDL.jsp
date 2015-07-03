@@ -140,31 +140,56 @@
 <body>
    
    
-   <div id="page-wrapper">
-      <div class="row">
-         <div class="col-lg-12">
-            <header>
-            <%pageContext.include("DropTest.jsp"); %>
-            </header>
-            <section id="sections" style="width: 500px; height: 500px;">
-            <form action='create.htm' method='post'>
-            <table border='1' id='tbs' class='draggable' >
-            <tbody>
-            <tr><td colspan="3"><input type='text' name='tablename"+ tableNumber +"' placeholder='테이블명'></td></tr>
-            <tr><td>컬러명</td><td>데이터 타입</td><td>제약조건</td></tr>
-            <tr id='colplus'><td><img id="colimg" name="colimg" src="<%=request.getContextPath()%>/resources/img/N.jpg"><input type='text' name='col"+ tableNumber +"_"+ colNumber +"'></td><td><input type='text' name='col_data"+ tableNumber +"_"+ colNumber +"'></td><td><input type="button" id="constraint" name="constraint" value="제약설정"><input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber'></td></tr>
-            <tr><td colspan="3"><center><input id='sub' type='button' value='전송' style="width: 100px;"> <input type='button' id='plus"+ tableNumber +"' value='추가' style="width: 100px; "></center></td></tr>
-            </tbody>
-            </table>
-            
-            </form>
-
-            </section>
-         </div>
-      </div>   
-   </div>
-   
-   
-   
-</body>
+	<div id="page-wrapper">
+		<div class="col-lg-12">
+			<header>
+				<%pageContext.include("DropTest.jsp"); %>
+			</header>
+         
+			<div class="panel panel-default" style="height: 158px; width: 450px">
+				<div class="panel-heading" style="padding-top: 2px; padding-bottom: 2px; ">
+					<input class='form-control' type='text' name='tablename"+ tableNumber +"' placeholder='테이블명을 입력 하세요.' style=" height: 25px;">
+				</div>
+				<div class="panel-body" style=" padding-top: 3px;">
+					<div class="table-responsive">
+						<form action='create.htm' method='post'>
+						<table id='tbs' class='table' >
+							<tr height="20px">
+								<td width="30px"></td>
+								<td colspan="2" align="center">컬럼명</td>
+								<td colspan="2" align="center">데이터 타입</td>
+								<td width="50px" align="center">제약조건</td>
+							</tr>
+							<tr id='colplus'>
+								<td width="30px">
+									<img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/1.jpg" alt="">
+									<%-- <img id="colimg" name="colimg" src="<%=request.getContextPath()%>/resources/img/N.jpg"> --%>
+								</td>
+								<td colspan="2">	
+									<input type='text' class='form-control' name='col"+ tableNumber +"_"+ colNumber +"' style=" height: 23px; padding-top: 3px; padding-bottom: 3px;">
+								</td>
+								<td colspan="2">
+									<input type='text' class='form-control' name='col_data"+ tableNumber +"_"+ colNumber +"' style=" height: 23px; padding-top: 3px; padding-bottom: 3px;">
+								</td>
+								<td>
+									<input type="button" class="btn btn-outline btn-default" id="constraint" name="constraint" value="제약설정" style=" padding-top: 1px; padding-bottom: 1px; padding-left: 5px; padding-right: 5px;">
+									<input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber'>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6" align="right" width="">
+									<input id='sub' type='button' class="btn btn-outline btn-default" value='전송' style=" padding-top: 2px; padding-bottom: 2px; padding-left: 30px; padding-right: 30px;"> 
+								
+									<input type='button' class="btn btn-outline btn-default" id='plus"+ tableNumber +"' value='추가' style=" padding-top: 2px; padding-bottom: 2px; padding-left: 30px; padding-right: 30px;">
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+  
+	</body>
 </html>

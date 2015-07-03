@@ -545,7 +545,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </td>
 
 <td width="95px" align="center">
-<input type="button" name="frbtn" id="frbtn" class="btn btn-info" data-toggle="modal" data-target="#myModal" value="계정연결" style="
+<input type="button" name="frbtn" id="frbtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="계정연결" style="
     padding-left: 10px;
     padding-right: 10px;">
 </td>
@@ -557,7 +557,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </td>
 
 <td width="86px" align="right">
-<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-primary" data-toggle="modal" data-target="#crudModal" style="
+<input type="button" id="crudbtn" name="crudbtn" value="실행" class="btn btn-info" data-toggle="modal" data-target="#crudModal" style="
     padding-left: 24px;
     padding-right: 24px;">
 </td>
