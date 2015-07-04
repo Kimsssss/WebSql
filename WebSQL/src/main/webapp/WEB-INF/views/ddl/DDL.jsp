@@ -154,11 +154,11 @@
 					<div class="table-responsive">
 						<form action='create.htm' method='post'>
 						<table id='tbs' class='table' >
-							<tr height="20px">
+							<tr height="20px" style="color: #616161">
 								<td width="30px"></td>
-								<td colspan="2" align="center">컬럼명</td>
-								<td colspan="2" align="center">데이터 타입</td>
-								<td width="50px" align="center">제약조건</td>
+								<td colspan="2" align="center"><b>컬럼명</b></td>
+								<td colspan="2" align="center"><b>데이터 타입</b></td>
+								<td width="50px" align="center"><b>제약조건</b></td>
 							</tr>
 							<tr id='colplus'>
 								<td width="30px">
@@ -171,13 +171,13 @@
 								<td colspan="2">
 									<input type='text' class='form-control' name='col_data"+ tableNumber +"_"+ colNumber +"' style=" height: 23px; padding-top: 3px; padding-bottom: 3px;">
 								</td>
-								<td>
+								<td style="color: #737373">
 									<input type="button" class="btn btn-outline btn-default" id="constraint" name="constraint" value="제약설정" style=" padding-top: 1px; padding-bottom: 1px; padding-left: 5px; padding-right: 5px;">
 									<input type='hidden' id='conhidden' value='constraintDialog"+ tableNumber +"_"+ colNumber'>
 								</td>
 							</tr>
 							<tr>
-								<td colspan="6" align="right" width="">
+								<td style="color: #737373" colspan="6" align="right">
 									<input id='sub' type='button' class="btn btn-outline btn-default" value='전송' style=" padding-top: 2px; padding-bottom: 2px; padding-left: 30px; padding-right: 30px;"> 
 								
 									<input type='button' class="btn btn-outline btn-default" id='plus"+ tableNumber +"' value='추가' style=" padding-top: 2px; padding-bottom: 2px; padding-left: 30px; padding-right: 30px;">

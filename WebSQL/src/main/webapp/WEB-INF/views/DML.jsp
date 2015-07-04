@@ -216,18 +216,18 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                $.each(codes,function(index,items){
 	
                             	if(codedata[index] == "NUMBER"){
-                            		columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                            		columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' class='form-control' name='columnname' id='columnname' ";
                             		columninput += "value=''</td></tr>";
                             		
                             		
                                }else if(codedata[index] == "VARCHAR2"){
-                               	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                               	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' class='form-control' name='columnname' id='columnname' ";
                             		columninput += "value=''</td></tr>";
                             	
                                	
                                }else if(codedata[index] == "DATE"){
                                	columninput += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td>";
-                            		columninput += "<td><input type='text' name='columnname' id='datepicker"+index+"' class='sel' value=''</td></tr>"; 
+                            		columninput += "<td><input type='text' class='form-control' name='columnname' id='datepicker"+index+" value=''</td></tr>"; 
                             	    
                             		abc[cd]=index;
                             		cd++;
@@ -259,10 +259,10 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                            
                             
                                
-                                   inserts += "<h4>row(다중)추가 </h4>"
-                    	   	        inserts += "<input type='text' id='inserts' name='inserts' class='' value=''>";
-								    inserts += "<button type='button' id='test' class='btn btn-default' data-dismiss='modal' >확인</button>";
-								    inserts += "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
+                                   inserts += "<table><tr><td width='130px'><h4>row(다중)추가 </h4></td>"
+                    	   	        inserts += "<td width='200px'><input type='text' class='form-control' id='inserts' name='inserts' value=''></td>";
+								    inserts += "<td width='5px'></td><td><button type='button' id='test' class='btn btn-default' data-dismiss='modal' >확인</button></td>";
+								    inserts += "<td width='5px'></td><td><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></td></tr></table>";
 								    
 								    
 								    	
@@ -274,8 +274,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 								    	
 								    	
 								    	
-								    	$('#modalbody2').append("<h4>ROW</h4>"
-								    			               +"<input type='text' id='inserts' name='inserts' class='' value='"+insertsvalue+"' readonly='readonly'>"
+								    	$('#modalbody2').append("<table><tr><td width='60px'><h4>ROW</h4></td>"
+								    			               +"<td><input type='text' class='form-control' id='inserts' name='inserts' value='"+insertsvalue+"' readonly='readonly'></td></tr></table>"
 								    			               );
 								    	
 						
@@ -303,7 +303,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                         		  	 
                         		    $.each(codes,function(index,items){
                                        
-                        		    	columninputAuto += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
+                        		    	columninputAuto += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' class='form-control' name='columnname' id='columnname' ";
                                    	
                         		    		
                         		    		if(codedata[index] == "VARCHAR2"){
