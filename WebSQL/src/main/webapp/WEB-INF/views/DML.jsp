@@ -1,3 +1,4 @@
+<%@page import="com.sqlweb.dto.AccountDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,19 +6,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<% 
-HttpSession session = request.getSession();
-String ip = (String) session.getAttribute("iptxt");
-String id = (String) session.getAttribute("idtxt");
-String pwd = (String) session.getAttribute("pwdtxt");
-if(ip==null || id==null || pwd==null){
-   ip="";
-   id="";
-   pwd="";
-}
-%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,7 +13,19 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-
+<% 
+	HttpSession session = request.getSession();
+	AccountDTO acdto = (AccountDTO)session.getAttribute("acdto");
+	if(acdto == null){
+		System.out.println("acdto null : "+acdto);
+	}else{
+		System.out.println("DML.jsp acdto not null : "+acdto);
+		System.out.println("DML.jsp acdto not null : "+acdto.getId());
+		System.out.println("DML.jsp acdto not null : "+acdto.getPwd());
+		System.out.println("DML.jsp acdto not null : "+acdto.getUid());
+		System.out.println("DML.jsp acdto not null : "+acdto.getIp());
+	}
+%> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   
  <script src="https://code.jquery.com/jquery-1.10.2.js"></script> 
@@ -840,6 +840,34 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </script>
 <script type="text/javascript">
    $(function(){
+	   $('#ipip').val( $('#iphidden').val());
+       $('#idid').val($('#idhidden').val());
+       $('#pwdpwd').val($('#pwdhidden').val());
+       console.log($('#ipip').val());
+       console.log($('#idid').val());
+       console.log($('#pwdpwd').val());
+       $.ajax({
+          type: 'POST',
+              url: 'contable.html',
+              data:{
+                 ip: $('#ipip').val(),
+                 id: $('#idid').val(),
+                 pwd: $('#pwdpwd').val()}, 
+            dataType: "html",
+              success: function(responseData){
+              
+              var codes = JSON.parse(responseData);
+              console.log(codes);
+              var optionstr = "<option>테이블 종류</option>";
+              
+            
+            $.each(codes,function(index,items){
+               
+               optionstr += "<option>"+items+"</option>"
+            })
+            $('#tableselect').html(optionstr);
+           }
+       })
       $('#conbtn').click(function(){
            $.ajax({
               type: 'POST',
@@ -873,34 +901,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                    }
                    
                    $('#conmodalview').click(function(){
-                     $('#ipip').val( $('#iphidden').val());
-                     $('#idid').val($('#idhidden').val());
-                     $('#pwdpwd').val($('#pwdhidden').val());
-                     console.log($('#ipip').val());
-                     console.log($('#idid').val());
-                     console.log($('#pwdpwd').val());
-                     $.ajax({
-                        type: 'POST',
-                            url: 'contable.html',
-                            data:{
-                               ip: $('#ipip').val(),
-                               id: $('#idid').val(),
-                               pwd: $('#pwdpwd').val()}, 
-                          dataType: "html",
-                            success: function(responseData){
-                            
-                            var codes = JSON.parse(responseData);
-                            console.log(codes);
-                            var optionstr = "<option>테이블 종류</option>";
-                            
-                          
-                          $.each(codes,function(index,items){
-                             
-                             optionstr += "<option>"+items+"</option>"
-                          })
-                          $('#tableselect').html(optionstr);
-                         }
-                     })
+                     
                    })
                   
                 } 
@@ -929,7 +930,6 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
    <option value="delete" id="delete">delete</option>
 </select>
 </td>
-
 <td width="95px" align="center">
 <input type="button" name="frbtn" id="frbtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="계정연결" style="
     padding-left: 10px;
@@ -987,22 +987,25 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
             <tr height="40px">
                <td><b>IP 주소</b></td>
                <td>
-                      <input type="text" class='form-control' name="iptext" id="iptext" value="<%= ip%>">
-                      <input type="hidden" name="iphidden" id="iphidden" value="">
+                      <input type="text" class='form-control' name="iptext" id="iptext" value="<%=acdto.getIp()%>">
+                      <input type="hidden" name="iphidden" id="iphidden" value="<%=acdto.getIp()%>">
+
                   </td>   
             </tr>
             <tr height="40px">
                <td><b>계정 ID</b></td>
                <td>
-                  <input type="text" class='form-control' name="idtext" id="idtext" value="<%= id%>">
-                  <input type="hidden" name="idhidden" id="idhidden" value="">
+                  <input type="text" class='form-control' name="idtext" id="idtext" value="<%=acdto.getId()%>">
+                  <input type="hidden" name="idhidden" id="idhidden" value="<%=acdto.getId()%>">
+
                </td>  
             </tr>
             <tr height="40px">
                <td><b>계정 PWD</b></td>
                <td>  
-                  <input type="text" class='form-control' name="pwdtext" id="pwdtext" value="<%=pwd%>">
-                  <input type="hidden" name="pwdhidden" id="pwdhidden" value="">
+                  <input type="text" class='form-control' name="pwdtext" id="pwdtext" value="<%=acdto.getPwd()%>">
+                  <input type="hidden" name="pwdhidden" id="pwdhidden" value="<%=acdto.getPwd()%>">
+
                    </td>
                 </tr>
                 <tr>
