@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -31,10 +32,15 @@ public class DMLController {
    
    @RequestMapping(value="/conview.html", method=RequestMethod.POST)
    public void connectionview(HttpServletRequest req, HttpServletResponse res){
-      
+      HttpSession session = req.getSession();
       String ip = req.getParameter("ip");
       String id = req.getParameter("id");
       String pwd = req.getParameter("pwd"); 
+      
+      
+      session.setAttribute("iptxt", ip);
+      session.setAttribute("idtxt", id);
+      session.setAttribute("pwdtxt", pwd);
       
       System.out.println("ip :"+ip);
       System.out.println("id :"+id);
@@ -55,7 +61,7 @@ public class DMLController {
          
          JSONArray codes = JSONArray.fromObject(m);
          res.getWriter().print(codes);
-         System.out.println("connectionview 서버로 list 전송완료");
+         System.out.println("서버로 list 전송완료");
          
          
          
@@ -204,11 +210,11 @@ public class DMLController {
          
 	   List<String> checkList = JSONArray.fromObject(list);
          
-	   HttpServletRequest req = null;
+	  
 	   
 	 
 	   
-        System.out.println(inserts);
+        System.out.println("inserts "+inserts);
      
          System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
          
@@ -231,12 +237,9 @@ public class DMLController {
             Jdbc jb = new Jdbc();
             c = jb.ConnectionMake(ip, id, pwd);
             
-            
-            
-            
+  
             DMLDAO dao = new DMLDAO();
-            
-            
+   
             int result = 0;
    
             result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1),inserts);

@@ -431,28 +431,27 @@ public class DMLDAO {
       try {
 
          String insertQuery="INSERT INTO "+tablename+" VALUES(" +list+ ")";
-         
-         
+
          System.out.println(insertQuery);
          pstmt=con.prepareStatement(insertQuery);
          
          
-        System.out.println(inserts);
+        System.out.println("inserts : "+inserts);
          
-      
-         
-       if(inserts > 0){ 
+
+       if(inserts > 1){ 
          
         for(int i=0 ; i<inserts ; i++){
-         insertresult += pstmt.executeUpdate();
+        	System.out.println("inserts for문 ");
+         insertresult+= pstmt.executeUpdate();
         }
          
        }else{
-          
+    	   insertresult = pstmt.executeUpdate();
        }
-       insertresult = pstmt.executeUpdate();
+       
          
-         System.out.println(insertresult);
+         System.out.println("insertresult : "+insertresult);
          
          if(insertresult > 0){
             return insertresult;
