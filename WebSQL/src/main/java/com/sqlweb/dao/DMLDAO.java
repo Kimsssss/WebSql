@@ -420,6 +420,61 @@ public class DMLDAO {
          return table;
          
       }
+   
+   
+   
+   /********************************** 컬럼 제약 조건  ***********************************/
+   public ArrayList<String> tablecolview(Connection c,String tablename,String id){
+       ArrayList<String> table = new ArrayList<String>();
+        this.con = c;
+        /*
+         * select 
+   tp.data_type, j.Constraint_name, j.conStraint_type, j.Table_name, j.column_name from
+   (select column_name, data_type from all_tab_columns where table_name='USERS' and owner='PROJECT')tp,  
+   (Select ucc.Constraint_name, uc.conStraint_type, ucc.Table_name,
+                 ucc.column_name
+              from User_constraints uc, User_cons_columns ucc
+              where ucc.Constraint_name = uc.conStraint_name and uc.table_name ='USERS' and uc.owner='PROJECT' )j
+              where tp.column_name = j.column_name;
+         * */
+        
+        
+        String sql = "SELECT j.column_name, tp.data_type, j.conStraint_type, j.Constraint_name, j.Table_name from " + 
+                    "(select column_name, data_type from all_tab_columns where table_name='"+tablename+"' and owner='"+id+"')tp, "+
+                    "(Select ucc.Constraint_name, uc.conStraint_type, ucc.Table_name, ucc.column_name " +
+                    "from User_constraints uc, User_cons_columns ucc "+
+                    "where ucc.Constraint_name = uc.conStraint_name and uc.table_name ='"+tablename+"' and uc.owner='"+id+"' )j "+
+                    "where tp.column_name = j.column_name";
+        
+        
+        System.out.println("쿼리문 : " + sql);
+        try {
+           pstmt = con.prepareStatement(sql);
+           rs = pstmt.executeQuery();
+           while(rs.next()){
+              for(int i=1; i<6;i++){
+                 table.add(rs.getString(i));
+                 System.out.println(rs.getString(i));
+              }
+               
+            }
+           
+        } catch (SQLException e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+        }finally{
+           try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+           try {con.close();} catch (SQLException e) {e.printStackTrace();}
+           try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+        }
+        
+        return table;
+       
+    }
+   
+   /********************************** 컬럼 제약 조건끝 ***********************************/   
+   
+   
 
    /***************************삽입부분****************************************/
    public int insertcheck(Connection c,String tablename,String id,String list ,int inserts){

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sqlweb.dao.DDLDAO;
 import com.sqlweb.dao.DMLDAO;
 import com.sqlweb.utils.Jdbc;
 
@@ -205,6 +206,43 @@ public class DMLController {
    
    
    
+   @RequestMapping(value="tableviewinsert.html", method=RequestMethod.POST)
+   public void tableview(String tablename,String ip,String id,String pwd, HttpServletResponse res){
+
+ res.setCharacterEncoding("utf-8");
+      
+    
+      String str = "";
+      try {
+         ArrayList<String> arr = new ArrayList<String>();
+         
+         System.out.println("selectview ip :"+ip);
+         System.out.println("selectview id :"+id);
+         System.out.println("selectview pwd :"+pwd);
+         System.out.println("selectview tablename :"+tablename);
+         
+         Jdbc jb = new Jdbc();
+         c = jb.ConnectionMake(ip, id, pwd);
+         
+        DDLDAO dao = new DDLDAO();
+         
+         arr = dao.tablecolview(c, tablename, id);
+         System.out.println(arr.toString());
+         
+         JSONArray codes = JSONArray.fromObject(arr);
+         System.out.println(codes);
+         res.getWriter().print(codes);
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
+   
+   
+   
+   
+   
+   
    @RequestMapping(value="insertcheck.html", method=RequestMethod.POST)
    public void insertcheck(String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res ) throws IOException{
          
@@ -239,7 +277,8 @@ public class DMLController {
             
   
             DMLDAO dao = new DMLDAO();
-   
+            
+            
             int result = 0;
    
             result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1),inserts);

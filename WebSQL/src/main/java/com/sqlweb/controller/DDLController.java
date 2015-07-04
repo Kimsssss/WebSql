@@ -32,7 +32,7 @@ public class DDLController {
    static String id;
    static String pwd;
 
-   //웹사이트를 이용한는 유저들이 아이피와 아이디, 비밀번호를 입력하면 그 db에 연결
+ //웹사이트를 이용한는 유저들이 아이피와 아이디, 비밀번호를 입력하면 그 db에 연결
    private Connection ConnectionMake(String ipAdress, String id, String pwd){
       Connection c;
       try {
@@ -133,12 +133,16 @@ public class DDLController {
       String alterTableSql = "alter table " + tableName +" add constraint " + tableName +"_";
       String alterTableSql_PK="";
      String alterTableSql_FK="";
-     String alterTableSql_NN="alter table " + tableName +" MODIFY ";
+     String alterTableSql_NN="";
       for(int i=0;i<colName.length;i++){
+         isPK=false;
+         isFK=false;
+         isNN=false;
          String[] colConsArray = colCons[i].split(",");
          alterTableSql += colName[i]+"_";
          alterTableSql_PK = alterTableSql;
          alterTableSql_FK = alterTableSql;
+         alterTableSql_NN="alter table " + tableName +" MODIFY ";
          for(int j=0;j<colConsArray.length;j++){
             //alter table 테이블명 modify 컬럼명 not null
             if(colConsArray[j].equals("PRIMARY KEY")){
@@ -168,12 +172,32 @@ public class DDLController {
             pstmt = con.prepareStatement(alterTableSql_FK);
              pstmt.executeUpdate();
          }
+         if(isNN){
+            pstmt = con.prepareStatement(alterTableSql_NN);
+             pstmt.executeUpdate();
+         }
          
          
          
       } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         //return null;
+         //FK추가시 테이블이 없을때 942 테이블은 있는데 컬럼이 없을때 904  테이블 컬럼 다있는데 데이터 타입이 다를때 2267에러
+         //테이블 생성시 이름 겹침 955에러 컬럼 이름 겹침 957 존재하지 않는 데이터 타입 902
+         System.out.println(e.getErrorCode());
+         if(e.getErrorCode()==955){
+            return "ddl.Errer955";
+         }else if(e.getErrorCode()==957){
+            return "ddl.Errer957";
+         }else if(e.getErrorCode()==902){
+            return "ddl.Errer902";
+         }else if(e.getErrorCode()==942){
+            return "ddl.Errer942";
+         }else if(e.getErrorCode()==904){
+            return "ddl.Errer904";
+         }else if(e.getErrorCode()==2267){
+            return "ddl.Errer2267";
+         }
+         
+         
       }finally{
          try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
          try {con.close();} catch (SQLException e) {e.printStackTrace();}
@@ -209,6 +233,7 @@ public class DDLController {
       }
       
    }
+   
    
    
    // Alter add
