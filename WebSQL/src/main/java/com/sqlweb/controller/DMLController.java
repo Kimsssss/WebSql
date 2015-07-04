@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sqlweb.dao.DMLDAO;
+import com.sqlweb.dto.AccountDTO;
 import com.sqlweb.utils.Jdbc;
 
 @Controller
@@ -24,8 +27,15 @@ public class DMLController {
    Connection c;
    
    @RequestMapping(value="/dml.html", method=RequestMethod.GET)
-   public String test(){
-      System.out.println("DML controller");
+   public String test(HttpSession session){
+     /* System.out.println("DML controller");
+      System.out.println("DML controller session "+session.getAttribute("acdto"));
+      AccountDTO acdto = (AccountDTO)session.getAttribute("acdto");
+      System.out.println("DML controller session : "+acdto.getId());
+      System.out.println("DML controller session : "+acdto.getPwd());
+      System.out.println("DML controller session : "+acdto.getIp());
+      System.out.println("DML controller session : "+acdto.getUid());
+      session.setAttribute("acdto", acdto);*/
       return "DML";
    }
    

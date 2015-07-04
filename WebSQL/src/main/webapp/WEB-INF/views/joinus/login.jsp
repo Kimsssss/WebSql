@@ -15,7 +15,25 @@
 
 <script type="text/javascript">
    $(function() {
-
+	   
+	   $('#subminbtn').click(function(){
+		   console.log($('#username').val());
+		   console.log($('#password').val());
+		   
+		   $.ajax({
+               type : 'POST',
+               url : 'sessionun.html',
+               data : {username: $('#username').val(),
+            	   password: $('#password').val()},
+               dataType : "html",
+               success : function(Data) {
+            	   /* var codes = JSON.parse(responseData); */
+					console.log("session 보내기 성공 login.jsp");
+					console.log(Data);
+              	 }
+	   		})
+	   })
+	   
       /* ID 찾기  */
       $('#btnidfine')
             .click(
@@ -290,11 +308,11 @@
                      <fieldset>
                         <div class="form-group">
                            <label for="uid">ID</label> <input class="form-control"
-                              placeholder="ID" name="j_username" type="text" autofocus>
+                              placeholder="ID" id="username" name="j_username" type="text" autofocus>
                         </div>
                         <div class="form-group">
                            <label for="pwd">PWD</label> <input class="form-control"
-                              placeholder="Password" name="j_password" type="password"
+                              placeholder="Password" id="password" name="j_password" type="password"
                               value="">
                         </div>
 
@@ -308,7 +326,7 @@
 
 
                         <!-- Change this to a button or input when using this as a form -->
-                        <input type="submit" class="btn btn-primary btn-lg btn-block"
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" id="subminbtn" name="subminbtn"
                            value="로그인" />
                         <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
 
