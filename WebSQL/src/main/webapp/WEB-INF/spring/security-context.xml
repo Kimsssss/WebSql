@@ -19,7 +19,10 @@
    
       <security:intercept-url pattern="/P_*" access="ROLE_USER" />
       <security:intercept-url pattern="/my*" access="ROLE_USER" />
+      <security:intercept-url pattern="/D*" access="ROLE_USER"/>
+      <security:intercept-url pattern="/t*" access="ROLE_USER"/>
       <security:intercept-url pattern="/A_*" access="ROLE_ADMIN"/>
+      
    </security:http>
    <security:authentication-manager>
       <security:authentication-provider>

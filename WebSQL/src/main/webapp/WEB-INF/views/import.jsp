@@ -159,6 +159,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                          }) 
                                          alert('추가된 부분 확인해주세요.\n추가 되지 않았다면 DataType을 제대로 입력하세요.');
                                          $('#viewdiv').html(code);
+                                         $('#viewdiv2').html("<br>제약조건 추가여부는 [constraints]를 실행해서 확인하세요.");
                                           } 
                               })
                           
