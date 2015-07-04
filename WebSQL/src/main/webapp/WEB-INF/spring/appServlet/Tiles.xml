@@ -25,6 +25,43 @@
          </definition>   
          
          
+           <definition name="ddl.Errer902" template="/WEB-INF/views/ddl/ddlerrer/Errer902.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>
+         
+         <definition name="ddl.Errer904" template="/WEB-INF/views/ddl/ddlerrer/Errer904.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>  
+         
+         <definition name="ddl.Errer942" template="/WEB-INF/views/ddl/ddlerrer/Errer942.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>  
+         
+         <definition name="ddl.Errer955" template="/WEB-INF/views/ddl/ddlerrer/Errer955.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>  
+         
+         <definition name="ddl.Errer957" template="/WEB-INF/views/ddl/ddlerrer/Errer957.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>  
+         
+         <definition name="ddl.Errer2267" template="/WEB-INF/views/ddl/ddlerrer/Errer2267.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>    
+         
+         
          
          
        

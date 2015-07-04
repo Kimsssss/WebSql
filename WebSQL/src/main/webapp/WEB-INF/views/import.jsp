@@ -5,6 +5,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<% 
+HttpSession session = request.getSession();
+String ip = (String) session.getAttribute("iptxt");
+String id = (String) session.getAttribute("idtxt");
+String pwd = (String) session.getAttribute("pwdtxt");
+if(ip==null || id==null || pwd==null){
+   ip="";
+   id="";
+   pwd="";
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -148,6 +159,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                          }) 
                                          alert('추가된 부분 확인해주세요.\n추가 되지 않았다면 DataType을 제대로 입력하세요.');
                                          $('#viewdiv').html(code);
+                                         $('#viewdiv2').html("<br>제약조건 추가여부는 [constraints]를 실행해서 확인하세요.");
                                           } 
                               })
                           
@@ -246,7 +258,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                             dataType: "html",
                             success: function(responseData){
                                var json = JSON.parse(responseData);
-                                $('#viewdiv').html("<h5>테이블이 삭제되었습니다.</h5>");
+                                  alert("테이블이 삭제되었습니다.");
+                                location.href="tableview.html";
                             }
                         })
                        
@@ -254,69 +267,72 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
         }  
       
       /* *************************DROP END**************************** */
+      
+      
+      /* *************************컬럼, 제약조건 삭제(Alter drop)**************************** */
        else if($('#ddlselect').val() == "drop"){
-            var tablename= $('#tablesel').val();
-               var columninput = "<b>ALTER TABLE </b><b>"+tablename+"</b>";
-                  columninput += "<b> DROP</b><input type='text' id='droptxt' class='form-control' name='modifytxt' value='' style='200px'>";
-                  $('#modalbody3').html(columninput);
-                  $('#modalfooter3').html("<input type='button' id='modifybtn' class='btn btn-default' data-dismiss='modal' name='modifybtn' value='수정'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                      $('#modifybtn').click(function(){
+          var columninput = "<h4>삭제할 컬럼명이나 제약조건을 입력하세요.</h4>";
+            columninput += "<input type='text' id='droptxt' class='form-control' name='droptxt' value='' style='200px'>";
+            $('#modalbody3').html(columninput);
+            $('#modalfooter3').html("<input type='button' id='alterdropbtn' class='btn btn-default' data-dismiss='modal' name='alterdropbtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+              
+            $('#alterdropbtn').click(function(){
+               $.ajax({
+                      type: 'POST',
+                          url: "alterDrop.html",
+                           data : {
+                              ip: $('#ip_text').val(),
+                             id: $('#id_text').val(),
+                          pwd: $('#pwd_text').val(),
+                          tablename: $('#tablesel').val(),
+                          droptxt : $('#droptxt').val()},
+                       dataType: "html",
+                       success: function(responseData){
+                          var json = JSON.parse(responseData);
+                           console.log(json.row);
+                           
                          $.ajax({
-                              type: 'POST',
-                                  url: "alterModify.html",
-                                   data : {
-                                      ip: $('#ip_text').val(),
-                                     id: $('#id_text').val(),
-                                  pwd: $('#pwd_text').val(),
-                                  tablename: $('#tablesel').val(),
-                                  modifytxt : $('#modifytxt').val()},
-                               dataType: "html",
-                               success: function(responseData){
-                                  var json = JSON.parse(responseData);
-                                   console.log(json.row);
-                                   
-                                 $.ajax({
-                                    type: 'POST',
-                                        url: "datatype.html",
-                                         data : {
-                                            ip: $('#ip_text').val(),
-                                           id: $('#id_text').val(),
-                                        pwd: $('#pwd_text').val(),
-                                        tablename: $('#tablesel').val()},
-                                     dataType: "html",
-                                     success: function(responseData){
-                                         var codes = JSON.parse(responseData);
-                                         var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover' border='1'>";
-                                         code += "<tr><td>COLUMN_NAME</td><td>DATA_TYPE</td><tr>";
-                                         
-                                         var colend = codes[codes.length-1];
-                                         if(codes==0){
-                                           alert('데이터 없음');
-                                        }
-                                         console.log(colend);
-                                         console.log(codes.length-1);
-                                         $.each(codes,function(index,items){
-                                            console.log(items);
-                                            if((index+1)%2 == 0){
-                                               code += "<td>"+items+"</td></tr><tr>";
-                                            }else{
-                                               if(codes.length-1 == index){
-                                                    code += "</tr></table></div>";
-                                                 }else{
-                                                    code += "<td>"+items+"</td>"
-                                                 }
-                                            
-                                            }
-                                         }) 
-                                         alert('수정된 부분을 확인해주세요.\n수정이 안되었을 경우 해당 컬럼의 데이터를 모두 삭제하세요.');
-                                         $('#viewdiv').html(code);
-                                          } 
-                              })
-                               }
-                           })
-                          
-                      });
+                            type: 'POST',
+                                url: "datatype.html",
+                                 data : {
+                                    ip: $('#ip_text').val(),
+                                   id: $('#id_text').val(),
+                                pwd: $('#pwd_text').val(),
+                                tablename: $('#tablesel').val()},
+                             dataType: "html",
+                             success: function(responseData){
+                                 var codes = JSON.parse(responseData);
+                                 console.log(codes);
+                                 var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover' border='1'>";
+                                 code += "<tr><td>COLUMN_NAME</td><td>DATA_TYPE</td><tr>";
+                                 
+                                 var colend = codes[codes.length-1];
+                                 console.log(colend);
+                                 console.log(codes.length-1);
+                                 $.each(codes,function(index,items){
+                                    console.log(items);
+                                    if((index+1)%2 == 0){
+                                       code += "<td>"+items+"</td></tr><tr>";
+                                    }else{
+                                       if(codes.length-1 == index){
+                                            code += "</tr></table></div>";
+                                         }else{
+                                            code += "<td>"+items+"</td>"
+                                         }
+                                    
+                                    }
+                                 }) 
+                                 alert('삭제된 부분을 확인해주세요.\n삭제가 안되었을 경우 컬럼명과 제약조건을 확인하세요.');
+                                 $('#viewdiv').html(code);
+                                 $('#viewdiv2').html("<br>제약조건 삭제여부는 [constraints]를 실행해서 확인하세요.");
+                                  } 
+                      })
+                       }
+                   })
+             
+         });
            } 
+      /* *************************Alter drop END**************************** */
       
       });
      
@@ -325,12 +341,16 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
    $(function(){
       $('#con_btn').click(function(){
+         var ip = $('#ip_text').val();
+         var id = $('#id_text').val();
+         var pwd = $('#pwd_text').val();
+        
            $.ajax({
               type: 'POST',
                 url: "conview.html",
-                data : {ip: $('#ip_text').val(),
-                      id: $('#id_text').val(),
-                      pwd: $('#pwd_text').val()},
+                data : {ip: ip,
+                      id: id,
+                      pwd: pwd},
                 dataType: "html",
                 success: function(responseData){
                    var codes = JSON.parse(responseData);
@@ -341,6 +361,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                       $('#pwd_hidden').val(codes[2]);
                       $('#con_modal').html("<input type='button' id='con_modalview' name='con_modalview' value='확인' class='btn btn-danger' data-dismiss='modal'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                       alert("연결 성공");
+                      
                    }else{
                       alert("연결 실패");
                       $('#con_modal').html("");
@@ -388,11 +409,6 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
             <div class="body">
                <h2 align="left" class="page-header">불러오기</h2>
             </div>
-
-
-
-
-
             <table align="center">
                <tr>
                   <td width="200px"><select class="form-control" id="ddlselect"
@@ -401,7 +417,6 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                         <option value="add" id="add">Alter add</option>
                         <option value="modify" id="modify">Alter modify</option>
                         <option value="drop" id="drop">Alter drop</option>
-                        <option value="rename" id="rename">Alter rename</option>
                         <option value="tabledrop" id="tabledrop">Drop Table</option>
                   </select></td>
                   <td width="95px" align="center"><input type="button"
@@ -434,6 +449,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
             <!-- 테이블 출력 div -->
             <div id="viewdiv" name="viewdiv"></div>
+            <div id="viewdiv2" name="viewdiv2"></div>
 
             <div class="container">
 
@@ -456,19 +472,19 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                               <tr height="40px">
                                  <td><b>IP 주소</b></td>
                                  <td><input type="text" class='form-control'
-                                    name="ip_text" id="ip_text"> <input type="hidden"
+                                    name="ip_text" id="ip_text" value="<%= ip%>"> <input type="hidden"
                                     name="ip_hidden" id="ip_hidden" value=""></td>
                               </tr>
                               <tr height="40px">
                                  <td><b>계정 ID</b></td>
                                  <td><input type="text" class='form-control'
-                                    name="id_text" id="id_text"> <input type="hidden"
+                                    name="id_text" id="id_text" value="<%= id%>"> <input type="hidden"
                                     name="i_+hidden" id="id_hidden" value=""></td>
                               </tr>
                               <tr height="40px">
                                  <td><b>계정 PWD</b></td>
                                  <td><input type="text" class='form-control'
-                                    name="pwd_text" id="pwd_text"> <input type="hidden"
+                                    name="pwd_text" id="pwd_text" value="<%= pwd %>">  <input type="hidden"
                                     name="pwd_hidden" id="pwd_hidden" value=""></td>
                               </tr>
                               <tr>

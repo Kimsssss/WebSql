@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sqlweb.dao.DDLDAO;
 import com.sqlweb.dao.DMLDAO;
 import com.sqlweb.dto.AccountDTO;
 import com.sqlweb.utils.Jdbc;
@@ -41,10 +42,15 @@ public class DMLController {
    
    @RequestMapping(value="/conview.html", method=RequestMethod.POST)
    public void connectionview(HttpServletRequest req, HttpServletResponse res){
-      
+      HttpSession session = req.getSession();
       String ip = req.getParameter("ip");
       String id = req.getParameter("id");
       String pwd = req.getParameter("pwd"); 
+      
+      
+      session.setAttribute("iptxt", ip);
+      session.setAttribute("idtxt", id);
+      session.setAttribute("pwdtxt", pwd);
       
       System.out.println("ip :"+ip);
       System.out.println("id :"+id);
@@ -65,7 +71,7 @@ public class DMLController {
          
          JSONArray codes = JSONArray.fromObject(m);
          res.getWriter().print(codes);
-         System.out.println("connectionview 서버로 list 전송완료");
+         System.out.println("서버로 list 전송완료");
          
          
          
@@ -209,16 +215,53 @@ public class DMLController {
    
    
    
+   @RequestMapping(value="tableviewinsert.html", method=RequestMethod.POST)
+   public void tableview(String tablename,String ip,String id,String pwd, HttpServletResponse res){
+
+ res.setCharacterEncoding("utf-8");
+      
+    
+      String str = "";
+      try {
+         ArrayList<String> arr = new ArrayList<String>();
+         
+         System.out.println("selectview ip :"+ip);
+         System.out.println("selectview id :"+id);
+         System.out.println("selectview pwd :"+pwd);
+         System.out.println("selectview tablename :"+tablename);
+         
+         Jdbc jb = new Jdbc();
+         c = jb.ConnectionMake(ip, id, pwd);
+         
+        DDLDAO dao = new DDLDAO();
+         
+         arr = dao.tablecolview(c, tablename, id);
+         System.out.println(arr.toString());
+         
+         JSONArray codes = JSONArray.fromObject(arr);
+         System.out.println(codes);
+         res.getWriter().print(codes);
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
+   
+   
+   
+   
+   
+   
    @RequestMapping(value="insertcheck.html", method=RequestMethod.POST)
    public void insertcheck(String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res ) throws IOException{
          
 	   List<String> checkList = JSONArray.fromObject(list);
          
-	   HttpServletRequest req = null;
+	  
 	   
 	 
 	   
-        System.out.println(inserts);
+        System.out.println("inserts "+inserts);
      
          System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
          
@@ -241,9 +284,7 @@ public class DMLController {
             Jdbc jb = new Jdbc();
             c = jb.ConnectionMake(ip, id, pwd);
             
-            
-            
-            
+  
             DMLDAO dao = new DMLDAO();
             
             
