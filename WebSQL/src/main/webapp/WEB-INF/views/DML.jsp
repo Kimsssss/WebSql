@@ -200,9 +200,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                       code += "<tr><td>COLUMN_NAME</td><td>DATA_TYPE</td><td>CONSTRAINT_TYPE</td><td>CONSTRAINT_NAME</td><td>TABLE_NAME</td></tr>";
                       
                       var colend = codes[codes.length-1];
-                      if(codes==0){
-                        alert('데이터 없음');
-                     }
+                   
                       console.log(colend);
                       console.log(codes.length-1);
                       $.each(codes,function(index,items){
