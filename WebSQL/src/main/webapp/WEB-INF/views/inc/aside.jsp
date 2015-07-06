@@ -17,7 +17,7 @@
             <li>
 
                <button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
-               <se:authorize ifNotGranted="ROLE_USER">
+               <se:authorize ifNotGranted="ROLE_USER, ROLE_ADMIN">
                   <button type="button" class="btn btn-primary"
                      onclick="location.href='login.html'" style="padding-left: 20px;padding-right: 20px;">Login</button><br>
                   <b>로그인하세요.</b><br>
@@ -26,8 +26,9 @@
 
                   <button type="button" class="btn btn-primary"
                      onclick="location.href='${pageContext.request.contextPath}/j_spring_security_logout'" style="padding-left: 16px;padding-right: 15px;">Logout</button><br>
-                  <b>${LoginUser }님환영합니다.</b>
-
+                  <b>${LoginUser }님환영합니다.</b><br>
+				<button type="button" class="btn btn-primary"
+                     onclick="location.href='account.html'" style="padding-left: 20px;padding-right: 20px;">계정연결</button><br>
                </se:authorize>
 
 

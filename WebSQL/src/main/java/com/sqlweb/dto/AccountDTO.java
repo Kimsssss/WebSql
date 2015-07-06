@@ -1,12 +1,19 @@
 package com.sqlweb.dto;
 
 public class AccountDTO {
+	private String uid;
 	private String ip;
 	private String id;
 	private String pwd;
 	
 	
 	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public String getIp() {
 		return ip;
 	}
@@ -28,3 +35,4 @@ public class AccountDTO {
 	
 	
 }
+

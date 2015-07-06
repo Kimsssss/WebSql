@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sqlweb.dao.DDLDAO;
 import com.sqlweb.dao.DMLDAO;
+import com.sqlweb.dto.AccountDTO;
 import com.sqlweb.utils.Jdbc;
 
 @Controller
@@ -26,8 +28,15 @@ public class DMLController {
    Connection c;
    
    @RequestMapping(value="/dml.html", method=RequestMethod.GET)
-   public String test(){
-      System.out.println("DML controller");
+   public String test(HttpSession session){
+     /* System.out.println("DML controller");
+      System.out.println("DML controller session "+session.getAttribute("acdto"));
+      AccountDTO acdto = (AccountDTO)session.getAttribute("acdto");
+      System.out.println("DML controller session : "+acdto.getId());
+      System.out.println("DML controller session : "+acdto.getPwd());
+      System.out.println("DML controller session : "+acdto.getIp());
+      System.out.println("DML controller session : "+acdto.getUid());
+      session.setAttribute("acdto", acdto);*/
       return "DML";
    }
    
@@ -188,7 +197,7 @@ public class DMLController {
          DMLDAO dao = new DMLDAO();
 
          
-        arrcoltype = dao.columntype(c, tablename);
+        arrcoltype = dao.columntype(c, tablename,id);
          
          System.out.println(arrcoltype);
          
@@ -244,18 +253,17 @@ public class DMLController {
    
    
    @RequestMapping(value="insertcheck.html", method=RequestMethod.POST)
-   public void insertcheck(String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res ) throws IOException{
-         
-	   List<String> checkList = JSONArray.fromObject(list);
+   public void insertcheck( String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res , HttpServletRequest req ) throws IOException{
+	   
+	   
+	   List<String>  checkList = JSONArray.fromObject(list);
          
 	  
-	   
-	 
-	   
         System.out.println("inserts "+inserts);
      
          System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
          
+        
 
          
          String str = "";
@@ -281,7 +289,7 @@ public class DMLController {
             
             int result = 0;
    
-            result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1),inserts);
+            result = dao.insertcheck(c, tablename, id, checkList ,inserts);
             String error = dao.getStr();
             
             JSONObject json = new JSONObject();
@@ -292,6 +300,7 @@ public class DMLController {
         
          System.out.println("서버로 list 전송완료");
       }
+   
    
    
 	@RequestMapping(value = "deleteTable.html", method = RequestMethod.POST)

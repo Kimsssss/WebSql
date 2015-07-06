@@ -6,9 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.*;
+
+import javax.servlet.http.HttpSession;
+
+import com.sqlweb.dto.AccountDTO;
 
 public class DMLDAO {
    
@@ -100,9 +105,8 @@ public class DMLDAO {
       
    }
    
-   
    /*데이터 타입*/
-   public ArrayList<String> columntype(Connection c,String tablename){
+   public ArrayList<String> columntype(Connection c,String tablename ,String id){
       
       
        ArrayList<String> list = new ArrayList<String>();
@@ -110,7 +114,7 @@ public class DMLDAO {
        this.con = c;
 
         
-        String columnDatatypeSql = "SELECT DATA_TYPE FROM all_tab_columns where table_name='"+tablename.toUpperCase()+"'";
+        String columnDatatypeSql =  "SELECT data_type FROM all_tab_columns where owner='"+id+"' and table_name='"+tablename+"'";
      
         System.out.println("columnDatatypeSql DAO : "+columnDatatypeSql);
         System.out.println(tablename);
@@ -131,15 +135,11 @@ public class DMLDAO {
            e.printStackTrace();
            System.out.println("SQL ERROR");
            
-        }finally{
-           try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
-           try {con.close();} catch (SQLException e) {e.printStackTrace();}
-           try {rs.close();} catch (SQLException e) {e.printStackTrace();}
         }
         
         return list;
         
-     
+ 
       
    }
    
@@ -477,33 +477,72 @@ public class DMLDAO {
    
 
    /***************************삽입부분****************************************/
-   public int insertcheck(Connection c,String tablename,String id,String list ,int inserts){
+   public int insertcheck(Connection c,String tablename,String id,List<String> CheckList ,int inserts){
       
       int insertresult = 0;
-     
+      
+
       this.con=c;
+      
+      ArrayList<String> columntype = columntype(c, tablename, id);
+	  
+	  System.out.println("columntype : "+columntype);
 
       try {
+    	  
 
-         String insertQuery="INSERT INTO "+tablename+" VALUES(" +list+ ")";
+    	  
+   for(int i=0 ; i < inserts ;i++){
+    	  
+	 
+    	  System.out.println("inserts 접근 성공 : "+inserts);
+    	  
+    	  
+    	  String insertQuery = "INSERT INTO "+tablename+" VALUES(";
+    	  
+    	  for(int j=0 ; j < CheckList.size() ; j++){
+    		  	
+    
+    		  if(columntype.get(j).equals("NUMBER")){
+    			  
+    			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += i;
+    			  }else{ insertQuery += CheckList.get(j)+i; }
+    			  
+    			  
+    			  
+    		  }else if(columntype.get(j).equals("VARCHAR2")){
+    			  
+    			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += "'AutoValue"+i+"'";
+    			  }else{ insertQuery += "'"+CheckList.get(j)+i+"'"; }
+    			  
+    			   
+    		  }else if(columntype.get(j).equals("DATE")){
+    			  
+    			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += "sysdate";
+    			  }else{ insertQuery += "'"+CheckList.get(j)+"'"; }
+   
+    		   }
+    		  
+    		  if(j<CheckList.size()-1){
+	    	    	insertQuery +=", ";
+    		   }
+    	
+    	  }
+    	  insertQuery +=")";
+    	  
+
+        /*insertQuery="INSERT INTO "+tablename+" VALUES(" +CheckList.get(0)+ ")";*/
 
          System.out.println(insertQuery);
          pstmt=con.prepareStatement(insertQuery);
-         
-         
-        System.out.println("inserts : "+inserts);
-         
 
-       if(inserts > 1){ 
-         
-        for(int i=0 ; i<inserts ; i++){
-        	System.out.println("inserts for문 ");
          insertresult+= pstmt.executeUpdate();
-        }
-         
-       }else{
-    	   insertresult = pstmt.executeUpdate();
-       }
+        
+   } 
+       
        
          
          System.out.println("insertresult : "+insertresult);
@@ -538,6 +577,7 @@ public class DMLDAO {
    }
  
 /***************************삽입부분 끝****************************************/   
+   
    
 
 /***************************수정부분****************************************/
@@ -651,7 +691,119 @@ public String printStackTraceToString(Throwable e) {
 
 /***************************삭제부분END*****************************************/
 
+public int setAccount(Connection c,String uid,String ip,String id,String pwd,HttpSession session){
+    
+    int result = 0;
+    this.con = c;
+    
+    //select * from all_tables where owner='PROJECT';
+    String selectAccountSql = "select USER_ID from ACCOUNTDTO where USER_ID='"+uid+"'";
+    System.out.println("selectAccountSql DAO : "+selectAccountSql);
+    try {
+        pstmt = con.prepareStatement(selectAccountSql);
+        rs = pstmt.executeQuery();
+        System.out.println("Account DAO 끝 catch 전 select");
+        
+       if(rs.next()){
+    	   String deleteAccountSql = "delete from ACCOUNTDTO where USER_ID='"+uid+"'";
+    	   System.out.println("deleteAccountSql DAO : "+deleteAccountSql);
+    	   
+    	   pstmt = con.prepareStatement(deleteAccountSql);
+           result = pstmt.executeUpdate();
+           System.out.println("Account DAO 끝 catch 전");
+    	   
+           if(result == 0){
+        	   System.out.println("삭제 실패");
+           }else{
+        	   System.out.println("삭제 성공");
+           }
+       }
+        
+     } catch (SQLException e) {
+        e.printStackTrace();
+     }
+    
+    String setAccountSql = "INSERT INTO ACCOUNTDTO VALUES('"+uid+"','"+ip+"','"+id+"','"+pwd+"')";
+    //String createTableSql = "create table aaa(asd varchar2(20))";
+    System.out.println("setAccountSql DAO : "+setAccountSql);
+    
+    
+    
+    try {
+       pstmt = con.prepareStatement(setAccountSql);
+       result = pstmt.executeUpdate();
+       System.out.println("Account DAO 끝 catch 전");
+       if(result == 1){
+    	   AccountDTO acdto = new AccountDTO();
+    	   acdto.setId(id);
+    	   acdto.setPwd(pwd);
+    	   acdto.setIp(ip);
+    	   acdto.setUid(uid);
+    	   session.setAttribute("acdto", acdto);
+       }
+      
+       
+    } catch (SQLException e) {
+       e.printStackTrace();
+    }finally{
+       try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+       try {con.close();} catch (SQLException e) {e.printStackTrace();}
+       try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+    }
+    
+    return result;
 
+	}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+public String sessionAccount(Connection c, String username,HttpSession session) {
 
+	   
+	   try {
+		   
+		   this.con = c;
+		   String sessionAccountSql="select * from ACCOUNTDTO where USER_ID='"+username+"'";
+		   System.out.println(username);
+		   System.out.println(sessionAccountSql);
+		   AccountDTO acdto = new AccountDTO();
+		   
+		   
+		   
+	      pstmt = con.prepareStatement(sessionAccountSql);
+	      rs = pstmt.executeQuery();
+	      System.out.println("sessionAccount DAO while 전");
+	      
+	      if(rs.next()){
+	    	  
+	    		  acdto.setUid(rs.getString("USER_ID"));
+	    		  acdto.setIp(rs.getString("IP"));
+	    		  acdto.setId(rs.getString("ID"));
+	    		  acdto.setPwd(rs.getString("PWD"));
+	    	  
+	    		  System.out.println("sessionAccount while : "+rs.getString("USER_ID"));
+	    		  System.out.println("sessionAccount while : "+rs.getString("IP"));
+	    		  System.out.println("sessionAccount while : "+rs.getString("ID"));
+	    		  System.out.println("sessionAccount while : "+rs.getString("PWD"));
+	    	  
+	    		  session.setAttribute("acdto", acdto);
+	    		  return "session 주입 성공";
+	      		
+	      }
+	      session.setAttribute("acdto", acdto);
+	 	  System.out.println("rs null acdto : "+acdto);
+	 	  
+	   } catch (SQLException e) {
+	      e.printStackTrace();
+	   }finally {
+	      try{pstmt.close();}catch(SQLException e){e.printStackTrace();}
+	      try {con.close();}catch(SQLException e){e.printStackTrace();}
+	      try {rs.close();}catch(SQLException e){e.printStackTrace();}
+	   }
 
+ 	  
+ 	  
+ 	  return "session 주입 실패";
+   
+
+	}
 }
+
