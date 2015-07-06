@@ -17,7 +17,7 @@
             <li>
 
                <button type="button" class="btn btn-warning" onclick="location.href='mypage.html'">Mypage</button>
-               <se:authorize ifNotGranted="ROLE_USER">
+               <se:authorize ifNotGranted="ROLE_USER, ROLE_ADMIN">
                   <button type="button" class="btn btn-primary"
                      onclick="location.href='login.html'" style="padding-left: 20px;padding-right: 20px;">Login</button><br>
                   <b>로그인하세요.</b><br>
