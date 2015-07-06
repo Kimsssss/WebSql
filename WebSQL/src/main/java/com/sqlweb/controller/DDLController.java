@@ -296,6 +296,25 @@ public class DDLController {
          e.printStackTrace();
       }
    }
+   
+   //Alter Drop
+
+   @RequestMapping(value = "alterDrop.html", method = RequestMethod.POST)
+   public void alterDrop(String tablename, String ip, String id, String pwd,
+         String droptxt, HttpServletResponse res) throws IOException {
+      int row = 0;
+
+      DDLDAO dao = new DDLDAO();
+      Jdbc jb = new Jdbc();
+      c = jb.ConnectionMake(ip, id, pwd);
+      
+      row = dao.alterDrop(c, tablename, id, droptxt);
+      res.getWriter().print(row);
+
+   }
+   
+   
+   
   // dropTable
    
    @RequestMapping(value = "dropTable.html", method = RequestMethod.POST)
