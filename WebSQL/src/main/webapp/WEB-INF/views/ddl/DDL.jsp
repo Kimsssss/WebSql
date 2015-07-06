@@ -276,18 +276,11 @@
       <div class="row">
          <div class="col-lg-12">
             <header>
-            	<table>
-            		<tr>
-            			<td>
+            	
             				<%pageContext.include("DropTest.jsp"); %>
-            			</td>
-            			<td width="10px"></td>
-            			<td>
-            				<input type="button" class="btn btn-primary" value="전체저장" id="allSave" name="allSave">
-            			</td>
-            		</tr>
-            	</table>
-            </header><br>
+            			
+            		
+            </header>
             <section id="sections" style="width: 500px; height: 500px;">          </section>    
          </div>
       </div>   

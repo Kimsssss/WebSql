@@ -55,16 +55,31 @@
 </head>
 <body>
 
-   <table border="1" id="createtable" class='table-striped table-bordered table-hover'>
-      <tr><td>테이블</td></tr>
+   <table id="createtable">
+      <tr><td><button type="button" class="btn btn-info disabled">테이블</button></td></tr>
    </table>
    <br>
+   
    <div  id="connection" title="DB계정연결">
-      아이피  &nbsp;&nbsp; :  <input type="text" id="ipAdress" name="ipAdress" readonly="readonly" value="<%=acdto.getIp()%>" style="background-color: #eee;"><br><br>
-      아이디  &nbsp;&nbsp; :  <input type="text" id="DBid" name="DBid" readonly="readonly" value="<%=acdto.getId()%>" style="background-color: #eee;"><br><br>
-      <input type="hidden" id="DBpwd" name="DBpwd" value="<%=acdto.getPwd()%>"><br><br>
-      
-   </div>
+   <table>
+   	<tr>
+   		<td><b>아이피</b></td>
+   		<td width="5px"></td>
+   		<td>
+   			<input type="text" class="form-control" id="ipAdress" name="ipAdress" readonly="readonly" value="<%=acdto.getIp()%>" style="background-color: #eee;">
+      	</td>
+    </tr>
+    <tr height="5px"></tr>
+    <tr>
+      	<td><b>아이디</b></td>
+      	<td width="5px"></td>
+      	<td>
+      		<input type="text" class="form-control" id="DBid" name="DBid" readonly="readonly" value="<%=acdto.getId()%>" style="background-color: #eee;">
+			<input type="hidden" id="DBpwd" name="DBpwd" value="<%=acdto.getPwd()%>">
+      	</td>
+   </tr>
+   </table>
+   </div><br>
    
 </body>
 </html>
