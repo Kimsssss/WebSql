@@ -16,7 +16,16 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">A_NOTICE</div>
+						<div class="panel-heading">
+						<table style="width: 100%;">
+							<tbody><tr>
+								<td width="" align="left"><h4><b>글쓰기</b></h4></td>
+								<td width="" align="right">
+									<button class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/boardlist.html">글목록 </button>
+								</td>
+							</tr>
+						</tbody></table>		
+						</div>
 
 
 
@@ -24,9 +33,7 @@
 							<div class="row">
 								<div class="col-lg-12">
 
-									<a class="form-group"
-										href="<%=request.getContextPath() %>/boardlist.html"> 글목록
-									</a>
+									
 									<!-- 게시판 작성자  -->
 									<se:authentication property="name" var="LoginUser" />
 									<div class="form-group">
@@ -55,14 +62,34 @@
 
 
 									<!-- 글쓰기 , 다시작성 Button  -->
-									<div class="form-group">
-										<input type="submit" class="layer"
-											style="position: relative; left: 40%" value="글쓰기"> <input
-											type="reset" class="layer"
-											style="position: relative; left: 40%; width: 96px;"
-											value="다시작성">
+							<div class="form-group">
+									<table style="width: 100%">
+										<tbody><tr>
+											<td align="right">
+									
+												<input type="submit" class="btn btn-info" value="확인" 
+									style="padding-left: 17px;
+									padding-bottom: 10px;border-left-width: 0.111;
+									border-left-width: 0px;border-left-width: 0px;
+									width: 93px;
+									padding-top: 10px;
+									border-top-width: 0px;
+									border-bottom-width: 0px;">
+											</td>
+											
+											<td width="10px"></td>
+											<td align="left"> 
+												<input type="reset" class="btn btn-danger" value="다시작성" style="padding-top: 10px;
+																							    padding-right: 15px;padding-left: 15px;"">
+											</td>
+										</tr>
+									</tbody></table>
 									</div>
-									<!-- 글쓰기 , 다시작성 Button End  -->
+									
+									
+								<!-- 글쓰기 , 다시작성 Button 끝  -->	
+									
+								
 
 
 									<!-- /.col-lg-12 (nested) -->

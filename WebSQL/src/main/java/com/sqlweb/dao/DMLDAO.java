@@ -491,7 +491,8 @@ public class DMLDAO {
 	 String insertQuery = "";
 
       try {
-    	  
+    	 
+  //1건의 row insert  	  
 if(inserts == 1 ){
 	
 	
@@ -528,6 +529,7 @@ if(inserts == 1 ){
 }
 
 
+//여러건의 insert
 else{
     	  
    for(int i=0 ; i < inserts ;i++){
