@@ -177,7 +177,15 @@ public class DDLDAO {
 
         this.con = c;
         int row = 0;
-        String dropSql="ALTER TABLE " + tablename + " DROP " + droptxt;
+        String dropSql="";
+        if(droptxt.toLowerCase().startsWith("constraint")){
+        	System.out.println("대소문자");
+        	dropSql="ALTER TABLE " + tablename + " DROP " + droptxt ;
+        }else{
+        	dropSql="ALTER TABLE " + tablename + " DROP (" + droptxt + ")" ;
+        }
+       
+        
         System.out.println(dropSql);
         try {
            pstmt = con.prepareStatement(dropSql);
@@ -205,6 +213,8 @@ public class DDLDAO {
         return row;
 
      }
+    
+    
     
 /********************************** 컬럼 제약 조건 ***********************************/
     public ArrayList<String> tablecolview(Connection c,String tablename,String id){
