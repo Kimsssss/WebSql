@@ -51,8 +51,8 @@
 </head>
 <body>
 
-   <table border="1" id="createtable">
-      <tr><td>테이블</td></tr>
+   <table id="createtable">
+      <tr><td><button type="button" class="btn btn-success disabled">테이블</button></td></tr>
    </table>
    
    <div  id="connection" title="DB계정연결">

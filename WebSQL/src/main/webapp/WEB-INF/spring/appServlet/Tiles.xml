@@ -61,7 +61,11 @@
             <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
          </definition>    
          
-         
+         <definition name="ddl.TableOk" template="/WEB-INF/views/ddl/TableOk.jsp"> 
+           <put-attribute name="header"  value="/WEB-INF/views/ddl/ddlerrer/Headererrer.jsp" />
+            <put-attribute name="aside"   value="/WEB-INF/views/ddl/ddlerrer/Asideerrer.jsp" /> 
+            <put-attribute name="content" value="/WEB-INF/views/ddl/ddlerrer/Backerrer.jsp" />
+         </definition>  
          
          
        
