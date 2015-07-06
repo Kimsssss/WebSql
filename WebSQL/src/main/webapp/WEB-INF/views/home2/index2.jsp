@@ -8,19 +8,17 @@
 </head>
 <body>
 
-<div class="intro-header" style="background: url(<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/grt2.jpg) no-repeat center center; background-size: cover;">
+<div class="intro-header" style="background: url(<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/55555.jpg) no-repeat center center; background-size: cover;">
         <div class="container">
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>WEB SQL</h1>
+                           <h1>WEB SQL</h1>
+                       <!--  <a href="index.html"><h1 style="color: white;">WEB SQL</h1></a> -->
                         <h3>A Template by Start Bootstrap</h3>
                         <hr class="intro-divider">
-                        <ul class="list-inline intro-social-buttons">
-                            <!-- <li>
-                                <a href="login.html" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">로그인</span></a>
-                            </li> -->
+                        <ul class="list-inline intro-social-buttons">                       
                             <li>
                                 <a href="index.html" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">입장하기</span></a>
                             </li>
@@ -44,10 +42,11 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">WEB SQL에 대하여...</h2>
-                    <p class="lead" style="color: #6C6C6C">web sql의 간략한 소개글...........</p>
+                    <p class="lead" style="color: #6C6C6C">저희 WEB SQL은 간단한 입력으로 DML DDL 등 SQL문 및 포워드 엔지니어링을 지원하는 사이트입니다.<br>
+														    기존의 방식보다는 접근이 쉬운 인터페이스를 제공하기 때문에 사용자가 쉽고 간단하게 이용 가능합니다.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/1234.jpg" alt="">
+                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/ccc.jpg" alt="" >
                 </div>
             </div>
 
@@ -71,7 +70,7 @@
                     				시퀀스 생성을 누르면 시퀀스 이름을 입력하고 속성들을 정의 후 시퀀스 생성을 해줍니다..</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/fdsf.JPG" alt="">
+                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/4444.jpg" alt="">
                 </div>
             </div>
 
@@ -95,7 +94,7 @@
                     		 								테스터 데이터인 경우 다른 값의 다수의 데이터를 입력해야 하기 때문에 매크로 기능을 제공하여 쉽게 여러 데이터를 삽입할 수 있습니다.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/phones.png" alt="">
+                    <img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/2222.jpg" alt="">
                 </div>
             </div>
 
@@ -108,13 +107,14 @@
     
     <a name="contact"></a>
     
-    <div class="banner">
+    <!-- <div class="banner">
 
         <div class="container">
 
             <div class="row">
                 <div class="col-lg-6">
                     <h2>Connect to Start Bootstrap:</h2>
+                    
                 </div>
                 <div class="col-lg-6">
                     <ul class="list-inline banner-social-buttons">
@@ -127,7 +127,7 @@
                        
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
         </div>
         <!-- /.container -->

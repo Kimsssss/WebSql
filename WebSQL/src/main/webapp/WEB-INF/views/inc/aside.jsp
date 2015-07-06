@@ -60,21 +60,14 @@
                   <h4>DML<h4>
             </a></li>
             <!-- DML MenuEnd  -->
-
- 
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i>BOARD<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Q&A</a>
-                                </li>
-                                <li>
-                                    <a href="#">공지사항</a>
-                                </li>
-                           
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+            
+            <li><a href="boardlist.html">
+                  <h4>공지사항<h4>
+            </a></li>
+            
+            <li><a href="p_boardlist.html">
+                  <h4>건의사항<h4>
+            </a></li>
 
          </ul>
          <!-- /.nav-second-level -->
