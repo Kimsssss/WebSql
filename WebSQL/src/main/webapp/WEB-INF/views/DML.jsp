@@ -685,12 +685,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
    <option value="delete" id="delete">delete</option>
 </select>
 </td>
-<td width="95px" align="center">
-<input type="button" name="frbtn" id="frbtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="계정연결" style="
-    padding-left: 10px;
-    padding-right: 10px;">
-</td>
-
+<td>&nbsp;&nbsp;</td>
 <td width="200px">
 <select class="form-control" id="tableselect" name="tableselect">
    <option>테이블 종류</option>
