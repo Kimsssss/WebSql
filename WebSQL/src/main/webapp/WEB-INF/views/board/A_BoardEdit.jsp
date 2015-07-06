@@ -15,8 +15,16 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">A_NOTICE</div>
-
+						<div class="panel-heading">
+						<table style="width: 100%;">
+							<tbody><tr>
+								<td width="" align="left"><h4><b>수정</b></h4></td>
+								<td width="" align="right">
+									<button class="btn btn-primary btn-sm" href="<%=request.getContextPath() %>/boardlist.html">글목록 </button>
+								</td>
+							</tr>
+						</tbody></table>		
+						</div>
 
 
 						<div class="panel-body">
@@ -55,13 +63,26 @@
 									<!-- 글내용End  -->
 
 
+									
 									<!-- 글쓰기 , 다시작성 Button  -->
 									<div class="form-group">
-										<input type="submit" class="layer"
-											style="position: relative; left: 40%" value="수정완료"> <input
-											type="button" class="layer"
-											style="position: relative; left: 40%; width: 96px;"
-											value="다시작성">
+									<table style="width: 100%">
+										<tr>
+											<td align="right">
+												<input type="submit" class="btn btn-info" value="수정완료"style="padding-left: 29px;
+																										     padding-right: 29px;
+																										     padding-top: 10px;
+																										     padding-bottom: 10px;">
+											</td>
+											<td width="10px"></td>
+											<td align="left"> 
+												<input type="reset" class="btn btn-danger" value="다시작성" style="padding-top: 10px;
+																											    padding-bottom: 10px;
+																											    padding-left: 15px;
+																											    padding-right: 15px;">
+											</td>
+										</tr>
+									</table>
 									</div>
 									<!-- 글쓰기 , 다시작성 Button End  -->
 
