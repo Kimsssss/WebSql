@@ -119,7 +119,7 @@ public class MemberController {
 
          JSONArray codes = JSONArray.fromObject(m);
          response.getWriter().print(codes);
-         System.out.println("서버로 list 전송완료");
+         System.out.println("서버로 Mailsave list 전송완료");
 
       } catch (IOException e) {
          // TODO Auto-generated catch block
@@ -140,65 +140,60 @@ public class MemberController {
       return member;
    }
 
-   @RequestMapping(value = "/userEntry.html", method = RequestMethod.POST)
-   public ModelAndView fromMemberController(
-         @Valid @ModelAttribute("member") MemberDTO member,
-         AuthorityDTO authority, BindingResult bindingResult,
-         HttpServletRequest req) {
-
+   @RequestMapping(value="/userEntry.html", method = RequestMethod.POST)
+   public ModelAndView fromMemberController(@Valid @ModelAttribute("member") MemberDTO member, BindingResult bindingResult
+         ,HttpServletRequest req) {
       ModelAndView modelAndView = new ModelAndView();
-
+      
+      
       if (bindingResult.hasErrors()) {
-         System.out.println("error");
-         System.out.println(bindingResult.getErrorCount());
-         System.out.println(bindingResult.getGlobalErrorCount());
-         System.out.println(bindingResult.getObjectName());
-         System.out.println(bindingResult.getTarget());
-         System.out.println(bindingResult.getFieldError());
+           System.out.println("error");
+           System.out.println(bindingResult.getErrorCount());
+           System.out.println(bindingResult.getGlobalErrorCount());
+           System.out.println(bindingResult.getObjectName());
+           System.out.println(bindingResult.getTarget());
+           System.out.println(bindingResult.getFieldError());
 
-         modelAndView.getModel().putAll(bindingResult.getModel());
-
-         return modelAndView;
-
-      } else if (!member.getUser_pwd()
-            .equalsIgnoreCase(member.getUser_pwd2())) {
-         req.setAttribute("errormessage", "패스워드와 패스워드 확인 값이 같지 않습니다.");
-         modelAndView.getModel().putAll(bindingResult.getModel());
-         System.out.println("pwd1 : " + member.getUser_pwd());
-         System.out.println("pwd2 : " + member.getUser_pwd2());
-         return modelAndView;
-      }
+           modelAndView.getModel().putAll(bindingResult.getModel());
+            
+            return modelAndView;
+            
+         }else if(!member.getUser_pwd().equalsIgnoreCase(member.getUser_pwd2())){
+            req.setAttribute("errormessage", "패스워드와 패스워드 확인 값이 같지 않습니다.");
+            modelAndView.getModel().putAll(bindingResult.getModel());
+            System.out.println("pwd1 : "+member.getUser_pwd());
+            System.out.println("pwd2 : "+member.getUser_pwd2());
+            return modelAndView;
+         }
       try {
+            
+           System.out.println(member.getUser_id());
+            System.out.println(member.getUser_pwd());
+            System.out.println(member.getUser_email());
+            System.out.println(member.getUser_name());
+            System.out.println(member.getEnabled());
+            System.out.println("dao 전");
+            MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
+            dao.insertMember(member);
+            System.out.println("dao 후");
+            System.out.println(member.getUser_id());
+            System.out.println(member.getUser_pwd());
+            System.out.println(member.getUser_email());
+            System.out.println(member.getUser_name());
+            System.out.println(member.getEnabled());
+            
+            modelAndView.setViewName("userEntrySuccess");
+            modelAndView.addObject("member", member);
+            return modelAndView;
 
-         System.out.println(member.getUser_id());
-         System.out.println(member.getUser_pwd());
-         System.out.println(member.getUser_email());
-         System.out.println(member.getUser_name());
-         System.out.println(member.getEnabled());
-         System.out.println("dao 전");
-         MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
-         dao.insertMember(member);
-         dao.insertAuthority(authority);
-         System.out.println("dao 후");
-         System.out.println(member.getUser_id());
-         System.out.println(member.getUser_pwd());
-         System.out.println(member.getUser_email());
-         System.out.println(member.getUser_name());
-         System.out.println(member.getEnabled());
-
-         modelAndView.setViewName("userEntrySuccess");
-         modelAndView.addObject("member", member);
-         return modelAndView;
-
-      } catch (DataIntegrityViolationException e) {
-         // 유저ID가 중복일 때, 폼 송신처로 이동
-         System.out.println("errormessage " + "중복된 아이디 입니다.");
-         req.setAttribute("errormessage", "중복된 아이디 입니다.");
-         modelAndView.getModel().putAll(bindingResult.getModel());
-         return modelAndView;
+         } catch (DataIntegrityViolationException e) {
+            // 유저ID가 중복일 때, 폼 송신처로 이동
+            System.out.println("errormessage "+"중복된 아이디 입니다.");
+           req.setAttribute("errormessage", "중복된 아이디 입니다.");
+            modelAndView.getModel().putAll(bindingResult.getModel());
+            return modelAndView;
+         }
       }
-
-   }
 
    @RequestMapping(value = "/userIDfine.html", method = RequestMethod.POST)
    public void IDfine(MemberDTO memberDTO, String user_name,

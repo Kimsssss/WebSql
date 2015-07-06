@@ -15,58 +15,58 @@
    var tableNumber2 = 1;
      $(function() {
         
-        //여러테이블 저장
+    	 //여러테이블 저장
        $("#allSave").click(function(){
-            for(var i =0; i<tableNumber2-1;i++){
-                var hidden_col_number =   $("#ta_col_"+(i+1)).val();
-               var colNameArray= new Array(hidden_col_number);//컬럼의 이름을 받는 배열
-               var coldataArray= new Array(hidden_col_number);//컬럼의 데이터 타입을 받는 배열
-               var colconsArray= new Array(hidden_col_number);//컬럼의 제약조건을 받는 배열
-               var hidden_tableNameArray= new Array(hidden_col_number);//컬럼의 제약조건을 받는 배열
-               var hidden_colNameArray= new Array(hidden_col_number);//컬럼의 제약조건을 받는 배열
-               var isAlter = new Array(1);
-               isAlter[0] = "false";//table alter를 해주기 위한 변수
-               
-               var tableName = $("input[name=tablename"+(i+1)+"]").val();//테이블명
-               //console.log(tableName);
-               /* colNumber 갯수많큼 값을 넣어준다. */
-               for(var j=0;j<hidden_col_number;j++){
-                  colNameArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").val();
-                  coldataArray[j] = $("input[name=col_data"+(i+1)+"_"+(j+1)+"]").val();
-                  colconsArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").parent().parent().children("#cons").children("#constraints").val();
-                  hidden_tableNameArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").parent().parent().children("#cons").children("#hidden_tableName").val();
-                  hidden_colNameArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").parent().parent().children("#cons").children("#hidden_colName").val();
-               }
-               
-               if(i==(tableNumber2-2)){
-                  isAlter[0]="true";
-               }
-               
-               console.log(isAlter[0]);
-               
-               jQuery.ajaxSettings.traditional = true;   /* ajax를 사용해 배열값을 넘기기위한 세팅 */
-               
-               $.ajax({
-                     type : "get",
-                     url : "creates.htm",
-                     dataType : "html",
-                     data : {
-                        "colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName, "colcons":colconsArray, "hidden_tablename":hidden_tableNameArray , 
-                        "hidden_colname":hidden_colNameArray, "isAlter":isAlter          
-                     },
-                     success : function(table) {
-                       console.log(table);
-                        alert(table);
-                     },
-                     error : function(xhr) {
-                        alert("테이블 생성 실패...");
-                     }
-               });
-            }
+      	   for(var i =0; i<tableNumber2-1;i++){
+      		 	var hidden_col_number =	$("#ta_col_"+(i+1)).val();
+	      		var colNameArray= new Array(hidden_col_number);//컬럼의 이름을 받는 배열
+	            var coldataArray= new Array(hidden_col_number);//컬럼의 데이터 타입을 받는 배열
+	            var colconsArray= new Array(hidden_col_number);//컬럼의 제약조건을 받는 배열
+	            var hidden_tableNameArray= new Array(hidden_col_number);//컬럼의 제약조건을 받는 배열
+	            var hidden_colNameArray= new Array(hidden_col_number);//컬럼의 제약조건을 받는 배열
+	            var isAlter = new Array(1);
+	            isAlter[0] = "false";//table alter를 해주기 위한 변수
+	            
+	            var tableName = $("input[name=tablename"+(i+1)+"]").val();//테이블명
+	            //console.log(tableName);
+	            /* colNumber 갯수많큼 값을 넣어준다. */
+	            for(var j=0;j<hidden_col_number;j++){
+	               colNameArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").val();
+	               coldataArray[j] = $("input[name=col_data"+(i+1)+"_"+(j+1)+"]").val();
+	               colconsArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").parent().parent().children("#cons").children("#constraints").val();
+	               hidden_tableNameArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").parent().parent().children("#cons").children("#hidden_tableName").val();
+	               hidden_colNameArray[j] = $("input[name=col"+(i+1)+"_"+(j+1)+"]").parent().parent().children("#cons").children("#hidden_colName").val();
+	            }
+	            
+	            if(i==(tableNumber2-2)){
+	            	isAlter[0]="true";
+	            }
+	            
+	            console.log(isAlter[0]);
+	            
+	            jQuery.ajaxSettings.traditional = true;   /* ajax를 사용해 배열값을 넘기기위한 세팅 */
+	            
+	            $.ajax({
+		               type : "get",
+		               url : "creates.htm",
+		               dataType : "html",
+		               data : {
+		                  "colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName, "colcons":colconsArray, "hidden_tablename":hidden_tableNameArray , 
+		                  "hidden_colname":hidden_colNameArray, "isAlter":isAlter		    
+		               },
+		               success : function(table) {
+		            	  console.log(table);
+		                  alert(table);
+		               },
+		               error : function(xhr) {
+		                  alert("테이블 생성 실패...");
+		               }
+	         	});
+      	   }
        });
         
-        
-       //드랍시 테이블 생성 
+    	 
+    	//드랍시 테이블 생성 
        $( "#sections" ).droppable({
          
          accept: "#createtable",
@@ -86,10 +86,10 @@
              
          //클릭시 다이얼 로그 생성
           $(document).on('click',"#constraint"+ tableNumber +"_"+ colNumber ,function() {
-                  var colimg = $(this).parent().parent().children().children("#colimg");
+        	  	  var colimg = $(this).parent().parent().children().children("#colimg");
                   var constraints = $(this).parent().children("#constraints");
                   var hidden_TableName = $(this).parent().children("#hidden_tableName");
-                   var hidden_ColName = $(this).parent().children("#hidden_colName");
+              	  var hidden_ColName = $(this).parent().children("#hidden_colName");
                   var FK_dialog =$(this).parent().children("#conhidden_hidden").val();
                   $("#"+$(this).parent().children("#conhidden").val()).dialog({
                            height : 200,
@@ -98,42 +98,42 @@
                            draggable : false,
                            buttons: {
                               "설정":function(){
-                                  var constraintName="";
-                                  
-                                   $(this).children("input[name=constraint_ck]:checked").each(function() {
-                                      constraintName+=$(this).val()+",";
-                                      
-                                      if($(this).val()=="FOREIGN KEY"){
-                                         console.log(FK_dialog);
-                                         
-                                         $("#"+FK_dialog).dialog({
-                                            buttons: {
-                                                 "설정": function() {
-                                                 
-                                                     $(hidden_TableName).val($(this).children("#FK_Table_Name").val());
-                                                     $(hidden_ColName).val($(this).children("#FK_Col_Name").val());
-                                                   $( this ).dialog( "close" );
-                                                 }
-                                            }
-                                         });
-                    
-                                      }
-                                      
-                                   });
-                                   
-                                   if(constraintName=="PRIMARY KEY,"||constraintName=="PRIMARY KEY,NOT NULL,"){
-                                      $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/3.jpg");
-                                   }else if(constraintName=="FOREIGN KEY,"||constraintName=="FOREIGN KEY,NOT NULL,"){
-                                      $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/1.jpg");
-                                   }else if(constraintName=="PRIMARY KEY,FOREIGN KEY,"||constraintName=="PRIMARY KEY,FOREIGN KEY,NOT NULL,"){
-                                      $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/4.jpg");
-                                   }else{
-                                      $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/2.jpg");
-                                   }
-                                   
-                                   $(constraints).val(constraintName);
-                                   console.log($(constraints).val());
-                                   $( this ).dialog( "close" );
+	                            	var constraintName="";
+	                            	
+	                                $(this).children("input[name=constraint_ck]:checked").each(function() {
+	                                	constraintName+=$(this).val()+",";
+	                                	
+	                                	if($(this).val()=="FOREIGN KEY"){
+	                                		console.log(FK_dialog);
+	                                		
+	                                		$("#"+FK_dialog).dialog({
+	                                			buttons: {
+	                                		        "설정": function() {
+	                                		        
+	                                		       	  $(hidden_TableName).val($(this).children("#FK_Table_Name").val());
+	                                		       	  $(hidden_ColName).val($(this).children("#FK_Col_Name").val());
+	                                		          $( this ).dialog( "close" );
+	                                		        }
+	                                			}
+	                                		});
+	                 
+	                                	}
+	                                	
+	                                });
+	                                
+	                                if(constraintName=="PRIMARY KEY,"||constraintName=="PRIMARY KEY,NOT NULL,"){
+	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/3.jpg");
+	                                }else if(constraintName=="FOREIGN KEY,"||constraintName=="FOREIGN KEY,NOT NULL,"){
+	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/1.jpg");
+	                                }else if(constraintName=="PRIMARY KEY,FOREIGN KEY,"||constraintName=="PRIMARY KEY,FOREIGN KEY,NOT NULL,"){
+	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/4.jpg");
+	                                }else{
+	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/2.jpg");
+	                                }
+	                                
+	                                $(constraints).val(constraintName);
+	                                console.log($(constraints).val());
+	                                $( this ).dialog( "close" );
                               }
                            }
                          });
@@ -164,20 +164,20 @@
                jQuery.ajaxSettings.traditional = true;   /* ajax를 사용해 배열값을 넘기기위한 세팅 */
                
                $.ajax({
-                  type : "get",
-                  url : "create.htm",
-                  dataType : "html",
-                  data : {
-                     "colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName, "colcons":colconsArray, "hidden_tablename":hidden_tableNameArray , "hidden_colname":hidden_colNameArray
-                  },
-                  success : function(table) {
-                    console.log(table);
-                    alert("테이블 생성 성공");
-                  },
-                  error : function(xhr) {
-                     alert("테이블 생성 실패");
-                  }
-               });
+	               type : "get",
+	               url : "create.htm",
+	               dataType : "html",
+	               data : {
+	                  "colName" : colNameArray, "coldatatype":coldataArray, "tablename":tableName, "colcons":colconsArray, "hidden_tablename":hidden_tableNameArray , "hidden_colname":hidden_colNameArray
+	               },
+	               success : function(table) {
+	            	  console.log(table);
+	            	  alert("테이블 생성 성공");
+	               },
+	               error : function(xhr) {
+	                  alert("테이블 생성 실패");
+	               }
+            	});
                 
             });
             
@@ -205,10 +205,10 @@
                
              //클릭시 다이얼 로그 생성
                $(document).on('click',"#constraint"+ tableNumber +"_"+ colNumber ,function() {
-                       var colimg = $(this).parent().parent().children().children("#colimg");
+             	  	  var colimg = $(this).parent().parent().children().children("#colimg");
                        var constraints = $(this).parent().children("#constraints");
                        var hidden_TableName = $(this).parent().children("#hidden_tableName");
-                        var hidden_ColName = $(this).parent().children("#hidden_colName");
+                   	  var hidden_ColName = $(this).parent().children("#hidden_colName");
                        var FK_dialog =$(this).parent().children("#conhidden_hidden").val();
                        $("#"+$(this).parent().children("#conhidden").val()).dialog({
                                 height : 200,
@@ -217,42 +217,42 @@
                                 draggable : false,
                                 buttons: {
                                    "설정":function(){
-                                       var constraintName="";
-                                       
-                                        $(this).children("input[name=constraint_ck]:checked").each(function() {
-                                           constraintName+=$(this).val()+",";
-                                           
-                                           if($(this).val()=="FOREIGN KEY"){
-                                              console.log(FK_dialog);
-                                              
-                                              $("#"+FK_dialog).dialog({
-                                                 buttons: {
-                                                      "설정": function() {
-                                                      
-                                                          $(hidden_TableName).val($(this).children("#FK_Table_Name").val());
-                                                          $(hidden_ColName).val($(this).children("#FK_Col_Name").val());
-                                                        $( this ).dialog( "close" );
-                                                      }
-                                                 }
-                                              });
-                         
-                                           }
-                                           
-                                        });
-                                        
-                                        if(constraintName=="PRIMARY KEY,"||constraintName=="PRIMARY KEY,NOT NULL,"){
-                                           $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/3.jpg");
-                                        }else if(constraintName=="FOREIGN KEY,"||constraintName=="FOREIGN KEY,NOT NULL,"){
-                                           $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/1.jpg");
-                                        }else if(constraintName=="PRIMARY KEY,FOREIGN KEY,"){
-                                           $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/4.jpg");
-                                        }else{
-                                           $(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/2.jpg");
-                                        }
-                                        
-                                        $(constraints).val(constraintName);
-                                        console.log($(constraints).val());
-                                        $( this ).dialog( "close" );
+     	                            	var constraintName="";
+     	                            	
+     	                                $(this).children("input[name=constraint_ck]:checked").each(function() {
+     	                                	constraintName+=$(this).val()+",";
+     	                                	
+     	                                	if($(this).val()=="FOREIGN KEY"){
+     	                                		console.log(FK_dialog);
+     	                                		
+     	                                		$("#"+FK_dialog).dialog({
+     	                                			buttons: {
+     	                                		        "설정": function() {
+     	                                		        
+     	                                		       	  $(hidden_TableName).val($(this).children("#FK_Table_Name").val());
+     	                                		       	  $(hidden_ColName).val($(this).children("#FK_Col_Name").val());
+     	                                		          $( this ).dialog( "close" );
+     	                                		        }
+     	                                			}
+     	                                		});
+     	                 
+     	                                	}
+     	                                	
+     	                                });
+     	                                
+     	                                if(constraintName=="PRIMARY KEY,"||constraintName=="PRIMARY KEY,NOT NULL,"){
+     	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/3.jpg");
+     	                                }else if(constraintName=="FOREIGN KEY,"||constraintName=="FOREIGN KEY,NOT NULL,"){
+     	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/1.jpg");
+     	                                }else if(constraintName=="PRIMARY KEY,FOREIGN KEY,"){
+     	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/4.jpg");
+     	                                }else{
+     	                                	$(colimg).attr('src',"<%=request.getContextPath()%>/resources/img/2.jpg");
+     	                                }
+     	                                
+     	                                $(constraints).val(constraintName);
+     	                                console.log($(constraints).val());
+     	                                $( this ).dialog( "close" );
                                    }
                                 }
                               });
@@ -271,7 +271,6 @@
 </head>
 
 <body>
-  
    
    <br><br><div id="page-wrapper">
       <div class="row">
@@ -295,7 +294,6 @@
    </div>
    <div id="errercode"> 
    </div>
-   
    
 </body>
 </html>

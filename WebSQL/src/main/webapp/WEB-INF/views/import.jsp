@@ -1,3 +1,4 @@
+<%@page import="com.sqlweb.dto.AccountDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,16 +7,18 @@
 <%@ page session="false"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <% 
-HttpSession session = request.getSession();
-String ip = (String) session.getAttribute("iptxt");
-String id = (String) session.getAttribute("idtxt");
-String pwd = (String) session.getAttribute("pwdtxt");
-if(ip==null || id==null || pwd==null){
-   ip="";
-   id="";
-   pwd="";
-}
-%>
+	HttpSession session = request.getSession();
+	AccountDTO acdto = (AccountDTO)session.getAttribute("acdto");
+	if(acdto == null){
+		System.out.println("acdto null : "+acdto);
+	}else{
+		System.out.println("DML.jsp acdto not null : "+acdto);
+		System.out.println("DML.jsp acdto not null : "+acdto.getId());
+		System.out.println("DML.jsp acdto not null : "+acdto.getPwd());
+		System.out.println("DML.jsp acdto not null : "+acdto.getUid());
+		System.out.println("DML.jsp acdto not null : "+acdto.getIp());
+	}
+%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -340,6 +343,30 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 </script>
 <script type="text/javascript">
    $(function(){
+	   
+	   $('#user_ip').val( $('#ip_hidden').val());
+       $('#userid').val($('#id_hidden').val());
+       $('#userpwd').val($('#pwd_hidden').val());
+       $.ajax({
+          type: 'POST',
+              url: 'contable.html',
+              data:{
+                 ip: $('#user_ip').val(),
+                 id: $('#userid').val(),
+                 pwd: $('#userpwd').val()}, 
+            dataType: "html",
+              success: function(responseData){
+              var codes = JSON.parse(responseData);
+              var optionstr = "<option>테이블 종류</option>";
+              
+            $.each(codes,function(index,items){
+               
+               optionstr += "<option>"+items+"</option>"
+            })
+            $('#tablesel').html(optionstr);
+           }
+       })
+	   
       $('#con_btn').click(function(){
          var ip = $('#ip_text').val();
          var id = $('#id_text').val();
@@ -371,30 +398,9 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                       
                    }
                    
-                   $('#con_modalview').click(function(){
-                     $('#user_ip').val( $('#ip_hidden').val());
-                     $('#userid').val($('#id_hidden').val());
-                     $('#userpwd').val($('#pwd_hidden').val());
-                     $.ajax({
-                        type: 'POST',
-                            url: 'contable.html',
-                            data:{
-                               ip: $('#user_ip').val(),
-                               id: $('#userid').val(),
-                               pwd: $('#userpwd').val()}, 
-                          dataType: "html",
-                            success: function(responseData){
-                            var codes = JSON.parse(responseData);
-                            var optionstr = "<option>테이블 종류</option>";
-                            
-                          $.each(codes,function(index,items){
-                             
-                             optionstr += "<option>"+items+"</option>"
-                          })
-                          $('#tablesel').html(optionstr);
-                         }
-                     })
-                   })
+                  
+                     
+                   
                   
                 } 
              }) 
@@ -419,10 +425,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                         <option value="drop" id="drop">Alter drop</option>
                         <option value="tabledrop" id="tabledrop">Drop Table</option>
                   </select></td>
-                  <td width="95px" align="center"><input type="button"
-                     name="submitbtn" id="submitbtn" class="btn btn-info"
-                     data-toggle="modal" data-target="#ipModal" value="계정연결"
-                     style="padding-left: 10px; padding-right: 10px;"></td>
+                 <td>&nbsp;&nbsp;</td>
 
                   <td width="200px"><select class="form-control" id="tablesel"
                      name="tablesel">
@@ -435,15 +438,15 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                      style="padding-left: 24px; padding-right: 24px;"></td>
                   
 
-                  <td width="85px" align="center"><b>연결된 IP</b></td>
+                  <td width="85px" align="center"><b>연결된 IP :</b></td>
 
                   <td width="170px"><input type="text" class="form-control"
-                     id="user_ip" name="user_ip" readonly="readonly"></td>
+                     id="user_ip" name="user_ip" readonly="readonly" value="<%=acdto.getIp()%>"></td>
 
                   <td width="85px" align="center"><b>연결된 계정</b></td>
                   <td width="170px"><input type="text" class="form-control"
-                     id="userid" name="userid" readonly="readonly"> <input
-                     type="hidden" id="userpwd" name="userpwd"></td>
+                     id="userid" name="userid" readonly="readonly" value="<%=acdto.getId()%>"> <input
+                     type="hidden" id="userpwd" name="userpwd" value="<%=acdto.getPwd()%>"></td>
                </tr>
             </table>
 
@@ -472,20 +475,20 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                               <tr height="40px">
                                  <td><b>IP 주소</b></td>
                                  <td><input type="text" class='form-control'
-                                    name="ip_text" id="ip_text" value="<%= ip%>"> <input type="hidden"
-                                    name="ip_hidden" id="ip_hidden" value=""></td>
+                                    name="ip_text" id="ip_text" value="<%=acdto.getIp()%>"> <input type="hidden"
+                                    name="ip_hidden" id="ip_hidden" value="<%=acdto.getIp()%>"></td>
                               </tr>
                               <tr height="40px">
                                  <td><b>계정 ID</b></td>
                                  <td><input type="text" class='form-control'
-                                    name="id_text" id="id_text" value="<%= id%>"> <input type="hidden"
-                                    name="i_+hidden" id="id_hidden" value=""></td>
+                                    name="id_text" id="id_text" value="<%=acdto.getId()%>"> <input type="hidden"
+                                    name="i_+hidden" id="id_hidden" value="<%=acdto.getId()%>"></td>
                               </tr>
                               <tr height="40px">
                                  <td><b>계정 PWD</b></td>
                                  <td><input type="text" class='form-control'
-                                    name="pwd_text" id="pwd_text" value="<%= pwd %>">  <input type="hidden"
-                                    name="pwd_hidden" id="pwd_hidden" value=""></td>
+                                    name="pwd_text" id="pwd_text" value="<%=acdto.getPwd()%>">  <input type="hidden"
+                                    name="pwd_hidden" id="pwd_hidden" value="<%=acdto.getPwd()%>"></td>
                               </tr>
                               <tr>
                                  <td align="right" colspan="2"><input type="button"
