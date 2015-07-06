@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.*;
@@ -104,9 +105,8 @@ public class DMLDAO {
       
    }
    
-   
    /*데이터 타입*/
-   public ArrayList<String> columntype(Connection c,String tablename){
+   public ArrayList<String> columntype(Connection c,String tablename ,String id){
       
       
        ArrayList<String> list = new ArrayList<String>();
@@ -114,7 +114,7 @@ public class DMLDAO {
        this.con = c;
 
         
-        String columnDatatypeSql = "SELECT DATA_TYPE FROM all_tab_columns where table_name='"+tablename.toUpperCase()+"'";
+        String columnDatatypeSql =  "SELECT data_type FROM all_tab_columns where owner='"+id+"' and table_name='"+tablename+"'";
      
         System.out.println("columnDatatypeSql DAO : "+columnDatatypeSql);
         System.out.println(tablename);
@@ -135,15 +135,11 @@ public class DMLDAO {
            e.printStackTrace();
            System.out.println("SQL ERROR");
            
-        }finally{
-           try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
-           try {con.close();} catch (SQLException e) {e.printStackTrace();}
-           try {rs.close();} catch (SQLException e) {e.printStackTrace();}
         }
         
         return list;
         
-     
+ 
       
    }
    
@@ -481,33 +477,72 @@ public class DMLDAO {
    
 
    /***************************삽입부분****************************************/
-   public int insertcheck(Connection c,String tablename,String id,String list ,int inserts){
+   public int insertcheck(Connection c,String tablename,String id,List<String> CheckList ,int inserts){
       
       int insertresult = 0;
-     
+      
+
       this.con=c;
+      
+      ArrayList<String> columntype = columntype(c, tablename, id);
+	  
+	  System.out.println("columntype : "+columntype);
 
       try {
+    	  
 
-         String insertQuery="INSERT INTO "+tablename+" VALUES(" +list+ ")";
+    	  
+   for(int i=0 ; i < inserts ;i++){
+    	  
+	 
+    	  System.out.println("inserts 접근 성공 : "+inserts);
+    	  
+    	  
+    	  String insertQuery = "INSERT INTO "+tablename+" VALUES(";
+    	  
+    	  for(int j=0 ; j < CheckList.size() ; j++){
+    		  	
+    
+    		  if(columntype.get(j).equals("NUMBER")){
+    			  
+    			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += i;
+    			  }else{ insertQuery += CheckList.get(j)+i; }
+    			  
+    			  
+    			  
+    		  }else if(columntype.get(j).equals("VARCHAR2")){
+    			  
+    			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += "'AutoValue"+i+"'";
+    			  }else{ insertQuery += "'"+CheckList.get(j)+i+"'"; }
+    			  
+    			   
+    		  }else if(columntype.get(j).equals("DATE")){
+    			  
+    			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += "sysdate";
+    			  }else{ insertQuery += "'"+CheckList.get(j)+"'"; }
+   
+    		   }
+    		  
+    		  if(j<CheckList.size()-1){
+	    	    	insertQuery +=", ";
+    		   }
+    	
+    	  }
+    	  insertQuery +=")";
+    	  
+
+        /*insertQuery="INSERT INTO "+tablename+" VALUES(" +CheckList.get(0)+ ")";*/
 
          System.out.println(insertQuery);
          pstmt=con.prepareStatement(insertQuery);
-         
-         
-        System.out.println("inserts : "+inserts);
-         
 
-       if(inserts > 1){ 
-         
-        for(int i=0 ; i<inserts ; i++){
-        	System.out.println("inserts for문 ");
          insertresult+= pstmt.executeUpdate();
-        }
-         
-       }else{
-    	   insertresult = pstmt.executeUpdate();
-       }
+        
+   } 
+       
        
          
          System.out.println("insertresult : "+insertresult);
@@ -542,6 +577,7 @@ public class DMLDAO {
    }
  
 /***************************삽입부분 끝****************************************/   
+   
    
 
 /***************************수정부분****************************************/

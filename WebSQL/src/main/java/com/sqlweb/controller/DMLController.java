@@ -197,7 +197,7 @@ public class DMLController {
          DMLDAO dao = new DMLDAO();
 
          
-        arrcoltype = dao.columntype(c, tablename);
+        arrcoltype = dao.columntype(c, tablename,id);
          
          System.out.println(arrcoltype);
          
@@ -253,18 +253,17 @@ public class DMLController {
    
    
    @RequestMapping(value="insertcheck.html", method=RequestMethod.POST)
-   public void insertcheck(String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res ) throws IOException{
-         
-	   List<String> checkList = JSONArray.fromObject(list);
+   public void insertcheck( String list,String tablename,String ip,String id,String pwd,int inserts, HttpServletResponse res , HttpServletRequest req ) throws IOException{
+	   
+	   
+	   List<String>  checkList = JSONArray.fromObject(list);
          
 	  
-	   
-	 
-	   
         System.out.println("inserts "+inserts);
      
          System.out.println("list : "+checkList.get(0) + " TEST MASTER ");
          
+        
 
          
          String str = "";
@@ -290,7 +289,7 @@ public class DMLController {
             
             int result = 0;
    
-            result = dao.insertcheck(c, tablename, id, str.substring(0,str.length()-1),inserts);
+            result = dao.insertcheck(c, tablename, id, checkList ,inserts);
             String error = dao.getStr();
             
             JSONObject json = new JSONObject();
@@ -301,6 +300,7 @@ public class DMLController {
         
          System.out.println("서버로 list 전송완료");
       }
+   
    
    
 	@RequestMapping(value = "deleteTable.html", method = RequestMethod.POST)

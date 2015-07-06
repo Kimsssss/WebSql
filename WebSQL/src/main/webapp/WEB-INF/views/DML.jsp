@@ -167,6 +167,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          
           
          
+         
          /*********************insert ********************************  */
          else if($('#crudselect').val() == "insert"){
              console.log("insert if문");
@@ -340,242 +341,9 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                          	   	        
                                       $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='insert'> "  
                                     		  			       +"<input type='button' id='insertselect2' class='btn btn-default' data-toggle='modal' data-target='#insertselect'   value='select'>"
-                                         					   +"<input type='button' id='btnauto' name='btnauto' class='btn btn-default' value='자동입력' />"
                                          		               +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
                                      
    
-                                      
-                                      $('#insertselect2').on("click",function(){
-                                    	  
-                                      
-                                    	  $('#modalcontent1').empty();
-                                      	
-                                      	 alert("select");
-                                           console.log("select if문");
-                                           console.log($('#crudselect').val());
-                                           console.log($('#tableselect').val());
-                                           console.log($('#ipip').val());
-                                           console.log($('#idid').val());
-                                           console.log($('#pwdpwd').val());
-                                           var inputstr = "";
-                                           
-                                           
-                                           
-                                            $.ajax({
-                                              type: 'POST',
-                                                url: "inputselect.html",
-                                                data : {ip: $('#iptext').val(),
-                                                     id: $('#idtext').val(),
-                                                     pwd: $('#pwdtext').val(),
-                                                     tablename: $('#tableselect').val()},
-                                                dataType: "html",
-                                                success: function(responseData){
-                                                     var codes = JSON.parse(responseData);
-                                                     var columninput1 = "<input type='checkbox' name='all' class='check-all'> <label>Check ALL</label>&nbsp;&nbsp;&nbsp;";
-                                                     console.log("select 비동기 성공");
-                                                     console.log(codes);
-                                                     $.each(codes,function(index,items){
-                                                            
-                                                        columninput1 += "<input type='checkbox' name='columncheck' id='columncheck' class='sel' value='"+items+"'> <label>"+items+"</label>"+"&nbsp;&nbsp;&nbsp;";
-                                                        console.log(columninput);
-                                                         })
-                                                         columninput1 += "<br><br><table><tr><td width='80px'><h4>WHERE</h4></td><td width='300px'><input type='text' class='form-control' id='wheretext' name='wheretext' value=''></td></tr></table>";
-                                                      /* columninput += "<br>----------------------------------------------------------------<br>"+
-                                                      "<h3>WHERE </h3><input type='text' id='wheretext' name='wheretext'>"; */
-                                                     $('#modalbody3').html(columninput1);
-                                                  $('.check-all').click(function(){
-                                                    $('.sel').prop('checked',this.checked);
-                                                       });
-                                                  $('#modalfooter3').html("<input type='button' id='selectviewbtn2' name='selectviewbtn2' class='btn btn-default' data-dismiss='modal' value='출력'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-                                                 
-                                                  
-                                                  $('#selectviewbtn2').click(function(){
-                                                	  alert("접근성공");
-                                                     var obj = document.getElementsByName("columncheck");
-                                                     var list = [];
-                                                     console.log($('#columncheck').val());
-                                                     $.each(obj,function(index,ob){
-                                                       if(ob.checked){
-                                                          list.push(ob.value.toUpperCase());
-                                                       }
-                                                       console.log(ob);
-                                                       console.log(index);
-                                                       console.log(ob.value);
-                                                       console.log(ob.checked);
-                                                     })
-                                                     console.log(list);
-                                                     $.ajax({
-                                                         type: 'POST',
-                                                             url: "selectview.html",
-                                                              data : {list: JSON.stringify(list),
-                                                                 ip: $('#iptext').val(),
-                                                                id: $('#idtext').val(),
-                                                                pwd: $('#pwdtext').val(),
-                                                                tablename: $('#tableselect').val(),
-                                                                wheretext: $('#wheretext').val()},
-                                                             dataType: "html",
-                                                              success: function(responseData){
-                                                             var codes = JSON.parse(responseData);
-                                                             console.log("select 비동기 성공");
-                                                             console.log(codes);
-                                                             var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover'><tr><td>row</td>";
-                                                             console.log(codes[codes.length-1]);
-                                                             console.log(codes.length-1);
-                                                             var colend = codes[codes.length-1];
-                                                             var sort = 1;
-                                                             console.log(colend);
-                                                             $.each(codes,function(index,items){
-                                                                console.log(index);
-                                                                if(colend == 1){
-                                                               	 if(index == codes.length-2){
-                                                               		 code += "<td>"+items+"</td></tr></table>";
-                                                               		 
-                                                               	 }else{
-                                                               	 if(index != codes.length-1){
-                                                               	 code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
-                                                               	 sort +=1;
-                                                               	 	}
-                                                               	 }
-                                                               	 
-                                                                }else{
-                                                               	 if((index+1)%colend == 0){
-                                                                        if(index != codes.length-2){
-                                                                        code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
-                                                                        sort +=1;}
-                                                                        else{
-                                                                           code += "<td>"+items+"</td></tr>";
-                                                                        }
-                                                                        
-                                                                     }else{
-                                                                        if(codes.length-1 ==index){
-                                                                             code += "</table></div>";
-                                                                          }else{
-                                                                             code += "<td>"+items+"</td>";
-                                                                          }
-                                                                     
-                                                                     }
-                                                                }
-                                                                
-                                                             }) 
-                                                             $('#modalcontent1').html(code);
-                                                              } 
-                                                      })
-                                                      
-                                                  });
-                                                  
-                                                 }
-                                                }); 
-                                   
-                                 	  
-                                 	  
-                                   });
-                                    	  
-                 
-                                       /*********************************자동 변수 출력 ***************************************************/
-                                  	   $('#btnauto').on("click",function(){
-                                  		    $('#modalbody2').empty();
-                                  		    
-                                  		  	alert("접근성공");
-                                  		  	
-          	  	
-                                  		  	columninputAuto += "<table class='table table-striped table-bordered table-hover dataTable no-footer'>";
-                                  		  	columninputAuto += "<tr><th>컬럼명</th><th>타입</th><th>입력</th></tr>";
-                                  		  	 
-                                  		  	 
-                                  		    $.each(codes,function(index,items){
-                                                 
-                                  		    	columninputAuto += "<tr><td>"+items+"</td><td>"+codedata[index]+"</td><td><input type='text' name='columnname' id='columnname' class='sel'";
-                                             	
-                                  		    		
-                                  		    		if(codedata[index] == "VARCHAR2"){
-                                  		    			
-                                  		    			AutoValue = "AutoValue"+AutoNumber++;
-                                  		    			columninputAuto += "value='"+AutoValue+"'</td></tr> ";
-                                  		    			
-                                  		    			
-                                  		    		}else if(codedata[index] == "NUMBER"){
-                                  		    			
-                                  		    			AutoNumber += 1;
-                                  		    			columninputAuto += "value='"+AutoNumber+"'</td></tr> ";
-                                  		    			
-                                  		    		}else if(codedata[index] == "DATE"){
-                                  		    			
-                                  		    			AutoValue = "sysdate";
-                                  		    			columninputAuto += "value='"+AutoValue+"'</td></tr> ";
-                                  		    		}
-                                  		
-                                             });
-		  	 
-                                  		   columninputAuto +="</table>";
-                                  		  	 
-                                  		  $('#modalbody2').html(columninputAuto);
-                                           
-                                           $('#modalfooter2').html("<input type='button' id='selectviewbtn' name='selectviewbtn' class='btn btn-default' data-dismiss='modal' value='출력'> "   
-                                           					   /* +"<input type='button' id='btnauto' name='btnauto' class='btn btn-default' value='자동입력' />" */
-                                           		                  +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-
-                                           
-                                           $('#selectviewbtn').click(function(){
-                                         	  
-
-                                               var obj = document.getElementsByName("columnname");
-                                               var list = [];
-                                               console.log($('#columnname').val());
-                                               $.each(obj,function(index,ob){
-                                               
-                                               	
-                                             		  
-                                             	    if(codedata[index] == "VARCHAR2"){
-                                             		  
-                                             		   list.push("'"+ob.value+"'");
-                                             		   
-                                             	   }else if(codedata[index] == "DATE"){
-                                             		   
-                                             		   list.push(ob.value);
-           
-                                             	   }else{
-                                             		   list.push(ob.value);
-                                             	   }
-                                             		   
-                     
-                                                 console.log(ob.value+"value");
-                                                 
-                                               })
-                                             
-                                            
-                                           jQuery.ajaxSettings.traditional = true;   
-                                           $.ajax({
-                                          	 
-                                          
-                                             type: 'POST',
-                                                 url: "insertcheck.html",
-                                                  data : {list: JSON.stringify(list),
-                                                  	
-                                                    inserts : insertsvalue,
-                                                    ip: $('#iptext').val(),
-                                                    id: $('#idtext').val(),
-                                                    pwd: $('#pwdtext').val(),
-                                                    tablename: $('#tableselect').val()},
-                                                 dataType: "html",
-                                                 success: function(responseData){
-                                                 	var json = JSON.parse(responseData);
-                                     
-                                              		 if( json.result == 0){
-                                              			 $('#tableviewdiv').html("<h4>에러메세지 : "+json.error+"</h4>");
-                                              		 }
-                                              		   
-                                              	     else{
-                                              	    	$('#tableviewdiv').html("<h4>"+json.result+"ROW insert success. </h4>");
-                                              	     }
-                                              	   
-                                                 } 
-                                          })
-                                               
-                                           }); 
-                                           
-                                           
-                                  	   }); /************************************자동 변수 출력 End************************************* */
-          									
    
                                   	 $('#selectviewbtn').click(function(){
                                              	
@@ -589,21 +357,8 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                               console.log($('#columnname').val());
                                               $.each(obj,function(index,ob){
                                               
-                                              	
-                                            		  
-                                            	    if(codedata[index] == "VARCHAR2"){
-                                            		   list.push("'"+ob.value+"'");
-                                            		   
-                                            	   }else if(codedata[index] == "DATE"){
-                                            		   
-                                            		   list.push("'"+ob.value+"'");
-                                            	   }else{
-
-                                                    list.push(ob.value);
-                                            	   }
-                                            	    
-                                            	    
-                                            	  
+                                              	list.push(ob.value);
+                
                                                 
                                               });
                                             
@@ -640,7 +395,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                               		 }
                                               		   
                                               	     else{
-                                              	    	$('#tableviewdiv').html("<h3>"+json.result+"가 insert 되었습니다. </h3>");
+                                              	    	$('#tableviewdiv').html("<h3>"+json.result+"Row가 insert 되었습니다. </h3>");
                                               	     }
                                               	   
                                                                                } 
