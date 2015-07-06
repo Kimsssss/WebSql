@@ -487,10 +487,48 @@ public class DMLDAO {
       ArrayList<String> columntype = columntype(c, tablename, id);
 	  
 	  System.out.println("columntype : "+columntype);
+	  
+	 String insertQuery = "";
 
       try {
     	  
+if(inserts == 1 ){
+	
+	
+ 	insertQuery = "INSERT INTO "+tablename+" VALUES(";
+ 	
+ 	for(int i=0 ; i < CheckList.size() ; i++){
+ 	
+ 
+ 		
+ 		if(columntype.get(i).equals("NUMBER")){
+ 		insertQuery += CheckList.get(i);	
+ 		}else{  insertQuery += "'"+CheckList.get(i)+"'"; }
+ 		
+ 		
+ 		  if(i<CheckList.size()-1){
+  	    	insertQuery +=", ";
+		   }
+ 	}
+ 	
+ 	 insertQuery +=")";
+ 	
+ 	 pstmt=con.prepareStatement(insertQuery);
+ 	 insertresult+= pstmt.executeUpdate();
+    
+ 	
+ 	  if(insertresult > 0){
+          return insertresult;
+       }else if(insertresult == 0){
+          
+          throw new SQLException();
+       }     
+ 	
+	
+}
 
+
+else{
     	  
    for(int i=0 ; i < inserts ;i++){
     	  
@@ -498,7 +536,7 @@ public class DMLDAO {
     	  System.out.println("inserts 접근 성공 : "+inserts);
     	  
     	  
-    	  String insertQuery = "INSERT INTO "+tablename+" VALUES(";
+    	  insertQuery = "INSERT INTO "+tablename+" VALUES(";
     	  
     	  for(int j=0 ; j < CheckList.size() ; j++){
     		  	
@@ -542,7 +580,8 @@ public class DMLDAO {
          insertresult+= pstmt.executeUpdate();
         
    } 
-       
+   
+} 
        
          
          System.out.println("insertresult : "+insertresult);

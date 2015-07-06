@@ -5,8 +5,8 @@
 
  
         <div class="container">
-            <div class="row">
-<div class="col-lg-12">
+            <div class="row" align="center">
+<div class="col-lg-12" >
                     <ul class="list-inline">
                         <li>
                             <a href="#">Home</a>

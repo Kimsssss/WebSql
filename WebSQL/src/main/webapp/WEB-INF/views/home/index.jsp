@@ -35,22 +35,22 @@
                             <!-- Tab panes -->
                             <div class="tab-content" style="height: 420px">
                                 <div class="tab-pane fade in active" id="home">
-                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/db.JPG" alt="">
+                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/db.JPG" style="height: 350px; width: 900px;" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="profile">
-                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/select1.JPG" alt="">
+                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/select1.JPG" style="height: 350px; width: 900px;" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="messages">
-                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/select2.JPG" alt="">
+                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/select2.JPG" style="height: 350px; width: 900px;" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="settings">
-                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/insert.JPG" alt="">
+                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/insert.JPG" style="height: 350px; width: 900px;" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="settings1">
-                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/update.JPG" alt="">
+                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/update.JPG" style="height: 350px; width: 900px;" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="settings2">
-                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/delete.JPG" alt="">
+                                    <br><img class="img-responsive" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/delete.JPG" style="height: 350px; width: 900px;" alt="">
                                 </div>
                             </div>
                         </div>
