@@ -51,7 +51,7 @@
 			
                         	<input type="hidden" name="pg" value="" /> 
                        
-                              <td>  <select name="f" class="form-control input-sm">
+                              <td>  <select name="f" class="form-control input-sm" style="height: 34px;">
 								<option value="BOARD_A_TITLE">제목</option>
 								<option value="BOARD_A_CONTENT">내용</option>
 								</select> </td>
@@ -62,7 +62,7 @@
                                <td>
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
-                                    <i class="fa fa-search"></i>
+                                    <i class="fa fa-search" style="height: 20px;"></i>
                                 </button>
                                </span>
                                </td>
