@@ -97,7 +97,7 @@ $(function(){
             <tr>
                <td></td>
                <td height="40px" align="right"><input type="button"
-                  class="btn btn-primary btn-xs" id="btnSubmit" value="연결">
+                  class="btn btn-primary btn-xs" id="btnSubmit" style="width: 82px;height: 27px;" value="연결">
                   
             </tr>
          </tbody>
