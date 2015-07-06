@@ -55,22 +55,14 @@
 </head>
 <body>
 
-   <table id="createtable">
-      <tr><td><button type="button" class="btn btn-info disabled">테이블</button></td></tr>
-   </table>
-   <br>
-   
-   <div  id="connection" title="DB계정연결">
+  	<div  id="connection" title="DB계정연결">
    <table>
-   	<tr>
+   		<tr>
    		<td><b>아이피</b></td>
    		<td width="5px"></td>
    		<td>
    			<input type="text" class="form-control" id="ipAdress" name="ipAdress" readonly="readonly" value="<%=acdto.getIp()%>" style="background-color: #eee;">
       	</td>
-    </tr>
-    <tr height="5px"></tr>
-    <tr>
       	<td><b>아이디</b></td>
       	<td width="5px"></td>
       	<td>
@@ -79,7 +71,15 @@
       	</td>
    </tr>
    </table>
-   </div><br>
+   </div>
+   <hr width="1200px" color="sky">
+   <table id="createtable">
+      <tr>
+      	<td>
+      		<button type="button" class="btn btn-info disabled">테이블</button>
+      	</td>
+  	</tr>
+  	</table><br>
    
 </body>
 </html>
