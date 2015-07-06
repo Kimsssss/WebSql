@@ -16,11 +16,11 @@
 						<table class="table table-striped">
 							<tr>
 
-								<td>글번호</td>
-								<td>제목</td>
-								<td>작성자</td>
-								<td>날짜</td>
-								<td>조회수</td>
+								<th>글번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>날짜</th>
+								
 
 							</tr>
 
@@ -28,17 +28,48 @@
 								<c:forEach items="${list}" var="n">
 									<tr>
 										<td class="col-lg-2">${n.board_a_id}</td>
-										<td class="col-lg-3"><a
-											href="boardDetail.html?board_a_id=${n.board_a_id}">${n.board_a_title}</a></td>
+										<td class="col-lg-3"><a href="boardDetail.html?board_a_id=${n.board_a_id}">${n.board_a_title}</a></td>
 										<td class="col-lg-2">${n.user_id}</td>
 										<td class="col-lg-3">${n.board_a_date}</td>
-										<td class="col-lg-2">0</td>
+										
 
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
+					
+					<!-- 게시판 검색  -->
+				
+		
+ <form id="content-searchform" class="article-search-form"
+		action="boardlist.html" method="get">
+		
+		<table align="center">
+
+		<tr>
+			
+                        	<input type="hidden" name="pg" value="" /> 
+                       
+                              <td>  <select name="f" class="form-control input-sm">
+								<option value="BOARD_A_TITLE">제목</option>
+								<option value="BOARD_A_CONTENT">내용</option>
+								</select> </td>
+                                
+                                
+                               <td> <input type="text" class="form-control" name="q" id="q" placeholder="Search..." style="width: 100%;"></td>
+                                
+                               <td>
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                               </span>
+                               </td>
+         </tr>    	
+		</table>
+	
+	</form>
 
 					<!-- /.table-responsive -->
 

@@ -46,6 +46,42 @@
       <tiles:insertAttribute name="content" />
       
       
+      
+            
+      <div id="footer" align="center">
+
+ 
+        <div class="container">
+            <div class="row">
+<div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright © Your Company 2014. All Rights Reserved</p>
+               </div>
+ </div>  
+ 
+ 		</div>
+
+ 
+ </div>		             
+      
+      
+      
        
 
    </div>
@@ -53,15 +89,10 @@
 
 
    <!-- Bootstrap Core JavaScript -->
-   <script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+   <script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
    <!-- Metis Menu Plugin JavaScript -->
-   <script src="<%=request.getContextPath()%>/resources/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-   <!-- Morris Charts JavaScript -->
-   <script src="<%=request.getContextPath()%>/resources/bower_components/raphael/raphael-min.js"></script>
-   <script src="<%=request.getContextPath()%>/resources/bower_components/morrisjs/morris.min.js"></script>
-   <script src="<%=request.getContextPath()%>/resources/js/morris-data.js"></script>
+   <script src="<%=request.getContextPath()%>/resources/bower_components/metisMenu/dist/metisMenu.js"></script>
 
    <!-- Custom Theme JavaScript -->
    <script src="<%=request.getContextPath()%>/resources/dist/js/sb-admin-2.js"></script>

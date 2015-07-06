@@ -171,6 +171,41 @@ public class DDLDAO {
 
       }
     
+    
+    
+    public int alterDrop(Connection c, String tablename, String id, String droptxt) {
+
+        this.con = c;
+        int row = 0;
+        String dropSql="ALTER TABLE " + tablename + " DROP " + droptxt;
+        System.out.println(dropSql);
+        try {
+           pstmt = con.prepareStatement(dropSql);
+           //row = pstmt.executeUpdate();
+           pstmt.execute();
+           System.out.println(pstmt.execute());
+        } catch (SQLException e) {
+           /*str = printStackTraceToString(e);
+           System.out.println("에러메세지 : " + str);
+           setStr(str);*/
+           e.printStackTrace();
+        } finally {
+           try {
+              pstmt.close();
+           } catch (SQLException e) {
+              e.printStackTrace();
+           }
+           try {
+              con.close();
+           } catch (SQLException e) {
+              e.printStackTrace();
+           }
+        }
+
+        return row;
+
+     }
+    
 /********************************** 컬럼 제약 조건 ***********************************/
     public ArrayList<String> tablecolview(Connection c,String tablename,String id){
         ArrayList<String> table = new ArrayList<String>();

@@ -55,6 +55,12 @@ public class IndexController {
 		
 	}
 	
+	@RequestMapping("DDLintro.html")
+	public String ddlintro()
+	{
+		return "home.DDLintro";				
+	}
+	
 	@RequestMapping("accountcon.html")
 	public void accountConnection(AccountDTO ac,HttpServletResponse res,HttpSession session)
 	{

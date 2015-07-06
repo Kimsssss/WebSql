@@ -35,6 +35,39 @@
 							</tbody>
 
 						</table>
+						
+					
+							
+ <form id="content-searchform" class="article-search-form"
+		action="boardlist.html" method="get">
+		
+		<table align="center">
+
+		<tr>
+			
+                        	<input type="hidden" name="pg" value="" /> 
+                       
+                              <td>  <select name="f" class="form-control input-sm">
+								<option value="BOARD_A_TITLE">제목</option>
+								<option value="BOARD_A_CONTENT">내용</option>
+								</select> </td>
+                                
+                                
+                               <td> <input type="text" class="form-control" name="q" id="q" placeholder="Search..." style="width: 100%;"></td>
+                                
+                               <td>
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                               </span>
+                               </td>
+         </tr>    	
+		</table>
+	
+	</form>
+						
+						
 						<c:set var="p_cnt" value="${p_cnt}" />
 					<c:set var="p_cpage" value="${p_cpage}" />
 					<c:set var="p_endpage" value="${(p_cnt/5) + 1}" />
