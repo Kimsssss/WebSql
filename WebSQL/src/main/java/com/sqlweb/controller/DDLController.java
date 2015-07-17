@@ -311,7 +311,7 @@ public class DDLController {
       System.out.println(ip+id+pwd);
       
       con = ConnectionMake(ip,id,pwd);
-      
+          
       if(con.isClosed()==false){
          return "ddl.ConnectionOpen";
       }else{
