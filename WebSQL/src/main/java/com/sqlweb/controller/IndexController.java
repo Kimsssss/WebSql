@@ -62,72 +62,34 @@ public class IndexController {
    }
    
    @RequestMapping("accountcon.html")
-   public void accountConnection(AccountDTO ac,HttpServletResponse res,HttpSession session)
-   {
-      
+   public void accountConnection(AccountDTO ac,HttpServletResponse res,HttpSession session){
       res.setCharacterEncoding("UTF-8");
-      
       String ip = ac.getIp();
       String id = ac.getId();
       String uid = ac.getUid();
       String pwd = ac.getPwd();
-      
-      
-      
-      System.out.println(ac.getUid());
-      System.out.println(ac.getId());
-      System.out.println(ac.getIp());
-      System.out.println(ac.getPwd());
-      /*HttpServletRequest req, HttpServletResponse res
-      String uid = req.getParameter("uiduid");
-      String ip = req.getParameter("ipip");
-      String id = req.getParameter("idid");
-      String pwd = req.getParameter("pwdpwd");
-      
-      System.out.println(uid);
-      System.out.println(ip);
-      System.out.println(id);
-      System.out.println(pwd);*/
-      
       try {
             int result = 0;
-            
-            System.out.println("accountConnection ip :"+ip);
-            System.out.println("accountConnection id :"+id);
-            System.out.println("accountConnection pwd :"+pwd);
-            System.out.println("accountConnection uid :"+uid);
-            
             Jdbc jb = new Jdbc();
             c = jb.ConnectionMake("192.168.7.74", "PROJECT", "1004");
             
             Connection AccountC = jb.ConnectionMake(ip, id, pwd);
             if(AccountC == null){
                String[] errormsg = {"[연결이 실패했습니다.]"};
-               System.out.println(errormsg);
                JSONArray codes = JSONArray.fromObject(errormsg);
                
                res.getWriter().print(codes);
                return;
             }
             DMLDAO dao = new DMLDAO();
-            
-            
-            
             result = dao.setAccount(c, uid, ip, id, pwd,session);
-            System.out.println("result : "+result);
-           
             JSONArray codes = JSONArray.fromObject(result);
-            
             res.getWriter().print(codes);
          } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
          }
-         System.out.println("contable 서버로 list 전송완료");
-      
-      
       return;
-      
    }
    
    @RequestMapping(value="sessionun.html")

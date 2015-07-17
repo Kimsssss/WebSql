@@ -327,16 +327,6 @@ public class DMLController {
    public void updateview(String ip, String id, String pwd, HttpServletResponse res,String tablename,
          String wheretext,String textupdate,String colupdate){
       try {
-           
-            
-            System.out.println("updateview ip :"+ip);
-            System.out.println("updateview id :"+id);
-            System.out.println("updateview pwd :"+pwd);
-            System.out.println("updateview tablename :"+tablename);
-            System.out.println("updateview wheretext :"+wheretext);
-            System.out.println("updateview textupdate :"+textupdate);
-            System.out.println("updateview colupdate :"+colupdate);
-            
             Jdbc jb = new Jdbc();
             c = jb.ConnectionMake(ip, id, pwd);
             
@@ -351,7 +341,6 @@ public class DMLController {
             // TODO Auto-generated catch block
             e.printStackTrace();
          }
-         System.out.println("updateview 서버로 list 전송완료");
    }
    
    

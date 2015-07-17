@@ -142,18 +142,20 @@ public class DDLDAO {
 
          this.con = c;
          int row = 0;
-         String dropTableSql="DROP TABLE " + tablename;
+         String dropTableSql="DROP TABLE " + tablename + " CASCADE constraint";
+         
+        
          try {
-            pstmt = con.prepareStatement(dropTableSql);
-            row = pstmt.executeUpdate();
-            if (row == 0) {
-               throw new SQLException();
-            }
+             pstmt = con.prepareStatement(dropTableSql);
+             row = pstmt.executeUpdate();
+             if (row == 0) {
+                throw new SQLException();
+             }
+            
          } catch (SQLException e) {
             str = printStackTraceToString(e);
             System.out.println("에러메세지 : " + str);
             setStr(str);
-            //e.printStackTrace();
          } finally {
             try {
                pstmt.close();
@@ -174,28 +176,18 @@ public class DDLDAO {
     
     
     public int alterDrop(Connection c, String tablename, String id, String droptxt) {
-
         this.con = c;
         int row = 0;
         String dropSql="";
         if(droptxt.toLowerCase().startsWith("constraint")){
-        	System.out.println("대소문자");
         	dropSql="ALTER TABLE " + tablename + " DROP " + droptxt ;
         }else{
         	dropSql="ALTER TABLE " + tablename + " DROP (" + droptxt + ")" ;
         }
-       
-        
-        System.out.println(dropSql);
         try {
            pstmt = con.prepareStatement(dropSql);
-           //row = pstmt.executeUpdate();
            pstmt.execute();
-           System.out.println(pstmt.execute());
         } catch (SQLException e) {
-           /*str = printStackTraceToString(e);
-           System.out.println("에러메세지 : " + str);
-           setStr(str);*/
            e.printStackTrace();
         } finally {
            try {
