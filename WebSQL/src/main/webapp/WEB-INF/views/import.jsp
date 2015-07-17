@@ -248,7 +248,9 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
          var columninput = "<h4>Drop Table 할 경우 Data와 Table이 모두 삭제됩니다.<br>삭제 하시겠습니까?</h4>";
              
            $('#modalbody3').html(columninput);
-           $('#modalfooter3').html("<input type='button' id='droptablebtn' class='btn btn-default' data-dismiss='modal' name='droptablebtn' value='삭제'>    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+           $('#modalfooter3').html("<input type='button' id='droptablebtn' class='btn btn-default' data-dismiss='modal' "+
+        		   				   "name='droptablebtn' value='삭제'><button type='button' class='btn btn-default' "+
+        		   				   "data-dismiss='modal'>Close</button>");
                    $('#droptablebtn').click(function(){
                       $.ajax({
                            type: 'POST',

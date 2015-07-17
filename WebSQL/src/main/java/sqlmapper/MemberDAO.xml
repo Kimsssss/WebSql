@@ -20,7 +20,7 @@
 
    <select id="getidfine" resultType="com.sqlweb.dto.MemberDTO"
       parameterType="String">
-      SELECT user_id FROM USERS WHERE user_name = #{user_name}
+      SELECT user_id FROM USERS WHxERE user_name = #{user_name}
    </select>
 
    <select id="getpwdfine" resultType="com.sqlweb.dto.MemberDTO">

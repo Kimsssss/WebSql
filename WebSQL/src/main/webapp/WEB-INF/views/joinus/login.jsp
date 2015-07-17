@@ -35,165 +35,72 @@
 	   })
 	   
       /* ID 찾기  */
-      $('#btnidfine')
-            .click(
-                  function() {
+      $('#btnidfine').click(
+           function() {
+                $('#modalfooter').empty();
+				$('#modal-bodyID').html(
+				"<table align='center'><tr><td width='40px'><b>이름</b></td><td width='200px'>"+
+				"<input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'>"+
+				"</td><td align='right' width='75px'><button type='button' class='btn btn-info' id='modalbtn'>"+
+				"ID찾기</button></td><td align='right' width='65px'>"+
+				"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></td></tr></table>");
 
-                     $('#modalfooter').empty();
-
-                     $('#modal-bodyID')
-                           .html(
-                                 "<table align='center'><tr><td width='40px'><b>이름</b></td><td width='200px'><input type='text' class='form-control' id='user_name' name='user_name' placeholder='이름 입력'></td><td align='right' width='75px'><button type='button' class='btn btn-info' id='modalbtn'>ID찾기</button></td><td align='right' width='65px'><button type='button' class='btn btn-default' data-dismiss='modal'>Close</button></td></tr></table> ");
-
-                     $('#modalbtn').click(
-                           function() {
-
-                              $.ajax({
-                                 type : 'POST',
-                                 url : 'userIDfine.html',
-                                 data : {
-                                    user_name : $('#user_name')
-                                          .val()
-                                 },
-                                 dataType : "html",
-                                 success : function(responseData) {
-
-                                    $('#modalfooter').html(
-                                          "<h4>당신의 ID : "
-                                                + responseData
-                                                + "입니다</h4>");
+                 $('#modalbtn').click(
+                      function() {
+						$.ajax({
+                               type : 'POST',
+                               url : 'userIDfine.html',
+                               data : {user_name : $('#user_name').val()},
+                               dataType : "html",
+                               success : function(responseData) {
+                                    $('#modalfooter').html( "<h4>당신의 ID : "+ responseData+ "입니다</h4>");
                                  }
-
                               });
-
                            });
-
                   });
 
       /* PWD 찾기  */
-      $('#btnpwdfine')
-            .click(
-                  function() {
+      $('#btnpwdfine').click(
+           function() {
+                 $('#modalfooter2').empty();
+                 $('#user_name').val('');
+                 $('#user_id').val('');
+                 $('#user_email').val('');
+                 $('#modalbtn').on("click",
+                       function() {
+						$('#modalbodydetail').html(
+							"<br><br><table><tr><td><input type='text' id='modalcode' name='modalcode'>"+
+							"</td><td width='5px'></td><td><button type='button' class='btn btn-primary btn-xs'"+
+							" id='modalcodebtn' name='modalcodebtn' style='padding-left: 14px;padding-right: 14px;"+
+							"padding-top: 3px;padding-bottom: 3px;'>인증</button></td></tr></table>");
+						$('#modalcodebtn').click(
+                               function() {
+									var code1 = $('#modalcode').val();
+                                    var code2 = $('#hiddencode').val();
+                                    if (code1 == code2) {
+                                    	alert("인증성공");
+                                        $('#modal-footer').html("<button type='button' class='btn btn-danger' "+
+                                        	"id='onsumit' name='onsumit' data-dismiss='modal'>확인</button>"+
+                                        	"<button type='button' class='btn btn-default' data-dismiss='modal'>"+
+                                        	"Close</button>");
+										$('#idhidden').val($('#user_id').val());
+                                        $('#namehidden').val($('#user_name').val());
+                                        $('#emailhidden').val($('#modalemail').val());
+										$('#onsumit').click(function() {
+													$.ajax({
+                                                            type : 'POST',
+                                                            url : 'Mailsave.html',
+                                                            data : {
+                                                                   user_name : $('#idhidden').val(),
+                                                                   user_id : $('#namehidden').val(),
+                                                                   user_email : $('#emailhidden').val(),},
+                                                            dataType : "html",
+                                                            success : function(responseData) {
+																		var codes = JSON.parse(responseData);
+                                                                        $('#user_email').val(codes[0].user_email);
+																			}
 
-                     $('#modalfooter2').empty();
-
-                     $('#user_name').val('');
-                     $('#user_id').val('');
-                     $('#user_email').val('');
-
-                     /* $('#modal-bodyPWD').html("이름 : <input type='text' class='' id='user_name' name='user_name' placeholder='이름 입력'><br>"
-                                       +"ID :  <input type='text' class='' id='user_name' name='user_id' placeholder='ID 입력'><br>"
-                                       +"이메일 :  <input type='text' class='' id='user_name' name='user_email' placeholder='이메일 입력'>"
-                                          + "<button type='button' class='btn btn-primary' id='modalbtn'>이메일 인증</button><br>" 
-                                          +"<button type='button' class='btn btn-default'>PWD찾기</button> "
-                                          +"<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button> ");
-                      */
-
-                     $('#modalbtn')
-                           .on(
-                                 "click",
-                                 function() {
-
-                                    $('#modalbodydetail')
-                                          .html(
-                                                "<br><br><table><tr><td><input type='text' id='modalcode' name='modalcode'></td><td width='5px'></td><td>"
-                                                      + "<button type='button' class='btn btn-primary btn-xs' id='modalcodebtn' name='modalcodebtn' style='padding-left: 14px;padding-right: 14px;padding-top: 3px;padding-bottom: 3px;'>인증</button></td></tr></table>");
-                                    $('#modalcodebtn')
-                                          .click(
-                                                function() {
-
-                                                   var code1 = $(
-                                                         '#modalcode')
-                                                         .val();
-                                                   var code2 = $(
-                                                         '#hiddencode')
-                                                         .val();
-                                                   console
-                                                         .log($(
-                                                               '#modalcode')
-                                                               .val());
-                                                   console
-                                                         .log($(
-                                                               '#hiddencode')
-                                                               .val());
-
-                                                   if (code1 == code2) {
-                                                      alert("인증성공");
-                                                      $(
-                                                            '#modal-footer')
-                                                            .html(
-                                                                  "<button type='button' class='btn btn-danger' id='onsumit' name='onsumit' data-dismiss='modal'>확인</button>   <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
-
-                                                      $(
-                                                            '#idhidden')
-                                                            .val(
-                                                                  $(
-                                                                        '#user_id')
-                                                                        .val());
-                                                      $(
-                                                            '#namehidden')
-                                                            .val(
-                                                                  $(
-                                                                        '#user_name')
-                                                                        .val());
-                                                      $(
-                                                            '#emailhidden')
-                                                            .val(
-                                                                  $(
-                                                                        '#modalemail')
-                                                                        .val());
-
-                                                      $(
-                                                            '#onsumit')
-                                                            .click(
-                                                                  function() {
-
-                                                                     console
-                                                                           .log($(
-                                                                                 '#namehidden')
-                                                                                 .val());
-                                                                     console
-                                                                           .log($(
-                                                                                 '#idhidden')
-                                                                                 .val());
-                                                                     console
-                                                                           .log($(
-                                                                                 '#emailhidden')
-                                                                                 .val());
-
-                                                                     $
-                                                                           .ajax({
-                                                                              type : 'POST',
-                                                                              url : 'Mailsave.html',
-                                                                              data : {
-                                                                                 user_name : $(
-                                                                                       '#idhidden')
-                                                                                       .val(),
-                                                                                 user_id : $(
-                                                                                       '#namehidden')
-                                                                                       .val(),
-                                                                                 user_email : $(
-                                                                                       '#emailhidden')
-                                                                                       .val(),
-
-                                                                              },
-                                                                              dataType : "html",
-                                                                              success : function(
-                                                                                    responseData) {
-
-                                                                                 var codes = JSON
-                                                                                       .parse(responseData);
-                                                                                 console
-                                                                                       .log(codes);
-
-                                                                                 $(
-                                                                                       '#user_email')
-                                                                                       .val(
-                                                                                             codes[0].user_email);
-
-                                                                              }
-
-                                                                           })
+                                                                         })
                                                                   });
 
                                                    } else {
@@ -203,77 +110,37 @@
                                                 });
 
                                     /* 이메일로 인증 번호 받아오기 비동기 비동기  */
-                                    $
-                                          .ajax({
-
-                                             url : "Mail.html",
-                                             data : 'modalemail='
-                                                   + $(
-                                                         "#modalemail")
-                                                         .val(),
-                                             dataType : "html",
-                                             success : function(
-                                                   responseData) {
-                                                var codes = JSON
-                                                      .parse(responseData);
-                                                var code = "";
-
-                                                console
-                                                      .log(codes);
-                                                $
-                                                      .each(
-                                                            codes,
-                                                            function(
-                                                                  index,
-                                                                  codelist) {
-                                                               code += codelist;
-                                                            });
-                                                console
-                                                      .log(code);
-                                                $('#hiddencode')
-                                                      .val(
-                                                            code);
-                                                console
-                                                      .log($(
-                                                            '#hiddencode')
-                                                            .val());
-                                             }
-                                          });
+                  	 $.ajax({
+							url : "Mail.html",
+                            data : 'modalemail='+ $("#modalemail").val(),
+                            dataType : "html",
+                            success : function(responseData) {
+                                      var codes = JSON.parse(responseData);
+                                      var code = "";
+									$.each(codes,function(index,codelist) {
+                                           code += codelist;});
+                                    $('#hiddencode').val(code);
+                                               
+                                 }
+                          });
                                     /* 이메일로 인증 번호 받아오기 비동기 비동기 End  */
 
                                     /* 비밀번호 찾아주는 코드  */
-                                    $('#pwdfine')
-                                          .click(
-                                                function() {
-
-                                                   $
-                                                         .ajax({
-                                                            type : 'POST',
-                                                            url : 'UserPWDfine.html',
-                                                            data : {
-                                                               user_name : $(
-                                                                     '#user_name')
-                                                                     .val(),
-                                                               user_id : $(
-                                                                     '#user_id')
-                                                                     .val(),
-                                                               user_email : $(
-                                                                     '#user_email')
-                                                                     .val()
-                                                            },
-                                                            dataType : "html",
-                                                            success : function(
-                                                                  responseData) {
-
-                                                               $(
-                                                                     '#modalfooter2')
-                                                                     .html(
-                                                                           "<h4>당신의 Password :"
-                                                                                 + responseData
-                                                                                 + "입니다.</h4>");
-                                                            }
-                                                         });
-                                                });
+                     $('#pwdfine').click(function() {
+								$.ajax({
+                                       type : 'POST',
+                                       url : 'UserPWDfine.html',
+                                       data : {
+                                               user_name : $('#user_name').val(),
+                                               user_id : $('#user_id').val(),
+                                               user_email : $('#user_email').val()},
+                                       dataType : "html",
+                                       success : function(responseData) {
+												$('#modalfooter2').html("<h4>당신의 Password :"+ responseData
+														+ "입니다.</h4>");
+                                                      }
+                                                   });
+                                             });
                                  });
                   });
    });
