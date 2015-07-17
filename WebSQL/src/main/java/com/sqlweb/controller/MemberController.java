@@ -147,41 +147,17 @@ public class MemberController {
       
       
       if (bindingResult.hasErrors()) {
-           System.out.println("error");
-           System.out.println(bindingResult.getErrorCount());
-           System.out.println(bindingResult.getGlobalErrorCount());
-           System.out.println(bindingResult.getObjectName());
-           System.out.println(bindingResult.getTarget());
-           System.out.println(bindingResult.getFieldError());
-
            modelAndView.getModel().putAll(bindingResult.getModel());
-            
             return modelAndView;
-            
          }else if(!member.getUser_pwd().equalsIgnoreCase(member.getUser_pwd2())){
             req.setAttribute("errormessage", "패스워드와 패스워드 확인 값이 같지 않습니다.");
             modelAndView.getModel().putAll(bindingResult.getModel());
-            System.out.println("pwd1 : "+member.getUser_pwd());
-            System.out.println("pwd2 : "+member.getUser_pwd2());
             return modelAndView;
          }
       try {
-            
-           System.out.println(member.getUser_id());
-            System.out.println(member.getUser_pwd());
-            System.out.println(member.getUser_email());
-            System.out.println(member.getUser_name());
-            System.out.println(member.getEnabled());
-            System.out.println("dao 전");
             MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
             dao.insertMember(member);
-            System.out.println("dao 후");
-            System.out.println(member.getUser_id());
-            System.out.println(member.getUser_pwd());
-            System.out.println(member.getUser_email());
-            System.out.println(member.getUser_name());
-            System.out.println(member.getEnabled());
-            
+            dao.insertAuthority(member.getUser_id());
             modelAndView.setViewName("userEntrySuccess");
             modelAndView.addObject("member", member);
             return modelAndView;
@@ -193,28 +169,15 @@ public class MemberController {
             modelAndView.getModel().putAll(bindingResult.getModel());
             return modelAndView;
          }
-      }
+      }	
 
    @RequestMapping(value = "/userIDfine.html", method = RequestMethod.POST)
    public void IDfine(MemberDTO memberDTO, String user_name,
          HttpServletResponse response) throws IOException {
-
       response.setContentType("text/html;charset=utf-8");
       response.setCharacterEncoding("utf-8");
-
-      System.out.println(user_name);
-
-      response.setContentType("text/html;charset=utf-8");
-      response.setCharacterEncoding("utf-8");
-
       MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
-
       memberDTO = memberdao.getidfine(user_name);
-
-      System.out.println(memberDTO);
-
-      System.out.println(memberDTO.getUser_id());
-
       response.getWriter().print(memberDTO.getUser_id());
 
    }
@@ -222,15 +185,10 @@ public class MemberController {
    @RequestMapping(value = "/UserPWDfine.html", method = RequestMethod.POST)
    public void PWDfine(MemberDTO memberDTO, String user_name, String user_id,
          String user_email, HttpServletResponse response) throws IOException {
-
       response.setContentType("text/html;charset=utf-8");
       response.setCharacterEncoding("utf-8");
-
       MemberDAO memberdao = sqlSession.getMapper(MemberDAO.class);
       memberDTO = memberdao.getpwdfine(user_name, user_id, user_email);
-
-      System.out.println(memberDTO.getUser_pwd());
-      
       response.getWriter().print(memberDTO.getUser_pwd());
 
    }

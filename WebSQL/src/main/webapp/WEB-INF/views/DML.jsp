@@ -102,65 +102,61 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                        })
                        console.log(list);
                     $.ajax({
-                      type: 'POST',
-                          url: "selectview.html",
-                           data : {list: JSON.stringify(list),
-                              ip: $('#iptext').val(),
-                             id: $('#idtext').val(),
-                             pwd: $('#pwdtext').val(),
-                             tablename: $('#tableselect').val(),
-                             wheretext: $('#wheretext').val()},
-                          dataType: "html",
+                      	   type: 'POST',
+                           url: "selectview.html",
+                           data : {
+                        	   list: JSON.stringify(list),
+                               ip: $('#iptext').val(),
+                               id: $('#idtext').val(),
+                               pwd: $('#pwdtext').val(),
+                               tablename: $('#tableselect').val(),
+                               wheretext: $('#wheretext').val()},
+                           dataType: "html",
                            success: function(responseData){
-                          var codes = JSON.parse(responseData);
-                          console.log("select 비동기 성공");
-                          console.log(codes);
-                          var code = "<br><br><div class='table-responsive'><table class='table table-striped table-bordered table-hover'><tr><td>row</td>";
-                          console.log(codes[codes.length-1]);
-                          console.log(codes.length-1);
-                          var colend = codes[codes.length-1];
-                          var sort = 1;
-                          console.log(colend);
-                          $.each(codes,function(index,items){
-                             console.log(index);
-                             if(colend == 1){
-                            	 if(index == codes.length-2){
-                            		 code += "<td>"+items+"</td></tr></table>";
+                          		var codes = JSON.parse(responseData);
+                          		var code = "<br><br><div class='table-responsive'>"+
+                              	"<table class='table table-striped table-bordered table-hover'><tr><td>row</td>";
+                          		var colend = codes[codes.length-1];
+                          		var sort = 1;
+                          		$.each(codes,function(index,items){
+                             		if(colend == 1){
+                            	 		if(index == codes.length-2){
+                            				 code += "<td>"+items+"</td></tr></table>";
                             		 
-                            	 }else{
-                            	 if(index != codes.length-1){
-                            	 code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
-                            	 sort +=1;
-                            	 	}
-                            	 }
+                            	 		}else{
+                            	 			if(index != codes.length-1){
+                            	 				code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                            	 				sort +=1;
+                            	 			}
+                            	 		}
                             	 
-                             }else{
-                            	 if((index+1)%colend == 0){
-                                     if(index != codes.length-2){
-                                     code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
-                                     sort +=1;}
-                                     else{
-                                        code += "<td>"+items+"</td></tr>";
-                                     }
+                             		}else{
+                            	 		if((index+1)%colend == 0){
+                                     		if(index != codes.length-2){
+                                    			 code += "<td>"+items+"</td></tr><tr><td>"+sort+"</td>";
+                                    			 sort +=1;}
+                                     		else{
+                                        		code += "<td>"+items+"</td></tr>";
+                                     		}
                                      
-                                  }else{
-                                     if(codes.length-1 ==index){
-                                          code += "</table></div>";
-                                       }else{
-                                          code += "<td>"+items+"</td>";
-                                       }
+                                  		}else{
+                                     		if(codes.length-1 ==index){
+                                          		code += "</table></div>";
+                                       		}else{
+                                          		code += "<td>"+items+"</td>";
+                                       		}
                                   
-                                  }
-                             }
+                                  		}
+                             		}
                              
-                          }) 
-                          $('#tableviewdiv').html(code);
-                           } 
-                   })
+                          		}) 
+                          		$('#tableviewdiv').html(code);
+                           		} 
+                   			})
                         
-                    });
+                    	});
                     
-                   }
+                   	}
                   }); 
           }/**********************select end  ******************************/
         
@@ -200,9 +196,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                       code += "<tr><td>COLUMN_NAME</td><td>DATA_TYPE</td><td>CONSTRAINT_TYPE</td><td>CONSTRAINT_NAME</td><td>TABLE_NAME</td></tr>";
                       
                       var colend = codes[codes.length-1];
-                      if(codes==0){
-                        
-                     }
+
                       console.log(colend);
                       console.log(codes.length-1);
                       $.each(codes,function(index,items){
