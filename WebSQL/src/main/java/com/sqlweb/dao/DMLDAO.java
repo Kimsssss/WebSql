@@ -492,7 +492,7 @@ else{
     			  }else{ insertQuery += CheckList.get(j)+i; }
     		  }else if(columntype.get(j).equals("VARCHAR2")){
     			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
-    				  insertQuery += "'AutoValue"+i+"'";
+    				  insertQuery += "'?"+i+"'";
     			  }else{ insertQuery += "'"+CheckList.get(j)+i+"'"; }
     		  }else if(columntype.get(j).equals("DATE")){
     			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
