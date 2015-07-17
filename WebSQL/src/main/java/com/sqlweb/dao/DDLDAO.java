@@ -179,10 +179,10 @@ public class DDLDAO {
         int row = 0;
         String dropSql="";
         if(droptxt.toLowerCase().startsWith("constraint")){
-        	System.out.println("대소문자");
-        	dropSql="ALTER TABLE " + tablename + " DROP " + droptxt ;
+           System.out.println("대소문자");
+           dropSql="ALTER TABLE " + tablename + " DROP " + droptxt ;
         }else{
-        	dropSql="ALTER TABLE " + tablename + " DROP (" + droptxt + ")" ;
+           dropSql="ALTER TABLE " + tablename + " DROP (" + droptxt + ")" ;
         }
        
         

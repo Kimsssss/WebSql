@@ -201,7 +201,7 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                       
                       var colend = codes[codes.length-1];
                       if(codes==0){
-                        alert('데이터 없음');
+                        
                      }
                       console.log(colend);
                       console.log(codes.length-1);
