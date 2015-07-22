@@ -386,10 +386,12 @@ Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                                      
                                               		 if( json.result == 0){
                                               			 $('#tableviewdiv').html("<h3>에러메세지 : "+json.error+"</h3>");
+                                              			$('#inserts').val("");
                                               		 }
                                               		   
                                               	     else{
                                               	    	$('#tableviewdiv').html("<h3>"+json.result+"Row가 insert 되었습니다. </h3>");
+                                              	    	$('#inserts').val("");
                                               	     }
                                               	   
                                                                                } 

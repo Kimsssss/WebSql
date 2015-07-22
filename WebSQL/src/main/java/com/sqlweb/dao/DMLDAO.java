@@ -488,8 +488,10 @@ else{
     	  for(int j=0 ; j < CheckList.size() ; j++){
     		  if(columntype.get(j).equals("NUMBER")){
     			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
+    				  insertQuery += 0;
     				  insertQuery += i;
-    			  }else{ insertQuery += CheckList.get(j)+i; }
+    			  }else{ insertQuery += 0;
+    				  insertQuery += CheckList.get(j)+i; }
     		  }else if(columntype.get(j).equals("VARCHAR2")){
     			  if(CheckList.get(j).equals("") || CheckList.get(j) == null){
     				  insertQuery += "'?"+i+"'";

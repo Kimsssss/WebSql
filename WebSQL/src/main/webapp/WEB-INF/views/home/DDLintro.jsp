@@ -45,19 +45,19 @@
                                     <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/startbootstrap-landing-page-1.0.4/img/select1.JPG" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="CONSTRAINT_TYPE">
-                                    <br><img class="img-responsive"  style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/DDLintroimg/CONSTRAINT_TYPE.PNG" alt="">
+                                    <br><img class="img-responsive"  style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/CONSTRAINT TYPE.PNG" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="ALTERADD">
-                                    <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/DDLintroimg/ALTER_ADD.PNG" alt="">
+                                    <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/ALTER ADD.PNG" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="ALTERMODIFY">
-                                    <br><img class="img-responsive"  style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/DDLintroimg/ALTER_MODIFY.PNG" alt="">
+                                    <br><img class="img-responsive"  style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/ALTER MODIFY.PNG" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="ALTERDROP">
-                                    <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/DDLintroimg/ALTER_DROP.PNG" alt="">
+                                    <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/ALTER DROP.PNG" alt="">
                                 </div>
                                 <div class="tab-pane fade" id="DROPTABLE">
-                                    <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/DDLintroimg/DROP_TABLE.PNG" alt="">
+                                    <br><img class="img-responsive" style="height: 350px; width: 900px;" src="<%=request.getContextPath()%>/resources/DROP TABLE.PNG" alt="">
                                 </div>
                             
                             
